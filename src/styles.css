@@ -672,8 +672,8 @@ dialog::backdrop{
     margin:2px 0 0
   }
   .countryInfo dl{
-    grid-template-columns:minmax(0,1fr) minmax(0,2fr);
-    gap:6px 10px;
+    grid-template-columns:max-content minmax(0,1fr);
+    gap:4px 10px;
     margin-bottom:10px
   }
   .countryInfo #fact{

@@ -8,6 +8,8 @@
     "continent": "Asien",
     "areaKm2": 652230,
     "fact": "Afghanistan ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 38041754,
+    "populationYear": 2019,
     "flag": "assets/flags/af.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Afghanistan",
     "anchor": [
@@ -29,6 +31,8 @@
     "continent": "Europa",
     "areaKm2": 28748,
     "fact": "Albanien liegt in Europa und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 2854191,
+    "populationYear": 2019,
     "flag": "assets/flags/al.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Albanien",
     "anchor": [
@@ -50,6 +54,8 @@
     "continent": "Afrika",
     "areaKm2": 2381741,
     "fact": "Algerien liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 43053054,
+    "populationYear": 2019,
     "flag": "assets/flags/dz.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Algerien",
     "anchor": [
@@ -71,6 +77,8 @@
     "continent": "Europa",
     "areaKm2": 468,
     "fact": "Andorra ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 77142,
+    "populationYear": 2019,
     "flag": "assets/flags/ad.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Andorra",
     "anchor": [
@@ -92,6 +100,8 @@
     "continent": "Afrika",
     "areaKm2": 1246700,
     "fact": "Angola liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 31825295,
+    "populationYear": 2019,
     "flag": "assets/flags/ao.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Angola",
     "anchor": [
@@ -113,6 +123,8 @@
     "continent": "Nordamerika",
     "areaKm2": 442,
     "fact": "Antigua und Barbuda ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 97118,
+    "populationYear": 2019,
     "flag": "assets/flags/ag.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Antigua_und_Barbuda",
     "anchor": [
@@ -134,6 +146,8 @@
     "continent": "Südamerika",
     "areaKm2": 2780400,
     "fact": "Die Anden bilden einen großen Teil der Grenze zu Chile.",
+    "population": 44938712,
+    "populationYear": 2019,
     "flag": "assets/flags/ar.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Argentinien",
     "anchor": [
@@ -155,6 +169,8 @@
     "continent": "Asien",
     "areaKm2": 29743,
     "fact": "Armenien ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 2957731,
+    "populationYear": 2019,
     "flag": "assets/flags/am.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Armenien",
     "anchor": [
@@ -176,6 +192,8 @@
     "continent": "Asien",
     "areaKm2": 86600,
     "fact": "Aserbaidschan ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 10023318,
+    "populationYear": 2019,
     "flag": "assets/flags/az.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Aserbaidschan",
     "anchor": [
@@ -197,6 +215,8 @@
     "continent": "Ozeanien",
     "areaKm2": 7692024,
     "fact": "Das Great Barrier Reef liegt vor der Nordostküste Australiens.",
+    "population": 25364307,
+    "populationYear": 2019,
     "flag": "assets/flags/au.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Australien",
     "anchor": [
@@ -218,6 +238,8 @@
     "continent": "Nordamerika",
     "areaKm2": 13943,
     "fact": "Bahamas ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 389482,
+    "populationYear": 2019,
     "flag": "assets/flags/bs.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Bahamas",
     "anchor": [
@@ -239,6 +261,8 @@
     "continent": "Asien",
     "areaKm2": 765,
     "fact": "Bahrain ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 1641172,
+    "populationYear": 2019,
     "flag": "assets/flags/bh.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Bahrain",
     "anchor": [
@@ -260,6 +284,8 @@
     "continent": "Asien",
     "areaKm2": 147570,
     "fact": "Bangladesch liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 163046161,
+    "populationYear": 2019,
     "flag": "assets/flags/bd.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Bangladesch",
     "anchor": [
@@ -281,6 +307,8 @@
     "continent": "Nordamerika",
     "areaKm2": 430,
     "fact": "Barbados ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 287025,
+    "populationYear": 2019,
     "flag": "assets/flags/bb.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Barbados",
     "anchor": [
@@ -302,6 +330,8 @@
     "continent": "Europa",
     "areaKm2": 207600,
     "fact": "Belarus ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 9466856,
+    "populationYear": 2019,
     "flag": "assets/flags/by.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Belarus",
     "anchor": [
@@ -323,6 +353,8 @@
     "continent": "Europa",
     "areaKm2": 30528,
     "fact": "Belgien liegt in Europa und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 11484055,
+    "populationYear": 2019,
     "flag": "assets/flags/be.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Belgien",
     "anchor": [
@@ -344,6 +376,8 @@
     "continent": "Nordamerika",
     "areaKm2": 22966,
     "fact": "Belize liegt in Nordamerika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 390353,
+    "populationYear": 2019,
     "flag": "assets/flags/bz.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Belize",
     "anchor": [
@@ -365,6 +399,8 @@
     "continent": "Afrika",
     "areaKm2": 112622,
     "fact": "Benin liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 11801151,
+    "populationYear": 2019,
     "flag": "assets/flags/bj.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Benin",
     "anchor": [
@@ -386,6 +422,8 @@
     "continent": "Asien",
     "areaKm2": 38394,
     "fact": "Bhutan ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 763092,
+    "populationYear": 2019,
     "flag": "assets/flags/bt.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Bhutan",
     "anchor": [
@@ -408,6 +446,8 @@
     "continent": "Südamerika",
     "areaKm2": 1098581,
     "fact": "Bolivien ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 11513100,
+    "populationYear": 2019,
     "flag": "assets/flags/bo.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Bolivien",
     "anchor": [
@@ -429,6 +469,8 @@
     "continent": "Europa",
     "areaKm2": 51209,
     "fact": "Bosnien und Herzegowina liegt in Europa und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 3301000,
+    "populationYear": 2019,
     "flag": "assets/flags/ba.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Bosnien_und_Herzegowina",
     "anchor": [
@@ -450,6 +492,8 @@
     "continent": "Afrika",
     "areaKm2": 582000,
     "fact": "Botswana ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 2303697,
+    "populationYear": 2019,
     "flag": "assets/flags/bw.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Botswana",
     "anchor": [
@@ -471,6 +515,8 @@
     "continent": "Südamerika",
     "areaKm2": 8515767,
     "fact": "Ein großer Teil des Amazonas-Regenwaldes liegt in Brasilien.",
+    "population": 211049527,
+    "populationYear": 2019,
     "flag": "assets/flags/br.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Brasilien",
     "anchor": [
@@ -492,6 +538,8 @@
     "continent": "Asien",
     "areaKm2": 5765,
     "fact": "Brunei liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 433285,
+    "populationYear": 2019,
     "flag": "assets/flags/bn.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Brunei",
     "anchor": [
@@ -513,6 +561,8 @@
     "continent": "Europa",
     "areaKm2": 110879,
     "fact": "Bulgarien liegt in Europa und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 6975761,
+    "populationYear": 2019,
     "flag": "assets/flags/bg.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Bulgarien",
     "anchor": [
@@ -534,6 +584,8 @@
     "continent": "Afrika",
     "areaKm2": 272967,
     "fact": "Burkina Faso ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 20321378,
+    "populationYear": 2019,
     "flag": "assets/flags/bf.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Burkina_Faso",
     "anchor": [
@@ -555,6 +607,8 @@
     "continent": "Afrika",
     "areaKm2": 27834,
     "fact": "Burundi ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 11530580,
+    "populationYear": 2019,
     "flag": "assets/flags/bi.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Burundi",
     "anchor": [
@@ -576,6 +630,8 @@
     "continent": "Südamerika",
     "areaKm2": 756102,
     "fact": "Chile erstreckt sich als langes, schmales Land entlang der Westküste Südamerikas.",
+    "population": 18952038,
+    "populationYear": 2019,
     "flag": "assets/flags/cl.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Chile",
     "anchor": [
@@ -597,6 +653,8 @@
     "continent": "Asien",
     "areaKm2": 9706961,
     "fact": "Die Große Mauer besteht aus zahlreichen, zu unterschiedlichen Zeiten errichteten Abschnitten.",
+    "population": 1397715000,
+    "populationYear": 2019,
     "flag": "assets/flags/cn.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/China",
     "anchor": [
@@ -618,6 +676,8 @@
     "continent": "Nordamerika",
     "areaKm2": 51100,
     "fact": "Costa Rica liegt in Nordamerika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 5047561,
+    "populationYear": 2019,
     "flag": "assets/flags/cr.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Costa_Rica",
     "anchor": [
@@ -639,6 +699,8 @@
     "continent": "Afrika",
     "areaKm2": 322463,
     "fact": "Côte d'Ivoire liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 25716544,
+    "populationYear": 2019,
     "flag": "assets/flags/ci.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/C%C3%B4te_d%27Ivoire",
     "anchor": [
@@ -660,6 +722,8 @@
     "continent": "Europa",
     "areaKm2": 357114,
     "fact": "Deutschland besteht aus 16 Bundesländern.",
+    "population": 83132799,
+    "populationYear": 2019,
     "flag": "assets/flags/de.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Deutschland",
     "anchor": [
@@ -681,6 +745,8 @@
     "continent": "Nordamerika",
     "areaKm2": 751,
     "fact": "Dominica ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 71808,
+    "populationYear": 2019,
     "flag": "assets/flags/dm.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Dominica",
     "anchor": [
@@ -702,6 +768,8 @@
     "continent": "Nordamerika",
     "areaKm2": 48671,
     "fact": "Dominikanische Republik liegt in Nordamerika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 10738958,
+    "populationYear": 2019,
     "flag": "assets/flags/do.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Dominikanische_Republik",
     "anchor": [
@@ -723,6 +791,8 @@
     "continent": "Afrika",
     "areaKm2": 23200,
     "fact": "Dschibuti liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 973560,
+    "populationYear": 2019,
     "flag": "assets/flags/dj.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Dschibuti",
     "anchor": [
@@ -744,6 +814,8 @@
     "continent": "Europa",
     "areaKm2": 43094,
     "fact": "Dänemark liegt in Europa und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 5818553,
+    "populationYear": 2019,
     "flag": "assets/flags/dk.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/D%C3%A4nemark",
     "anchor": [
@@ -765,6 +837,8 @@
     "continent": "Südamerika",
     "areaKm2": 276841,
     "fact": "Ecuador liegt in Südamerika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 17373662,
+    "populationYear": 2019,
     "flag": "assets/flags/ec.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Ecuador",
     "anchor": [
@@ -786,6 +860,8 @@
     "continent": "Nordamerika",
     "areaKm2": 21041,
     "fact": "El Salvador liegt in Nordamerika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 6453553,
+    "populationYear": 2019,
     "flag": "assets/flags/sv.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/El_Salvador",
     "anchor": [
@@ -807,6 +883,8 @@
     "continent": "Afrika",
     "areaKm2": 117600,
     "fact": "Eritrea liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 6081196,
+    "populationYear": 2020,
     "flag": "assets/flags/er.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Eritrea",
     "anchor": [
@@ -828,6 +906,8 @@
     "continent": "Europa",
     "areaKm2": 45227,
     "fact": "Estland liegt in Europa und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 1326590,
+    "populationYear": 2019,
     "flag": "assets/flags/ee.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Estland",
     "anchor": [
@@ -850,6 +930,8 @@
     "continent": "Afrika",
     "areaKm2": 17364,
     "fact": "Eswatini ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 1148130,
+    "populationYear": 2019,
     "flag": "assets/flags/sz.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Eswatini",
     "anchor": [
@@ -871,6 +953,8 @@
     "continent": "Ozeanien",
     "areaKm2": 18272,
     "fact": "Fidschi liegt nahe der Datumsgrenze im südlichen Pazifik.",
+    "population": 889953,
+    "populationYear": 2019,
     "flag": "assets/flags/fj.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Fidschi",
     "anchor": [
@@ -892,6 +976,8 @@
     "continent": "Europa",
     "areaKm2": 338424,
     "fact": "Finnland besitzt zahlreiche Seen und große Waldflächen.",
+    "population": 5520314,
+    "populationYear": 2019,
     "flag": "assets/flags/fi.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Finnland",
     "anchor": [
@@ -913,6 +999,8 @@
     "continent": "Europa",
     "areaKm2": 551695,
     "fact": "Zu Frankreich gehören auch Gebiete außerhalb Europas, etwa Französisch-Guayana.",
+    "population": 67059887,
+    "populationYear": 2019,
     "flag": "assets/flags/fr.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Frankreich",
     "anchor": [
@@ -934,6 +1022,8 @@
     "continent": "Afrika",
     "areaKm2": 267668,
     "fact": "Gabun liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 2172579,
+    "populationYear": 2019,
     "flag": "assets/flags/ga.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Gabun",
     "anchor": [
@@ -955,6 +1045,8 @@
     "continent": "Afrika",
     "areaKm2": 10689,
     "fact": "Gambia liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 2347706,
+    "populationYear": 2019,
     "flag": "assets/flags/gm.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Gambia",
     "anchor": [
@@ -976,6 +1068,8 @@
     "continent": "Asien",
     "areaKm2": 69700,
     "fact": "Georgien liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 3720382,
+    "populationYear": 2019,
     "flag": "assets/flags/ge.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Georgien",
     "anchor": [
@@ -997,6 +1091,8 @@
     "continent": "Afrika",
     "areaKm2": 238533,
     "fact": "Ghana liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 30417856,
+    "populationYear": 2019,
     "flag": "assets/flags/gh.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Ghana",
     "anchor": [
@@ -1018,6 +1114,8 @@
     "continent": "Nordamerika",
     "areaKm2": 344,
     "fact": "Grenada ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 112003,
+    "populationYear": 2019,
     "flag": "assets/flags/gd.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Grenada",
     "anchor": [
@@ -1039,6 +1137,8 @@
     "continent": "Europa",
     "areaKm2": 131990,
     "fact": "Zu Griechenland gehören zahlreiche Inseln im Mittelmeer.",
+    "population": 10716322,
+    "populationYear": 2019,
     "flag": "assets/flags/gr.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Griechenland",
     "anchor": [
@@ -1060,6 +1160,8 @@
     "continent": "Nordamerika",
     "areaKm2": 108889,
     "fact": "Guatemala liegt in Nordamerika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 16604026,
+    "populationYear": 2019,
     "flag": "assets/flags/gt.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Guatemala",
     "anchor": [
@@ -1081,6 +1183,8 @@
     "continent": "Afrika",
     "areaKm2": 245857,
     "fact": "Guinea liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 12771246,
+    "populationYear": 2019,
     "flag": "assets/flags/gn.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Guinea",
     "anchor": [
@@ -1102,6 +1206,8 @@
     "continent": "Afrika",
     "areaKm2": 36125,
     "fact": "Guinea-Bissau liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 1920922,
+    "populationYear": 2019,
     "flag": "assets/flags/gw.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Guinea-Bissau",
     "anchor": [
@@ -1123,6 +1229,8 @@
     "continent": "Südamerika",
     "areaKm2": 214969,
     "fact": "Guyana liegt in Südamerika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 782766,
+    "populationYear": 2019,
     "flag": "assets/flags/gy.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Guyana",
     "anchor": [
@@ -1144,6 +1252,8 @@
     "continent": "Nordamerika",
     "areaKm2": 27750,
     "fact": "Haiti liegt in Nordamerika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 11263077,
+    "populationYear": 2019,
     "flag": "assets/flags/ht.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Haiti",
     "anchor": [
@@ -1165,6 +1275,8 @@
     "continent": "Nordamerika",
     "areaKm2": 112492,
     "fact": "Honduras liegt in Nordamerika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 9746117,
+    "populationYear": 2019,
     "flag": "assets/flags/hn.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Honduras",
     "anchor": [
@@ -1186,6 +1298,8 @@
     "continent": "Asien",
     "areaKm2": 3287590,
     "fact": "Der Himalaya bildet einen Teil der nördlichen Landschaft Indiens.",
+    "population": 1366417754,
+    "populationYear": 2019,
     "flag": "assets/flags/in.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Indien",
     "anchor": [
@@ -1207,6 +1321,8 @@
     "continent": "Asien",
     "areaKm2": 1904569,
     "fact": "Indonesien erstreckt sich über Tausende Inseln beiderseits des Äquators.",
+    "population": 270625568,
+    "populationYear": 2019,
     "flag": "assets/flags/id.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Indonesien",
     "anchor": [
@@ -1228,6 +1344,8 @@
     "continent": "Asien",
     "areaKm2": 438317,
     "fact": "Irak liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 39309783,
+    "populationYear": 2019,
     "flag": "assets/flags/iq.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Irak",
     "anchor": [
@@ -1249,6 +1367,8 @@
     "continent": "Asien",
     "areaKm2": 1648195,
     "fact": "Iran liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 82913906,
+    "populationYear": 2019,
     "flag": "assets/flags/ir.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Iran",
     "anchor": [
@@ -1270,6 +1390,8 @@
     "continent": "Europa",
     "areaKm2": 70273,
     "fact": "Irland liegt in Europa und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 4941444,
+    "populationYear": 2019,
     "flag": "assets/flags/ie.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Irland",
     "anchor": [
@@ -1291,6 +1413,8 @@
     "continent": "Europa",
     "areaKm2": 103000,
     "fact": "Island liegt auf dem Mittelatlantischen Rücken und ist vulkanisch aktiv.",
+    "population": 361313,
+    "populationYear": 2019,
     "flag": "assets/flags/is.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Island",
     "anchor": [
@@ -1312,6 +1436,8 @@
     "continent": "Asien",
     "areaKm2": 20770,
     "fact": "Israel liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 9053300,
+    "populationYear": 2019,
     "flag": "assets/flags/il.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Israel",
     "anchor": [
@@ -1333,6 +1459,8 @@
     "continent": "Europa",
     "areaKm2": 301336,
     "fact": "Die Halbinsel Italiens wird oft mit der Form eines Stiefels verglichen.",
+    "population": 60297396,
+    "populationYear": 2019,
     "flag": "assets/flags/it.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Italien",
     "anchor": [
@@ -1354,6 +1482,8 @@
     "continent": "Nordamerika",
     "areaKm2": 10991,
     "fact": "Jamaika ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 2948279,
+    "populationYear": 2019,
     "flag": "assets/flags/jm.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Jamaika",
     "anchor": [
@@ -1375,6 +1505,8 @@
     "continent": "Asien",
     "areaKm2": 377930,
     "fact": "Hokkaidō, Honshū, Shikoku und Kyūshū sind die vier größten Inseln Japans.",
+    "population": 126264931,
+    "populationYear": 2019,
     "flag": "assets/flags/jp.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Japan",
     "anchor": [
@@ -1396,6 +1528,8 @@
     "continent": "Asien",
     "areaKm2": 527968,
     "fact": "Jemen liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 29161922,
+    "populationYear": 2019,
     "flag": "assets/flags/ye.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Jemen",
     "anchor": [
@@ -1417,6 +1551,8 @@
     "continent": "Asien",
     "areaKm2": 89342,
     "fact": "Jordanien liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 10101694,
+    "populationYear": 2019,
     "flag": "assets/flags/jo.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Jordanien",
     "anchor": [
@@ -1438,6 +1574,8 @@
     "continent": "Asien",
     "areaKm2": 181035,
     "fact": "Kambodscha liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 16486542,
+    "populationYear": 2019,
     "flag": "assets/flags/kh.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Kambodscha",
     "anchor": [
@@ -1459,6 +1597,8 @@
     "continent": "Afrika",
     "areaKm2": 475442,
     "fact": "Kamerun liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 25876380,
+    "populationYear": 2019,
     "flag": "assets/flags/cm.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Kamerun",
     "anchor": [
@@ -1480,6 +1620,8 @@
     "continent": "Nordamerika",
     "areaKm2": 9984670,
     "fact": "Kanada grenzt an den Atlantischen, Pazifischen und Arktischen Ozean.",
+    "population": 37589262,
+    "populationYear": 2019,
     "flag": "assets/flags/ca.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Kanada",
     "anchor": [
@@ -1501,6 +1643,8 @@
     "continent": "Afrika",
     "areaKm2": 4033,
     "fact": "Kap Verde ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 549935,
+    "populationYear": 2019,
     "flag": "assets/flags/cv.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Kap_Verde",
     "anchor": [
@@ -1522,6 +1666,8 @@
     "continent": "Asien",
     "areaKm2": 2724900,
     "fact": "Kasachstan ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 18513930,
+    "populationYear": 2019,
     "flag": "assets/flags/kz.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Kasachstan",
     "anchor": [
@@ -1543,6 +1689,8 @@
     "continent": "Asien",
     "areaKm2": 11586,
     "fact": "Katar liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 2832067,
+    "populationYear": 2019,
     "flag": "assets/flags/qa.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Katar",
     "anchor": [
@@ -1564,6 +1712,8 @@
     "continent": "Afrika",
     "areaKm2": 580367,
     "fact": "Der Äquator verläuft durch Kenia.",
+    "population": 52573973,
+    "populationYear": 2019,
     "flag": "assets/flags/ke.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Kenia",
     "anchor": [
@@ -1585,6 +1735,8 @@
     "continent": "Asien",
     "areaKm2": 199951,
     "fact": "Kirgisistan ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 6456900,
+    "populationYear": 2019,
     "flag": "assets/flags/kg.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Kirgisistan",
     "anchor": [
@@ -1606,6 +1758,8 @@
     "continent": "Ozeanien",
     "areaKm2": 811,
     "fact": "Die Inseln Kiribatis liegen beiderseits des Äquators und des 180. Längengrades.",
+    "population": 117606,
+    "populationYear": 2019,
     "flag": "assets/flags/ki.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Kiribati",
     "anchor": [
@@ -1627,6 +1781,8 @@
     "continent": "Südamerika",
     "areaKm2": 1141748,
     "fact": "Kolumbien liegt in Südamerika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 50339443,
+    "populationYear": 2019,
     "flag": "assets/flags/co.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Kolumbien",
     "anchor": [
@@ -1648,6 +1804,8 @@
     "continent": "Afrika",
     "areaKm2": 1862,
     "fact": "Komoren ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 850886,
+    "populationYear": 2019,
     "flag": "assets/flags/km.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Komoren",
     "anchor": [
@@ -1669,6 +1827,8 @@
     "continent": "Afrika",
     "areaKm2": 342000,
     "fact": "Kongo liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 5380508,
+    "populationYear": 2019,
     "flag": "assets/flags/cg.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Republik_Kongo",
     "anchor": [
@@ -1690,6 +1850,8 @@
     "continent": "Afrika",
     "areaKm2": 2344858,
     "fact": "Kongo (Dem. Rep.) liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 86790567,
+    "populationYear": 2019,
     "flag": "assets/flags/cd.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Demokratische_Republik_Kongo",
     "anchor": [
@@ -1711,6 +1873,8 @@
     "continent": "Europa",
     "areaKm2": 56594,
     "fact": "Kroatien liegt in Europa und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 4067500,
+    "populationYear": 2019,
     "flag": "assets/flags/hr.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Kroatien",
     "anchor": [
@@ -1732,6 +1896,8 @@
     "continent": "Nordamerika",
     "areaKm2": 109884,
     "fact": "Kuba ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 11333483,
+    "populationYear": 2019,
     "flag": "assets/flags/cu.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Kuba",
     "anchor": [
@@ -1753,6 +1919,8 @@
     "continent": "Asien",
     "areaKm2": 17818,
     "fact": "Kuwait liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 4207083,
+    "populationYear": 2019,
     "flag": "assets/flags/kw.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Kuwait",
     "anchor": [
@@ -1774,6 +1942,8 @@
     "continent": "Asien",
     "areaKm2": 236800,
     "fact": "Laos ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 7169455,
+    "populationYear": 2019,
     "flag": "assets/flags/la.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Laos",
     "anchor": [
@@ -1795,6 +1965,8 @@
     "continent": "Afrika",
     "areaKm2": 30355,
     "fact": "Lesotho ist vollständig von Südafrika umgeben.",
+    "population": 2125268,
+    "populationYear": 2019,
     "flag": "assets/flags/ls.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Lesotho",
     "anchor": [
@@ -1816,6 +1988,8 @@
     "continent": "Europa",
     "areaKm2": 64559,
     "fact": "Lettland liegt in Europa und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 1912789,
+    "populationYear": 2019,
     "flag": "assets/flags/lv.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Lettland",
     "anchor": [
@@ -1837,6 +2011,8 @@
     "continent": "Asien",
     "areaKm2": 10452,
     "fact": "Libanon liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 6855713,
+    "populationYear": 2019,
     "flag": "assets/flags/lb.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Libanon",
     "anchor": [
@@ -1858,6 +2034,8 @@
     "continent": "Afrika",
     "areaKm2": 111369,
     "fact": "Liberia liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 4937374,
+    "populationYear": 2019,
     "flag": "assets/flags/lr.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Liberia",
     "anchor": [
@@ -1879,6 +2057,8 @@
     "continent": "Afrika",
     "areaKm2": 1759540,
     "fact": "Libyen liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 6777452,
+    "populationYear": 2019,
     "flag": "assets/flags/ly.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Libyen",
     "anchor": [
@@ -1900,6 +2080,8 @@
     "continent": "Europa",
     "areaKm2": 160,
     "fact": "Liechtenstein ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 38019,
+    "populationYear": 2019,
     "flag": "assets/flags/li.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Liechtenstein",
     "anchor": [
@@ -1921,6 +2103,8 @@
     "continent": "Europa",
     "areaKm2": 65300,
     "fact": "Litauen liegt in Europa und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 2786844,
+    "populationYear": 2019,
     "flag": "assets/flags/lt.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Litauen",
     "anchor": [
@@ -1942,6 +2126,8 @@
     "continent": "Europa",
     "areaKm2": 2586,
     "fact": "Luxemburg ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 619896,
+    "populationYear": 2019,
     "flag": "assets/flags/lu.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Luxemburg",
     "anchor": [
@@ -1963,6 +2149,8 @@
     "continent": "Afrika",
     "areaKm2": 587041,
     "fact": "Viele Tier- und Pflanzenarten Madagaskars kommen nur dort vor.",
+    "population": 26969307,
+    "populationYear": 2019,
     "flag": "assets/flags/mg.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Madagaskar",
     "anchor": [
@@ -1984,6 +2172,8 @@
     "continent": "Afrika",
     "areaKm2": 118484,
     "fact": "Malawi ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 18628747,
+    "populationYear": 2019,
     "flag": "assets/flags/mw.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Malawi",
     "anchor": [
@@ -2005,6 +2195,8 @@
     "continent": "Asien",
     "areaKm2": 330803,
     "fact": "Malaysia liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 31949777,
+    "populationYear": 2019,
     "flag": "assets/flags/my.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Malaysia",
     "anchor": [
@@ -2026,6 +2218,8 @@
     "continent": "Asien",
     "areaKm2": 300,
     "fact": "Malediven ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 530953,
+    "populationYear": 2019,
     "flag": "assets/flags/mv.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Malediven",
     "anchor": [
@@ -2047,6 +2241,8 @@
     "continent": "Afrika",
     "areaKm2": 1240192,
     "fact": "Mali ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 19658031,
+    "populationYear": 2019,
     "flag": "assets/flags/ml.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Mali",
     "anchor": [
@@ -2068,6 +2264,8 @@
     "continent": "Europa",
     "areaKm2": 316,
     "fact": "Malta ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 502653,
+    "populationYear": 2019,
     "flag": "assets/flags/mt.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Malta",
     "anchor": [
@@ -2089,6 +2287,8 @@
     "continent": "Afrika",
     "areaKm2": 446550,
     "fact": "Das Atlasgebirge erstreckt sich durch Marokko.",
+    "population": 36471769,
+    "populationYear": 2019,
     "flag": "assets/flags/ma.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Marokko",
     "anchor": [
@@ -2110,6 +2310,8 @@
     "continent": "Ozeanien",
     "areaKm2": 181,
     "fact": "Marshallinseln ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 58791,
+    "populationYear": 2019,
     "flag": "assets/flags/mh.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Marshallinseln",
     "anchor": [
@@ -2131,6 +2333,8 @@
     "continent": "Afrika",
     "areaKm2": 1030700,
     "fact": "Mauretanien liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 4525696,
+    "populationYear": 2019,
     "flag": "assets/flags/mr.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Mauretanien",
     "anchor": [
@@ -2152,6 +2356,8 @@
     "continent": "Afrika",
     "areaKm2": 2040,
     "fact": "Mauritius ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 1265711,
+    "populationYear": 2019,
     "flag": "assets/flags/mu.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Mauritius",
     "anchor": [
@@ -2173,6 +2379,8 @@
     "continent": "Nordamerika",
     "areaKm2": 1964375,
     "fact": "Mexiko liegt zwischen dem Pazifik und dem Golf von Mexiko.",
+    "population": 127575529,
+    "populationYear": 2019,
     "flag": "assets/flags/mx.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Mexiko",
     "anchor": [
@@ -2194,6 +2402,8 @@
     "continent": "Ozeanien",
     "areaKm2": 702,
     "fact": "Mikronesien ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 113815,
+    "populationYear": 2019,
     "flag": "assets/flags/fm.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/F%C3%B6derierte_Staaten_von_Mikronesien",
     "anchor": [
@@ -2215,6 +2425,8 @@
     "continent": "Europa",
     "areaKm2": 33846,
     "fact": "Moldawien ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 2657637,
+    "populationYear": 2019,
     "flag": "assets/flags/md.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Moldawien",
     "anchor": [
@@ -2236,6 +2448,8 @@
     "continent": "Europa",
     "areaKm2": 2.02,
     "fact": "Monaco liegt in Europa und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 38964,
+    "populationYear": 2019,
     "flag": "assets/flags/mc.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Monaco",
     "anchor": [
@@ -2257,6 +2471,8 @@
     "continent": "Asien",
     "areaKm2": 1564110,
     "fact": "Die Wüste Gobi erstreckt sich über Teile der Mongolei und Chinas.",
+    "population": 3225167,
+    "populationYear": 2019,
     "flag": "assets/flags/mn.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Mongolei",
     "anchor": [
@@ -2278,6 +2494,8 @@
     "continent": "Europa",
     "areaKm2": 13812,
     "fact": "Montenegro liegt in Europa und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 622137,
+    "populationYear": 2019,
     "flag": "assets/flags/me.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Montenegro",
     "anchor": [
@@ -2299,6 +2517,8 @@
     "continent": "Afrika",
     "areaKm2": 801590,
     "fact": "Mosambik liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 30366036,
+    "populationYear": 2019,
     "flag": "assets/flags/mz.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Mosambik",
     "anchor": [
@@ -2320,6 +2540,8 @@
     "continent": "Asien",
     "areaKm2": 676578,
     "fact": "Myanmar liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 54045420,
+    "populationYear": 2019,
     "flag": "assets/flags/mm.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Myanmar",
     "anchor": [
@@ -2341,6 +2563,8 @@
     "continent": "Afrika",
     "areaKm2": 825615,
     "fact": "Namibia liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 2494530,
+    "populationYear": 2019,
     "flag": "assets/flags/na.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Namibia",
     "anchor": [
@@ -2362,6 +2586,8 @@
     "continent": "Ozeanien",
     "areaKm2": 21,
     "fact": "Nauru hat keine offizielle Hauptstadt; der Regierungssitz liegt im Distrikt Yaren.",
+    "population": 12581,
+    "populationYear": 2019,
     "flag": "assets/flags/nr.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Nauru",
     "anchor": [
@@ -2383,6 +2609,8 @@
     "continent": "Asien",
     "areaKm2": 147181,
     "fact": "Der Mount Everest liegt an der Grenze zwischen Nepal und China.",
+    "population": 28608710,
+    "populationYear": 2019,
     "flag": "assets/flags/np.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Nepal",
     "anchor": [
@@ -2404,6 +2632,8 @@
     "continent": "Ozeanien",
     "areaKm2": 270467,
     "fact": "Die Nordinsel und die Südinsel sind die beiden größten Inseln Neuseelands.",
+    "population": 4917000,
+    "populationYear": 2019,
     "flag": "assets/flags/nz.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Neuseeland",
     "anchor": [
@@ -2425,6 +2655,8 @@
     "continent": "Nordamerika",
     "areaKm2": 130373,
     "fact": "Nicaragua liegt in Nordamerika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 6545502,
+    "populationYear": 2019,
     "flag": "assets/flags/ni.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Nicaragua",
     "anchor": [
@@ -2446,6 +2678,8 @@
     "continent": "Europa",
     "areaKm2": 41850,
     "fact": "Amsterdam ist die Hauptstadt; die Regierung hat ihren Sitz in Den Haag.",
+    "population": 17332850,
+    "populationYear": 2019,
     "flag": "assets/flags/nl.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Niederlande",
     "anchor": [
@@ -2467,6 +2701,8 @@
     "continent": "Afrika",
     "areaKm2": 1267000,
     "fact": "Niger ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 23310715,
+    "populationYear": 2019,
     "flag": "assets/flags/ne.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Niger",
     "anchor": [
@@ -2488,6 +2724,8 @@
     "continent": "Afrika",
     "areaKm2": 923768,
     "fact": "Nigeria liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 200963599,
+    "populationYear": 2019,
     "flag": "assets/flags/ng.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Nigeria",
     "anchor": [
@@ -2509,6 +2747,8 @@
     "continent": "Asien",
     "areaKm2": 120538,
     "fact": "Nordkorea liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 25666161,
+    "populationYear": 2019,
     "flag": "assets/flags/kp.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Nordkorea",
     "anchor": [
@@ -2530,6 +2770,8 @@
     "continent": "Europa",
     "areaKm2": 25713,
     "fact": "Nordmazedonien ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 2083459,
+    "populationYear": 2019,
     "flag": "assets/flags/mk.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Nordmazedonien",
     "anchor": [
@@ -2551,6 +2793,8 @@
     "continent": "Europa",
     "areaKm2": 323802,
     "fact": "Die norwegische Küste ist von zahlreichen Fjorden geprägt.",
+    "population": 5347896,
+    "populationYear": 2019,
     "flag": "assets/flags/no.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Norwegen",
     "anchor": [
@@ -2572,6 +2816,8 @@
     "continent": "Asien",
     "areaKm2": 309500,
     "fact": "Oman liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 4974986,
+    "populationYear": 2019,
     "flag": "assets/flags/om.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Oman",
     "anchor": [
@@ -2593,6 +2839,8 @@
     "continent": "Asien",
     "areaKm2": 14874,
     "fact": "Osttimor liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 1293119,
+    "populationYear": 2019,
     "flag": "assets/flags/tl.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Osttimor",
     "anchor": [
@@ -2614,6 +2862,8 @@
     "continent": "Asien",
     "areaKm2": 881912,
     "fact": "Pakistan liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 216565318,
+    "populationYear": 2019,
     "flag": "assets/flags/pk.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Pakistan",
     "anchor": [
@@ -2635,6 +2885,8 @@
     "continent": "Ozeanien",
     "areaKm2": 459,
     "fact": "Palau ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 18008,
+    "populationYear": 2019,
     "flag": "assets/flags/pw.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Palau",
     "anchor": [
@@ -2657,6 +2909,8 @@
     "continent": "Asien",
     "areaKm2": 6220,
     "fact": "Palästina hat bei den Vereinten Nationen den Status eines Beobachterstaates.",
+    "population": 4685306,
+    "populationYear": 2019,
     "flag": "assets/flags/ps.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Pal%C3%A4stina",
     "anchor": [
@@ -2678,6 +2932,8 @@
     "continent": "Nordamerika",
     "areaKm2": 75417,
     "fact": "Der Panamakanal verbindet den Atlantischen mit dem Pazifischen Ozean.",
+    "population": 4246439,
+    "populationYear": 2019,
     "flag": "assets/flags/pa.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Panama",
     "anchor": [
@@ -2699,6 +2955,8 @@
     "continent": "Ozeanien",
     "areaKm2": 462840,
     "fact": "Papua-Neuguinea liegt in Ozeanien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 8776109,
+    "populationYear": 2019,
     "flag": "assets/flags/pg.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Papua-Neuguinea",
     "anchor": [
@@ -2720,6 +2978,8 @@
     "continent": "Südamerika",
     "areaKm2": 406752,
     "fact": "Paraguay ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 7044636,
+    "populationYear": 2019,
     "flag": "assets/flags/py.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Paraguay",
     "anchor": [
@@ -2741,6 +3001,8 @@
     "continent": "Südamerika",
     "areaKm2": 1285216,
     "fact": "Die Inka-Stätte Machu Picchu liegt in den peruanischen Anden.",
+    "population": 32510453,
+    "populationYear": 2019,
     "flag": "assets/flags/pe.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Peru",
     "anchor": [
@@ -2762,6 +3024,8 @@
     "continent": "Asien",
     "areaKm2": 342353,
     "fact": "Philippinen ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 108116615,
+    "populationYear": 2019,
     "flag": "assets/flags/ph.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Philippinen",
     "anchor": [
@@ -2783,6 +3047,8 @@
     "continent": "Europa",
     "areaKm2": 312679,
     "fact": "Polen liegt in Europa und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 37970874,
+    "populationYear": 2019,
     "flag": "assets/flags/pl.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Polen",
     "anchor": [
@@ -2804,6 +3070,8 @@
     "continent": "Europa",
     "areaKm2": 92090,
     "fact": "Portugal liegt in Europa und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 10269417,
+    "populationYear": 2019,
     "flag": "assets/flags/pt.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Portugal",
     "anchor": [
@@ -2825,6 +3093,8 @@
     "continent": "Afrika",
     "areaKm2": 26338,
     "fact": "Ruanda ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 12626950,
+    "populationYear": 2019,
     "flag": "assets/flags/rw.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Ruanda",
     "anchor": [
@@ -2846,6 +3116,8 @@
     "continent": "Europa",
     "areaKm2": 238391,
     "fact": "Rumänien liegt in Europa und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 19356544,
+    "populationYear": 2019,
     "flag": "assets/flags/ro.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Rum%C3%A4nien",
     "anchor": [
@@ -2867,6 +3139,8 @@
     "continent": "Europa",
     "areaKm2": 17098242,
     "fact": "Russland erstreckt sich über Europa und Asien; hier ist es Europa zugeordnet.",
+    "population": 144373535,
+    "populationYear": 2019,
     "flag": "assets/flags/ru.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Russland",
     "anchor": [
@@ -2888,6 +3162,8 @@
     "continent": "Ozeanien",
     "areaKm2": 28896,
     "fact": "Salomonen ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 669823,
+    "populationYear": 2019,
     "flag": "assets/flags/sb.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Salomonen",
     "anchor": [
@@ -2909,6 +3185,8 @@
     "continent": "Afrika",
     "areaKm2": 752612,
     "fact": "Sambia ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 17861030,
+    "populationYear": 2019,
     "flag": "assets/flags/zm.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Sambia",
     "anchor": [
@@ -2930,6 +3208,8 @@
     "continent": "Ozeanien",
     "areaKm2": 2842,
     "fact": "Samoa ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 197097,
+    "populationYear": 2019,
     "flag": "assets/flags/ws.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Samoa",
     "anchor": [
@@ -2951,6 +3231,8 @@
     "continent": "Europa",
     "areaKm2": 61,
     "fact": "San Marino ist vollständig von Italien umgeben.",
+    "population": 33860,
+    "populationYear": 2019,
     "flag": "assets/flags/sm.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/San_Marino",
     "anchor": [
@@ -2972,6 +3254,8 @@
     "continent": "Asien",
     "areaKm2": 2149690,
     "fact": "Saudi-Arabien liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 34268528,
+    "populationYear": 2019,
     "flag": "assets/flags/sa.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Saudi-Arabien",
     "anchor": [
@@ -2993,6 +3277,8 @@
     "continent": "Europa",
     "areaKm2": 450295,
     "fact": "Schweden liegt in Europa und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 10285453,
+    "populationYear": 2019,
     "flag": "assets/flags/se.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Schweden",
     "anchor": [
@@ -3014,6 +3300,8 @@
     "continent": "Europa",
     "areaKm2": 41284,
     "fact": "Die Schweiz hat vier Landessprachen: Deutsch, Französisch, Italienisch und Rätoromanisch.",
+    "population": 8574832,
+    "populationYear": 2019,
     "flag": "assets/flags/ch.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Schweiz",
     "anchor": [
@@ -3035,6 +3323,8 @@
     "continent": "Afrika",
     "areaKm2": 196722,
     "fact": "Senegal liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 16296364,
+    "populationYear": 2019,
     "flag": "assets/flags/sn.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Senegal",
     "anchor": [
@@ -3056,6 +3346,8 @@
     "continent": "Europa",
     "areaKm2": 88361,
     "fact": "Serbien ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 6944975,
+    "populationYear": 2019,
     "flag": "assets/flags/rs.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Serbien",
     "anchor": [
@@ -3077,6 +3369,8 @@
     "continent": "Afrika",
     "areaKm2": 452,
     "fact": "Seychellen ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 97625,
+    "populationYear": 2019,
     "flag": "assets/flags/sc.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Seychellen",
     "anchor": [
@@ -3098,6 +3392,8 @@
     "continent": "Afrika",
     "areaKm2": 71740,
     "fact": "Sierra Leone liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 7813215,
+    "populationYear": 2019,
     "flag": "assets/flags/sl.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Sierra_Leone",
     "anchor": [
@@ -3119,6 +3415,8 @@
     "continent": "Afrika",
     "areaKm2": 390757,
     "fact": "Simbabwe ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 14645468,
+    "populationYear": 2019,
     "flag": "assets/flags/zw.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Simbabwe",
     "anchor": [
@@ -3140,6 +3438,8 @@
     "continent": "Asien",
     "areaKm2": 710,
     "fact": "Singapur ist ein Stadtstaat an der Südspitze der Malaiischen Halbinsel.",
+    "population": 5703569,
+    "populationYear": 2019,
     "flag": "assets/flags/sg.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Singapur",
     "anchor": [
@@ -3161,6 +3461,8 @@
     "continent": "Europa",
     "areaKm2": 49037,
     "fact": "Slowakei ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 5454073,
+    "populationYear": 2019,
     "flag": "assets/flags/sk.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Slowakei",
     "anchor": [
@@ -3182,6 +3484,8 @@
     "continent": "Europa",
     "areaKm2": 20273,
     "fact": "Slowenien liegt in Europa und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 2087946,
+    "populationYear": 2019,
     "flag": "assets/flags/si.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Slowenien",
     "anchor": [
@@ -3203,6 +3507,8 @@
     "continent": "Afrika",
     "areaKm2": 637657,
     "fact": "Somalia liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 10192317,
+    "populationYear": 2019,
     "flag": "assets/flags/so.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Somalia",
     "anchor": [
@@ -3224,6 +3530,8 @@
     "continent": "Europa",
     "areaKm2": 505992,
     "fact": "Spanien liegt in Europa und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 47076781,
+    "populationYear": 2019,
     "flag": "assets/flags/es.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Spanien",
     "anchor": [
@@ -3245,6 +3553,8 @@
     "continent": "Asien",
     "areaKm2": 65610,
     "fact": "Sri Jayewardenepura Kotte ist die Hauptstadt; Colombo ist ein wichtiges Verwaltungszentrum.",
+    "population": 21803000,
+    "populationYear": 2019,
     "flag": "assets/flags/lk.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Sri_Lanka",
     "anchor": [
@@ -3266,6 +3576,8 @@
     "continent": "Nordamerika",
     "areaKm2": 261,
     "fact": "St. Kitts und Nevis ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 52834,
+    "populationYear": 2019,
     "flag": "assets/flags/kn.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/St._Kitts_und_Nevis",
     "anchor": [
@@ -3287,6 +3599,8 @@
     "continent": "Nordamerika",
     "areaKm2": 616,
     "fact": "St. Lucia ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 182790,
+    "populationYear": 2019,
     "flag": "assets/flags/lc.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/St._Lucia",
     "anchor": [
@@ -3308,6 +3622,8 @@
     "continent": "Nordamerika",
     "areaKm2": 389,
     "fact": "St. Vincent und die Grenadinen ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 110589,
+    "populationYear": 2019,
     "flag": "assets/flags/vc.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/St._Vincent_und_die_Grenadinen",
     "anchor": [
@@ -3329,6 +3645,8 @@
     "continent": "Afrika",
     "areaKm2": 1886068,
     "fact": "Sudan liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 42813238,
+    "populationYear": 2019,
     "flag": "assets/flags/sd.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Sudan",
     "anchor": [
@@ -3350,6 +3668,8 @@
     "continent": "Südamerika",
     "areaKm2": 163820,
     "fact": "Suriname liegt in Südamerika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 581363,
+    "populationYear": 2019,
     "flag": "assets/flags/sr.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Suriname",
     "anchor": [
@@ -3371,6 +3691,8 @@
     "continent": "Asien",
     "areaKm2": 185180,
     "fact": "Syrien liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 17070135,
+    "populationYear": 2019,
     "flag": "assets/flags/sy.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Syrien",
     "anchor": [
@@ -3392,6 +3714,8 @@
     "continent": "Afrika",
     "areaKm2": 964,
     "fact": "São Tomé und Príncipe ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 215056,
+    "populationYear": 2019,
     "flag": "assets/flags/st.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/S%C3%A3o_Tom%C3%A9_und_Pr%C3%ADncipe",
     "anchor": [
@@ -3415,6 +3739,8 @@
     "continent": "Afrika",
     "areaKm2": 1221037,
     "fact": "Die Aufgaben der Hauptstadt sind auf Pretoria, Kapstadt und Bloemfontein verteilt.",
+    "population": 58558270,
+    "populationYear": 2019,
     "flag": "assets/flags/za.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/S%C3%BCdafrika",
     "anchor": [
@@ -3436,6 +3762,8 @@
     "continent": "Asien",
     "areaKm2": 100210,
     "fact": "Südkorea liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 51709098,
+    "populationYear": 2019,
     "flag": "assets/flags/kr.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/S%C3%BCdkorea",
     "anchor": [
@@ -3457,6 +3785,8 @@
     "continent": "Afrika",
     "areaKm2": 619745,
     "fact": "Südsudan ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 11062113,
+    "populationYear": 2019,
     "flag": "assets/flags/ss.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/S%C3%BCdsudan",
     "anchor": [
@@ -3478,6 +3808,8 @@
     "continent": "Asien",
     "areaKm2": 143100,
     "fact": "Tadschikistan ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 9321018,
+    "populationYear": 2019,
     "flag": "assets/flags/tj.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Tadschikistan",
     "anchor": [
@@ -3499,6 +3831,8 @@
     "continent": "Afrika",
     "areaKm2": 945087,
     "fact": "Tansania liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 58005463,
+    "populationYear": 2019,
     "flag": "assets/flags/tz.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Tansania",
     "anchor": [
@@ -3520,6 +3854,8 @@
     "continent": "Asien",
     "areaKm2": 513120,
     "fact": "Thailand liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 69625582,
+    "populationYear": 2019,
     "flag": "assets/flags/th.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Thailand",
     "anchor": [
@@ -3541,6 +3877,8 @@
     "continent": "Afrika",
     "areaKm2": 56785,
     "fact": "Togo liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 8082366,
+    "populationYear": 2019,
     "flag": "assets/flags/tg.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Togo",
     "anchor": [
@@ -3562,6 +3900,8 @@
     "continent": "Ozeanien",
     "areaKm2": 747,
     "fact": "Tonga ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 104494,
+    "populationYear": 2019,
     "flag": "assets/flags/to.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Tonga",
     "anchor": [
@@ -3583,6 +3923,8 @@
     "continent": "Nordamerika",
     "areaKm2": 5130,
     "fact": "Trinidad und Tobago ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 1394973,
+    "populationYear": 2019,
     "flag": "assets/flags/tt.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Trinidad_und_Tobago",
     "anchor": [
@@ -3604,6 +3946,8 @@
     "continent": "Afrika",
     "areaKm2": 1284000,
     "fact": "Tschad ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 15946876,
+    "populationYear": 2019,
     "flag": "assets/flags/td.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Tschad",
     "anchor": [
@@ -3625,6 +3969,8 @@
     "continent": "Europa",
     "areaKm2": 78865,
     "fact": "Tschechien ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 10669709,
+    "populationYear": 2019,
     "flag": "assets/flags/cz.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Tschechien",
     "anchor": [
@@ -3646,6 +3992,8 @@
     "continent": "Afrika",
     "areaKm2": 163610,
     "fact": "Tunesien liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 11694719,
+    "populationYear": 2019,
     "flag": "assets/flags/tn.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Tunesien",
     "anchor": [
@@ -3667,6 +4015,8 @@
     "continent": "Asien",
     "areaKm2": 488100,
     "fact": "Turkmenistan ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 5942089,
+    "populationYear": 2019,
     "flag": "assets/flags/tm.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Turkmenistan",
     "anchor": [
@@ -3688,6 +4038,8 @@
     "continent": "Ozeanien",
     "areaKm2": 26,
     "fact": "Tuvalu ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 11646,
+    "populationYear": 2019,
     "flag": "assets/flags/tv.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Tuvalu",
     "anchor": [
@@ -3709,6 +4061,8 @@
     "continent": "Asien",
     "areaKm2": 783562,
     "fact": "Die Türkei liegt in Asien und Europa; hier ist sie Asien zugeordnet.",
+    "population": 83429615,
+    "populationYear": 2019,
     "flag": "assets/flags/tr.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/T%C3%BCrkei",
     "anchor": [
@@ -3730,6 +4084,8 @@
     "continent": "Afrika",
     "areaKm2": 241550,
     "fact": "Uganda ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 44269594,
+    "populationYear": 2019,
     "flag": "assets/flags/ug.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Uganda",
     "anchor": [
@@ -3751,6 +4107,8 @@
     "continent": "Europa",
     "areaKm2": 603500,
     "fact": "Ukraine liegt in Europa und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 44385155,
+    "populationYear": 2019,
     "flag": "assets/flags/ua.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Ukraine",
     "anchor": [
@@ -3772,6 +4130,8 @@
     "continent": "Europa",
     "areaKm2": 93028,
     "fact": "Ungarn ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 9769949,
+    "populationYear": 2019,
     "flag": "assets/flags/hu.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Ungarn",
     "anchor": [
@@ -3793,6 +4153,8 @@
     "continent": "Südamerika",
     "areaKm2": 181034,
     "fact": "Uruguay liegt in Südamerika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 3461734,
+    "populationYear": 2019,
     "flag": "assets/flags/uy.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Uruguay",
     "anchor": [
@@ -3814,6 +4176,8 @@
     "continent": "Asien",
     "areaKm2": 447400,
     "fact": "Usbekistan ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 33580650,
+    "populationYear": 2019,
     "flag": "assets/flags/uz.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Usbekistan",
     "anchor": [
@@ -3835,6 +4199,8 @@
     "continent": "Ozeanien",
     "areaKm2": 12189,
     "fact": "Vanuatu ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 299882,
+    "populationYear": 2019,
     "flag": "assets/flags/vu.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Vanuatu",
     "anchor": [
@@ -3856,6 +4222,8 @@
     "continent": "Europa",
     "areaKm2": 0.44,
     "fact": "Vatikanstadt ist flächenmäßig der kleinste Staat der Welt und liegt innerhalb Roms.",
+    "population": 825,
+    "populationYear": 2019,
     "flag": "assets/flags/va.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Vatikanstadt",
     "anchor": [
@@ -3877,6 +4245,8 @@
     "continent": "Südamerika",
     "areaKm2": 916445,
     "fact": "Venezuela liegt in Südamerika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 28515829,
+    "populationYear": 2019,
     "flag": "assets/flags/ve.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Venezuela",
     "anchor": [
@@ -3898,6 +4268,8 @@
     "continent": "Asien",
     "areaKm2": 83600,
     "fact": "Vereinigte Arabische Emirate liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 9770529,
+    "populationYear": 2019,
     "flag": "assets/flags/ae.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Vereinigte_Arabische_Emirate",
     "anchor": [
@@ -3919,6 +4291,8 @@
     "continent": "Nordamerika",
     "areaKm2": 9372610,
     "fact": "Die Vereinigten Staaten bestehen aus 50 Bundesstaaten.",
+    "population": 328239523,
+    "populationYear": 2019,
     "flag": "assets/flags/us.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Vereinigte_Staaten",
     "anchor": [
@@ -3940,6 +4314,8 @@
     "continent": "Europa",
     "areaKm2": 242900,
     "fact": "Vereinigtes Königreich liegt in Europa und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 66834405,
+    "populationYear": 2019,
     "flag": "assets/flags/gb.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Vereinigtes_K%C3%B6nigreich",
     "anchor": [
@@ -3961,6 +4337,8 @@
     "continent": "Asien",
     "areaKm2": 331212,
     "fact": "Vietnam liegt in Asien und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 96462106,
+    "populationYear": 2019,
     "flag": "assets/flags/vn.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Vietnam",
     "anchor": [
@@ -3982,6 +4360,8 @@
     "continent": "Afrika",
     "areaKm2": 622984,
     "fact": "Zentralafrikanische Republik ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 4745185,
+    "populationYear": 2019,
     "flag": "assets/flags/cf.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Zentralafrikanische_Republik",
     "anchor": [
@@ -4003,6 +4383,8 @@
     "continent": "Europa",
     "areaKm2": 9251,
     "fact": "Zypern ist ein Inselstaat ohne Landgrenzen zu anderen Staaten.",
+    "population": 1198575,
+    "populationYear": 2019,
     "flag": "assets/flags/cy.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/Zypern",
     "anchor": [
@@ -4024,6 +4406,8 @@
     "continent": "Afrika",
     "areaKm2": 1002450,
     "fact": "Der Nil durchquert Ägypten von Süden nach Norden.",
+    "population": 100388073,
+    "populationYear": 2019,
     "flag": "assets/flags/eg.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/%C3%84gypten",
     "anchor": [
@@ -4045,6 +4429,8 @@
     "continent": "Afrika",
     "areaKm2": 28051,
     "fact": "Äquatorialguinea liegt in Afrika und besitzt sowohl eine Meeresküste als auch Landgrenzen.",
+    "population": 1355986,
+    "populationYear": 2019,
     "flag": "assets/flags/gq.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/%C3%84quatorialguinea",
     "anchor": [
@@ -4066,6 +4452,8 @@
     "continent": "Afrika",
     "areaKm2": 1104300,
     "fact": "Äthiopien ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 112078730,
+    "populationYear": 2019,
     "flag": "assets/flags/et.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/%C3%84thiopien",
     "anchor": [
@@ -4087,6 +4475,8 @@
     "continent": "Europa",
     "areaKm2": 83871,
     "fact": "Österreich ist ein Binnenstaat und hat keinen direkten Zugang zum offenen Meer.",
+    "population": 8877067,
+    "populationYear": 2019,
     "flag": "assets/flags/at.svg",
     "wikipediaUrl": "https://de.wikipedia.org/wiki/%C3%96sterreich",
     "anchor": [

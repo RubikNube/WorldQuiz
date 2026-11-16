@@ -39,6 +39,9 @@ abgerufen am 16. November 2026 aus
 [Nutzungsbedingungen: Public Domain](https://www.naturalearthdata.com/about/terms-of-use/).
 Der Ausgangssnapshot ist als `assets/data/world-source.geojson` enthalten.
 Darstellung in Equal-Earth-Projektion (Šavrič, Patterson und Jenny, 2018).
+Die Einwohnerzahlen der Länderprofile verwenden die Felder `POP_EST` und
+`POP_YEAR` dieses Snapshots. Es sind gerundete Schätzungen von 2019–2020;
+das jeweilige Bezugsjahr wird neben der Einwohnerzahl angezeigt.
 
 Die Karte folgt den [De-facto-Grenzen von Natural Earth](https://www.naturalearthdata.com/about/disputed-boundaries-policy/).
 Diese Darstellung ist keine Aussage über die völkerrechtliche Anerkennung.

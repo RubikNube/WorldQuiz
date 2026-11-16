@@ -5,6 +5,19 @@ import { readFile, access } from 'node:fs/promises';
 const countries = JSON.parse(await readFile(new URL('../assets/data/countries.json', import.meta.url)));
 const svg = await readFile(new URL('../src/world.svg', import.meta.url), 'utf8');
 const source = JSON.parse(await readFile(new URL('../assets/data/countries-source.json', import.meta.url)));
+const features = JSON.parse(await readFile(new URL('../assets/data/world-source.geojson', import.meta.url))).features;
+
+test('all population estimates and reference years match the bundled map source', () => {
+  for (const c of countries) {
+    const original = source.find(s => s.cca2.toLowerCase() === c.code);
+    const feature = features.find(f => f.properties.ADM0_A3 === original.cca3)
+      || features.find(f => f.properties.ISO_A2_EH === original.cca2);
+    assert.ok(Number.isInteger(c.population) && c.population > 0, c.code);
+    assert.ok(Number.isInteger(c.populationYear) && c.populationYear >= 2019 && c.populationYear <= 2020, c.code);
+    assert.equal(c.population, Math.round(feature.properties.POP_EST), c.code);
+    assert.equal(c.populationYear, feature.properties.POP_YEAR, c.code);
+  }
+});
 
 test('all 195 UN-set profiles are complete, uniquely keyed, and geographically selectable', async () => {
   assert.equal(countries.length, 195);

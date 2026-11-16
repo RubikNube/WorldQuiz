@@ -164,9 +164,11 @@ try {
   await countryClick('de');
   await wait(`!document.querySelector('#flagFallback').hidden`);
   assert.equal(await evaluate(`document.querySelector('#capital').textContent`), 'Berlin');
+  assert.equal(await evaluate(`document.querySelector('#population').textContent`), 'ca. 83.132.799 (2019)');
   await cdp('Network.setBlockedURLs', { urls: [] });
   await countryClick('va');
   assert.equal(await evaluate(`document.querySelector('#countryName').textContent`), 'Vatikanstadt');
+  assert.equal(await evaluate(`document.querySelector('#population').textContent`), 'ca. 825 (2019)');
   await click('#closeInfo');
   await click('[data-mode="quiz"]');
   for (const continent of ['Afrika', 'Asien', 'Europa', 'Nordamerika', 'Südamerika', 'Ozeanien']) {
@@ -246,7 +248,7 @@ try {
   // Match BayernQuiz: details remain inline and scroll into the visible viewport.
   await click('#start');
   await evaluate(`document.querySelector('#mapHost').scrollIntoView({block:'start'})`);
-  for (const [width, height] of [[390, 844], [375, 667], [844, 390]]) {
+  for (const [width, height] of [[320, 667], [390, 844], [375, 667], [844, 390]]) {
     await cdp('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: true });
     await settleLayout();
     const mobileZoom = await evaluate(`document.querySelector('#worldMap').getAttribute('viewBox')`);
@@ -256,6 +258,14 @@ try {
     assert.equal(await evaluate(`document.querySelector('dialog[open]')===null`), true);
     assert.equal(await evaluate(`getComputedStyle(document.documentElement).overflow!=='hidden'`), true);
     assert.equal(await evaluate(`document.querySelector('#worldMap').getAttribute('viewBox')`), mobileZoom);
+    assert.equal(await evaluate(`document.documentElement.scrollWidth<=innerWidth`), true);
+    assert.equal(await evaluate(`(()=>{const label=document.querySelector('#population').previousElementSibling;return label.getBoundingClientRect().height<=parseFloat(getComputedStyle(label).lineHeight)+1})()`), true, 'Population label fits on one line');
+    for (const code of ['cn', 'za', 'bo', 'va']) {
+      await countryClick(code);
+      assert.equal(await evaluate(`document.documentElement.scrollWidth<=innerWidth`), true, `${code}: no horizontal overflow`);
+      assert.equal(await evaluate(`document.querySelector('#population').textContent`), await evaluate(`(()=>{const c=window.testCountries.find(c=>c.code==='${code}');return 'ca. '+new Intl.NumberFormat('de-DE').format(c.population)+' ('+c.populationYear+')'})()`));
+    }
+    if (width === 320 || width === 390) await screenshot(`/tmp/worldquiz-population-${width}.png`);
   }
   // Tall cards align their beginning; reduced motion uses immediate scrolling.
   await cdp('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });

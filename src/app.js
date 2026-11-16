@@ -126,6 +126,7 @@ function showCountry(code, reveal = false) {
   $('countryContinent').textContent = c.continent;
   $('capital').textContent = c.capitals.join(' · ');
   $('area').textContent = `ca. ${number.format(c.areaKm2)} km²`;
+  $('population').textContent = `ca. ${number.format(c.population)} (${c.populationYear})`;
   $('fact').textContent = c.fact;
   $('wikipedia').href = c.wikipediaUrl;
   $('flag').hidden = false;

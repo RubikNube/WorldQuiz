@@ -96,6 +96,7 @@ def main():
     countries = [c for c in original if c['unMember'] or c['cca2'] in ('VA', 'PS')]
     assert len(countries) == 195
     features = json.loads((DATA / 'world-source.geojson').read_text())['features']
+    population_by3 = {f['properties']['ADM0_A3']: f['properties'] for f in features}
     by3 = {c['cca3']: c['cca2'].lower() for c in countries}
     by2 = {c['cca2']: c['cca2'].lower() for c in countries}
     by_feature = {}
@@ -110,6 +111,7 @@ def main():
         code = c['cca2'].lower()
         name = NAMES.get(c['cca2'], c['translations']['deu']['common'])
         f = by_feature.get(code)
+        population_source = population_by3.get(c['cca3'], f['properties'])
         if c['cca2'] == 'RU':
             anchor = project(37.62, 55.75)  # European heartland rather than Siberia.
         elif f and c['area'] > 12000:
@@ -127,6 +129,8 @@ def main():
         profiles.append({
             'code': code, 'name': name, 'capitals': CAPITALS.get(c['cca2'], c['capital']),
             'continent': continent(c), 'areaKm2': c['area'], 'fact': fact,
+            'population': round(population_source['POP_EST']),
+            'populationYear': population_source['POP_YEAR'],
             'flag': f'assets/flags/{code}.svg',
             'wikipediaUrl': 'https://de.wikipedia.org/wiki/' + quote(WIKI.get(c['cca2'], name).replace(' ', '_')),
             'anchor': anchor, 'marker': c['area'] < 12000 or not f or (not c['borders'] and c['area'] < 40000),

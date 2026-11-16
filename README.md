@@ -20,7 +20,7 @@ Die Anwendung lädt ihre lokalen Daten über HTTP.
 
 **Lernen** ist standardmäßig ausgewählt. Ein Klick auf ein Land oder einen
 kleinen Länderpunkt öffnet Flagge, deutschen Namen, Hauptstadt beziehungsweise
-Regierungssitz, Kontinent, ungefähre Fläche, einen kurzen Fakt und einen
+Regierungssitz, Kontinent, ungefähre Fläche, geschätzte Einwohnerzahl mit Bezugsjahr, einen kurzen Fakt und einen
 deutschen Wikipedia-Link. Über die Region kann die Karte auf einen Kontinent
 fokussiert werden. Die übrigen Länder bleiben anklickbar.
 Auf Smartphones und Tablets werden die Länderinformationen unterhalb der Karte
@@ -87,6 +87,8 @@ Der Metadatensnapshot stammt aus mledoze/countries (ODbL), anstelle der im
 ursprünglichen Entwurf vorgesehenen Wikidata-Abfrage. Die abgeleitete Datenbank
 und die Lizenz werden mit ausgeliefert. Quellen, Abrufdatum und Lizenzhinweise
 stehen in [ATTRIBUTION.md](ATTRIBUTION.md).
+Die Einwohnerzahlen stammen aus dem gebündelten Natural-Earth-Snapshot
+(Schätzungen von 2019–2020) und werden nicht laufend aktualisiert.
 
 ## Statisch veröffentlichen
 

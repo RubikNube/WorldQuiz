@@ -87,6 +87,11 @@ beispielsweise GitHub Pages. Domainwurzel und Unterverzeichnisse wie
 ausliefern. JavaScript als JavaScript und SVG als `image/svg+xml` ausliefern.
 Ein Backend, Benutzerkonto oder API-Schlüssel ist nicht erforderlich.
 
+Für GitHub Pages unter **Settings → Pages → Source** die Option
+**GitHub Actions** auswählen. Der Workflow `.github/workflows/pages.yml`
+baut und veröffentlicht die App bei jedem Push auf `main`. Er kann auch
+manuell über **Actions → Deploy to GitHub Pages → Run workflow** gestartet werden.
+
 ## Tests
 
 `npm test` prüft Ländervollständigkeit und lokale Flaggen, Kartenreferenzen,

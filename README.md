@@ -23,6 +23,9 @@ kleinen Länderpunkt öffnet Flagge, deutschen Namen, Hauptstadt beziehungsweise
 Regierungssitz, Kontinent, ungefähre Fläche, einen kurzen Fakt und einen
 deutschen Wikipedia-Link. Über die Region kann die Karte auf einen Kontinent
 fokussiert werden. Die übrigen Länder bleiben anklickbar.
+Auf Smartphones und Tablets werden die Länderinformationen unterhalb der Karte
+angezeigt und automatisch in den sichtbaren Bereich gescrollt. Im Quiz bleibt die
+Frage angeheftet; **Weiter** bringt die nächste Frage und die Karte wieder ins Bild.
 
 **Länder finden** fragt nach der Lage eines Landes. Zur Auswahl stehen 5, 10,
 15, 20 oder alle Länder der Region; Standard sind 10. Ziele wiederholen sich

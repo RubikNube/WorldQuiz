@@ -45,12 +45,38 @@ async function wait(expression) {
   }
   throw Error(`Timed out: ${expression}`);
 }
-const click = selector => evaluate(`document.querySelector(${JSON.stringify(selector)}).click()`);
+async function settleLayout() {
+  await evaluate(`new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))`);
+}
+async function waitForInfo() {
+  await settleLayout();
+  await wait(`(()=>{
+    const card=document.querySelector('#countryInfo').getBoundingClientRect();
+    const question=document.querySelector('#questionBar');
+    const top=(getComputedStyle(question).position==='sticky'?question.getBoundingClientRect().height:0)+12;
+    return card.top>=top-2 && (card.height>innerHeight-top-12 || card.bottom<=innerHeight-10);
+  })()`);
+}
+async function waitForQuestionMap() {
+  await settleLayout();
+  await wait(`(()=>{
+    const question=document.querySelector('#questionBar');
+    const sticky=getComputedStyle(question).position==='sticky';
+    const target=sticky?document.querySelector('.mapWrap'):question;
+    const top=(sticky?question.getBoundingClientRect().height:0)+12;
+    return Math.abs(target.getBoundingClientRect().top-top)<2;
+  })()`);
+}
+async function click(selector) {
+  await evaluate(`document.querySelector(${JSON.stringify(selector)}).click()`);
+  if (selector==='#next' && await evaluate(`matchMedia('(max-width:1099px)').matches&&!document.querySelector('#quizStats').hidden`)) await waitForQuestionMap();
+}
 const choose = (id, value) => evaluate(`document.getElementById(${JSON.stringify(id)}).value=${JSON.stringify(value)};document.getElementById(${JSON.stringify(id)}).dispatchEvent(new Event('change'))`);
 const countryClick = code => evaluate(`document.querySelector('[data-country="${code}"]').dispatchEvent(new MouseEvent('click',{bubbles:true}))`);
 async function correct() {
   const code = await evaluate(`window.testCountries.find(c=>(document.querySelector('#modeName').textContent==='Hauptstädte zuordnen'?c.capitals.join(' · '):c.name)===document.querySelector('#question strong').textContent).code`);
   await countryClick(code);
+  if (await evaluate(`matchMedia('(max-width:1099px)').matches`)) await waitForInfo();
 }
 async function capitalsRound(all = false) {
   await click('#changeMode');
@@ -59,6 +85,7 @@ async function capitalsRound(all = false) {
   const total = all ? 195 : 5;
   await choose('count', String(total));
   await click('#start');
+  if (!all) await waitForQuestionMap();
   assert.match(await evaluate(`document.querySelector('#questionTopic').textContent`), /HAUPTSTÄDTE ZUORDNEN/);
   const seen = new Set();
   let missed;
@@ -87,6 +114,12 @@ async function capitalsRound(all = false) {
   if (all) assert.equal(seen.size, 195);
   assert.equal(await evaluate(`document.querySelector('#resultTitle').textContent`), `${total - 1} von ${total} richtig`);
   assert.ok((await evaluate(`document.querySelector('#mistakeList').textContent`)).includes(missed.capitals.join(' · ')));
+  if (!all) {
+    await click('#mistakeList button');
+    await waitForInfo();
+    await click('#closeInfo');
+    assert.equal(await evaluate(`document.activeElement.id`), 'mapHost');
+  }
   await click('#retry');
   await click('#restart');
   assert.equal(await evaluate(`document.querySelector('#question strong').textContent`), missed.capitals.join(' · '));
@@ -210,9 +243,35 @@ try {
   await cdp('Page.navigate', { url: base });
   await wait(`document.querySelector('#worldMap') && document.querySelector('#mapHost').getAttribute('aria-busy')==='false'`);
   await evaluate(`(async()=>{window.testCountries=await (await fetch('assets/data/countries.json')).json()})()`);
+  // Match BayernQuiz: details remain inline and scroll into the visible viewport.
+  await click('#start');
+  await evaluate(`document.querySelector('#mapHost').scrollIntoView({block:'start'})`);
+  for (const [width, height] of [[390, 844], [375, 667], [844, 390]]) {
+    await cdp('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: true });
+    await settleLayout();
+    const mobileZoom = await evaluate(`document.querySelector('#worldMap').getAttribute('viewBox')`);
+    await countryClick('de');
+    await waitForInfo();
+    assert.equal(await evaluate(`document.querySelector('#countryInfo').parentElement.className`), 'sidebar');
+    assert.equal(await evaluate(`document.querySelector('dialog[open]')===null`), true);
+    assert.equal(await evaluate(`getComputedStyle(document.documentElement).overflow!=='hidden'`), true);
+    assert.equal(await evaluate(`document.querySelector('#worldMap').getAttribute('viewBox')`), mobileZoom);
+  }
+  // Tall cards align their beginning; reduced motion uses immediate scrolling.
+  await cdp('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
+  await countryClick('fr');
+  await evaluate(`document.querySelector('#fact').textContent='Lange Länderinformationen. '.repeat(100)`);
+  await waitForInfo();
+  assert.equal(await evaluate(`document.querySelector('#countryInfo').getBoundingClientRect().height>innerHeight`), true);
+  await click('#closeInfo');
+  assert.equal(await evaluate(`document.activeElement.id`), 'mapHost');
+  assert.equal(await evaluate(`document.querySelector('#countryInfo').hidden`), true);
+  await cdp('Emulation.setEmulatedMedia', { features: [] });
+  await cdp('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
   await click('[data-mode="quiz"]');
   await choose('count', '5');
   await click('#start');
+  await waitForQuestionMap();
   assert.equal(await evaluate(`document.querySelector('#settings').open`), false);
   assert.equal(await evaluate(`document.documentElement.scrollWidth<=window.innerWidth`), true);
   await screenshot('/tmp/worldquiz-mobile.png');

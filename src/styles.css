@@ -285,8 +285,8 @@ progress{
   position:absolute;
   right:10px;
   top:10px;
-  width:36px;
-  min-height:36px;
+  width:44px;
+  min-height:44px;
   padding:0;
   font-size:1.4rem
 }
@@ -572,8 +572,13 @@ dialog::backdrop{
   .results{
     order:4
   }
+  body.quizActive{
+    overflow-anchor:none
+  }
   .quizActive .questionBar{
-    top:0
+    top:0;
+    max-height:48dvh;
+    overflow-y:auto
   }
   .mapHost{
     height:clamp(320px,55dvh,600px)

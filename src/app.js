@@ -14,6 +14,53 @@ const regionBounds = {
 let countries, byCode, validCodes, zoom, svg;
 let mode = 'learn', game = null, selectedCode = null;
 const number = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2 });
+const mobileLayout = matchMedia('(max-width: 1099px)');
+const scrollBehavior = () => matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
+
+// Match BayernQuiz: reveal inline details below the pinned question.
+function revealCountryInfo() {
+  requestAnimationFrame(() => {
+    const card = $('countryInfo');
+    if (!card.getClientRects().length) return;
+    if (mobileLayout.matches) {
+      const viewport = window.visualViewport;
+      const viewportTop = viewport?.offsetTop ?? 0;
+      const viewportBottom = viewportTop + (viewport?.height ?? innerHeight);
+      const stickyHeight = getComputedStyle($('questionBar')).position === 'sticky'
+        ? $('questionBar').getBoundingClientRect().height : 0;
+      const top = viewportTop + stickyHeight + 12;
+      const bottom = viewportBottom - 12;
+      const detail = card.getBoundingClientRect();
+      const delta = detail.height > bottom - top || detail.top < top
+        ? detail.top - top : Math.max(0, detail.bottom - bottom);
+      if (Math.abs(delta) > 1) window.scrollBy({ top: delta, behavior: scrollBehavior() });
+    } else {
+      sizeSidebar();
+      const sidebar = document.querySelector('.sidebar');
+      const panel = sidebar.getBoundingClientRect();
+      const detail = card.getBoundingClientRect();
+      const stickyHeight = getComputedStyle($('questionBar')).position === 'sticky'
+        ? $('questionBar').getBoundingClientRect().height + 12 : 0;
+      const top = panel.top + stickyHeight;
+      if (detail.height > sidebar.clientHeight - stickyHeight || detail.top < top) sidebar.scrollTop += detail.top - top;
+      else if (detail.bottom > panel.bottom) sidebar.scrollTop += detail.bottom - panel.bottom;
+    }
+  });
+}
+
+function revealQuestionMap() {
+  // Wait for closing details and browser scroll adjustments before measuring.
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    if (!game || game.finished || !mobileLayout.matches) return;
+    const questionBar = $('questionBar');
+    const sticky = getComputedStyle(questionBar).position === 'sticky';
+    const target = sticky ? document.querySelector('.mapWrap') : questionBar;
+    const top = (window.visualViewport?.offsetTop ?? 0)
+      + (sticky ? questionBar.getBoundingClientRect().height : 0) + 12;
+    const delta = target.getBoundingClientRect().top - top;
+    if (Math.abs(delta) > 1) window.scrollTo({ top: Math.max(0, scrollY + delta), behavior: scrollBehavior() });
+  }));
+}
 
 function sizeSidebar() {
   const sidebar = document.querySelector('.sidebar');
@@ -87,12 +134,7 @@ function showCountry(code, reveal = false) {
   $('flag').src = c.flag;
   if (reveal) zoom.revealPoint(c.anchor);
   renderMap();
-  // Keep a desktop sidebar profile in view without jumping the page on mobile.
-  if (matchMedia('(min-width: 1100px)').matches) {
-    sizeSidebar();
-    const sidebar = document.querySelector('.sidebar');
-    sidebar.scrollTo({ top: Math.max(0, $('countryInfo').offsetTop - $('questionBar').offsetHeight - 12), behavior: 'instant' });
-  }
+  revealCountryInfo();
 }
 
 function renderQuestion() {
@@ -170,7 +212,7 @@ function startRound(practiceGame = null) {
   focusRegion();
   renderQuestion();
   renderMap();
-  if (matchMedia('(max-width: 1099px)').matches) $('questionBar').scrollIntoView({ block: 'start' });
+  revealQuestionMap();
 }
 
 function chooseMode(nextMode) {
@@ -240,7 +282,10 @@ async function initialize() {
     $('modeDialog').showModal();
   });
   $('closeDialog').addEventListener('click', () => $('modeDialog').close());
-  $('closeInfo').addEventListener('click', closeInfo);
+  $('closeInfo').addEventListener('click', () => {
+    closeInfo();
+    $('mapHost').focus({ preventScroll: true });
+  });
   $('start').addEventListener('click', () => {
     if (mode !== 'learn') startRound();
     else { launch(); focusRegion(); }
@@ -248,7 +293,7 @@ async function initialize() {
   $('restart').addEventListener('click', () => startRound(game.practice ? createGame(game.questions, game.questions.length, Math.random, true) : null));
   $('newRound').addEventListener('click', () => startRound());
   $('retry').addEventListener('click', () => { const practice = retryGame(game); if (practice) startRound(practice); });
-  $('next').addEventListener('click', () => {
+  function advanceQuestion() {
     if (!nextQuestion(game)) return;
     closeInfo();
     renderQuestion();
@@ -257,8 +302,12 @@ async function initialize() {
       renderResults();
       $('results').scrollIntoView({ block: 'nearest' });
       $('newRound').focus({ preventScroll: true });
-    } else $('questionBar').focus({ preventScroll: true });
-  });
+    } else {
+      $('questionBar').focus({ preventScroll: true });
+      revealQuestionMap();
+    }
+  }
+  $('next').addEventListener('click', advanceQuestion);
   $('questionBar').tabIndex = -1;
   $('continent').addEventListener('change', () => { game = null; closeInfo(); updateCounts(); focusRegion(); renderQuestion(); renderMap(); });
   $('count').addEventListener('change', () => {

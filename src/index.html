@@ -44,9 +44,11 @@
       </section>
       <section id="countryInfo" class="panel countryInfo" aria-labelledby="countryName" hidden>
         <button id="closeInfo" class="close secondary" aria-label="Länderinformationen schließen">×</button>
-        <div class="flagFrame"><img id="flag" alt=""><p id="flagFallback" hidden>Flagge nicht verfügbar</p></div>
-        <span id="countryContinent" class="eyebrow"></span><h2 id="countryName"></h2>
-        <dl><dt>Hauptstadt / Regierungssitz</dt><dd id="capital"></dd><dt>Fläche</dt><dd id="area"></dd></dl>
+        <div class="countryHeader">
+          <div class="flagFrame"><img id="flag" alt=""><p id="flagFallback" hidden>Flagge nicht verfügbar</p></div>
+          <div class="countryIdentity"><span id="countryContinent" class="eyebrow"></span><h2 id="countryName"></h2></div>
+        </div>
+        <dl><dt>Hauptstadt</dt><dd id="capital"></dd><dt>Fläche</dt><dd id="area"></dd></dl>
         <p id="fact"></p><a id="wikipedia" target="_blank" rel="noopener noreferrer">Mehr auf Wikipedia ↗</a>
       </section>
       <section id="results" class="panel results" aria-labelledby="resultTitle" hidden>

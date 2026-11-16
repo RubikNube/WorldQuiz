@@ -641,6 +641,44 @@ dialog::backdrop{
   .panel{
     padding:15px
   }
+  .countryHeader{
+    display:grid;
+    grid-template-columns:64px minmax(0,1fr);
+    align-items:center;
+    gap:10px;
+    min-height:44px;
+    padding-right:48px;
+    margin-bottom:12px
+  }
+  .countryHeader .flagFrame{
+    height:auto;
+    min-height:48px;
+    margin:0
+  }
+  .countryHeader .flagFrame img{
+    max-width:64px;
+    max-height:48px
+  }
+  .countryHeader #flagFallback{
+    margin:0;
+    font-size:.75rem;
+    line-height:1.25
+  }
+  .countryIdentity{
+    min-width:0
+  }
+  .countryInfo h2{
+    line-height:1.2;
+    margin:2px 0 0
+  }
+  .countryInfo dl{
+    grid-template-columns:minmax(0,1fr) minmax(0,2fr);
+    gap:6px 10px;
+    margin-bottom:10px
+  }
+  .countryInfo #fact{
+    margin-bottom:8px
+  }
   .mapHeader{
     padding:15px 15px 0
   }

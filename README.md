@@ -31,6 +31,12 @@ Antwort wird grün, eine falsche Auswahl rot markiert und zusätzlich als Text
 erklärt. Nach der Antwort öffnen sich die Informationen zum gesuchten Land.
 Weitere Klicks erlauben das Erkunden, ohne Punkte zu verändern.
 
+**Hauptstädte zuordnen** nennt eine Hauptstadt beziehungsweise einen Regierungssitz.
+Wähle das zugehörige Land auf der Karte. Bei mehreren hinterlegten Hauptstädten
+oder Sitzen werden alle Namen mit ihren Zusatzangaben gemeinsam angezeigt.
+Regionen, Fragenanzahl, Wertung und Fehlerübungen funktionieren wie bei
+**Länder finden**. Rückmeldungen und Fehlerübersicht enthalten auch die Hauptstädte.
+
 **Weiter** zeigt die nächste Frage. Nach der letzten Antwort beendet
 **Ergebnis ansehen** die Runde. Das Ergebnis enthält die Fehlerübersicht;
 **Fehler wiederholen** übt nur diese Ziele, auch wenn nur ein Fehler vorliegt.

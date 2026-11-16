@@ -49,8 +49,63 @@ const click = selector => evaluate(`document.querySelector(${JSON.stringify(sele
 const choose = (id, value) => evaluate(`document.getElementById(${JSON.stringify(id)}).value=${JSON.stringify(value)};document.getElementById(${JSON.stringify(id)}).dispatchEvent(new Event('change'))`);
 const countryClick = code => evaluate(`document.querySelector('[data-country="${code}"]').dispatchEvent(new MouseEvent('click',{bubbles:true}))`);
 async function correct() {
-  const code = await evaluate(`window.testCountries.find(c=>c.name===document.querySelector('#question strong').textContent).code`);
+  const code = await evaluate(`window.testCountries.find(c=>(document.querySelector('#modeName').textContent==='Hauptstädte zuordnen'?c.capitals.join(' · '):c.name)===document.querySelector('#question strong').textContent).code`);
   await countryClick(code);
+}
+async function capitalsRound(all = false) {
+  await click('#changeMode');
+  await click('.dialogModes [data-mode="capitals"]');
+  await choose('continent', 'Welt');
+  const total = all ? 195 : 5;
+  await choose('count', String(total));
+  await click('#start');
+  assert.match(await evaluate(`document.querySelector('#questionTopic').textContent`), /HAUPTSTÄDTE ZUORDNEN/);
+  const seen = new Set();
+  let missed;
+  for (let i = 0; i < total; i++) {
+    const prompt = await evaluate(`document.querySelector('#question strong').textContent`);
+    const target = await evaluate(`window.testCountries.find(c=>c.capitals.join(' · ')===document.querySelector('#question strong').textContent)`);
+    assert.ok(target, 'Prompt preserves all capitals and qualifiers');
+    assert.equal(seen.has(target.code), false);
+    seen.add(target.code);
+    assert.equal(await evaluate(`document.querySelector('#countryInfo').hidden`), true);
+    if (i === 0) {
+      missed = target;
+      await countryClick(target.code === 'de' ? 'fr' : 'de');
+      await correct();
+      assert.equal(await evaluate(`document.querySelector('#points').textContent`), '0 Punkte');
+      await click('#changeMode');
+      await click('.dialogModes [data-mode="capitals"]');
+      assert.equal(await evaluate(`document.querySelector('#question strong').textContent`), prompt);
+      assert.equal(await evaluate(`document.querySelector('#progress').value`), 1);
+    } else await correct();
+    const feedback = await evaluate(`document.querySelector('#feedback').textContent`);
+    assert.ok(feedback.includes(target.name));
+    assert.ok(feedback.includes(prompt));
+    await click('#next');
+  }
+  if (all) assert.equal(seen.size, 195);
+  assert.equal(await evaluate(`document.querySelector('#resultTitle').textContent`), `${total - 1} von ${total} richtig`);
+  assert.ok((await evaluate(`document.querySelector('#mistakeList').textContent`)).includes(missed.capitals.join(' · ')));
+  await click('#retry');
+  await click('#restart');
+  assert.equal(await evaluate(`document.querySelector('#question strong').textContent`), missed.capitals.join(' · '));
+  assert.equal(await evaluate(`document.querySelector('#questionCount').textContent`), 'Frage 1/1');
+  await evaluate(`document.querySelector('[data-country="${missed.code}"]').focus()`);
+  await cdp('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13 });
+  await cdp('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13 });
+  assert.equal(await evaluate(`document.querySelector('#progress').value`), 1);
+  await click('#next');
+  assert.equal(await evaluate(`document.querySelector('#retry').hidden`), true);
+  await click('#newRound');
+  await click('#restart');
+  assert.equal(await evaluate(`document.querySelector('#questionCount').textContent`), `Frage 1/${total}`);
+  assert.match(await evaluate(`document.querySelector('#questionTopic').textContent`), /HAUPTSTÄDTE ZUORDNEN/);
+  assert.equal(await evaluate(`document.documentElement.scrollWidth<=window.innerWidth`), true);
+  await screenshot(all ? '/tmp/worldquiz-capitals-desktop.png' : '/tmp/worldquiz-capitals-mobile.png');
+  await click('#changeMode');
+  await click('.dialogModes [data-mode="quiz"]');
+  assert.equal(await evaluate(`document.querySelector('#quizStats').hidden`), true);
 }
 async function screenshot(path) {
   const response = await cdp('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
@@ -145,6 +200,7 @@ try {
   const diameter = await evaluate(`document.querySelector('.marker-dot').getBoundingClientRect().width`);
   assert.ok(diameter > 6 && diameter < 8, `Marker screen diameter ${diameter}`);
   await click('#resetMap');
+  await capitalsRound(true);
   // Mobile layout and touch map gestures.
   await cdp('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
   await cdp('Emulation.setTouchEmulationEnabled', { enabled: true, maxTouchPoints: 2 });
@@ -173,10 +229,11 @@ try {
   await correct();
   await screenshot('/tmp/worldquiz-mobile-answer.png');
   assert.equal(await evaluate(`document.documentElement.scrollWidth<=window.innerWidth`), true);
+  await capitalsRound();
   assert.deepEqual(exceptions, []);
   assert.deepEqual(failures, []);
   assert.ok(requests.every(url => url.startsWith(new URL(base).origin) || url.startsWith('data:')), 'No external API or image requests');
-  console.log('Browser checks passed: profiles, flag fallback, scoring, practice, keyboard, drag, pinch, desktop/mobile, local requests.');
+  console.log('Browser checks passed: profiles, flag fallback, country/capitals quizzes, all 195 capital prompts, scoring, practice, keyboard, drag, pinch, desktop/mobile, local requests.');
   console.log('Screenshots: /tmp/worldquiz-desktop.png, /tmp/worldquiz-mobile.png, /tmp/worldquiz-mobile-answer.png');
 } finally {
   ws.close();

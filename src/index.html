@@ -21,6 +21,7 @@
     <div class="modeGrid">
       <button class="modeCard selected" data-mode="learn" aria-pressed="true"><img src="globe.svg" alt="" width="72" height="72"><span><strong>Lernen</strong><span>Erkunde Länder, Flaggen und Hauptstädte in deinem Tempo.</span><small>Ohne Wertung</small></span></button>
       <button class="modeCard" data-mode="quiz" aria-pressed="false"><span class="cardIcon" aria-hidden="true">⌖</span><span><strong>Länder finden</strong><span>Weißt du, wo es liegt? Zeige das gesuchte Land auf der Karte.</span><small>Weltweit oder nach Kontinent</small></span></button>
+      <button class="modeCard" data-mode="capitals" aria-pressed="false"><span class="cardIcon" aria-hidden="true">⌂</span><span><strong>Hauptstädte zuordnen</strong><span>Zu welchem Land gehört die Hauptstadt? Wähle es auf der Karte.</span><small>Weltweit oder nach Kontinent</small></span></button>
     </div>
   </section>
   <div class="workspace">
@@ -65,6 +66,6 @@
   <footer><span>WorldQuiz · Die Welt kennenlernen</span><a href="ATTRIBUTION.md">Daten &amp; Quellen</a><span>195 Länder: UN-Mitglieder sowie Vatikanstadt und Palästina. Grenzen nach Natural Earth; umstrittene Gebiete sind schematisch dargestellt.</span></footer>
   <noscript><p>Bitte aktiviere JavaScript, um die Karte und das Quiz zu verwenden.</p></noscript>
 </main>
-<dialog id="modeDialog" aria-labelledby="dialogTitle"><div class="dialogHeader"><h2 id="dialogTitle">Modus auswählen</h2><button id="closeDialog" class="secondary" aria-label="Modusauswahl schließen">×</button></div><p class="muted">Ein anderer Modus beendet die aktuelle Runde.</p><div class="dialogModes"><button data-mode="learn">Lernen</button><button data-mode="quiz">Länder finden</button></div></dialog>
+<dialog id="modeDialog" aria-labelledby="dialogTitle"><div class="dialogHeader"><h2 id="dialogTitle">Modus auswählen</h2><button id="closeDialog" class="secondary" aria-label="Modusauswahl schließen">×</button></div><p class="muted">Ein anderer Modus beendet die aktuelle Runde.</p><div class="dialogModes"><button data-mode="learn">Lernen</button><button data-mode="quiz">Länder finden</button><button data-mode="capitals">Hauptstädte zuordnen</button></div></dialog>
 </body>
 </html>

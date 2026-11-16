@@ -2,7 +2,7 @@ import { eligibleCountries, allowedCounts, createGame, currentQuestion, answer, 
 import { createMapZoom } from './map-zoom.js';
 
 const $ = id => document.getElementById(id);
-const names = { learn: 'Lernen', quiz: 'Länder finden' };
+const names = { learn: 'Lernen', quiz: 'Länder finden', capitals: 'Hauptstädte zuordnen' };
 const regionBounds = {
   Afrika: { x: 465, y: 155, width: 315, height: 310 },
   Asien: { x: 650, y: 25, width: 525, height: 355 },
@@ -105,16 +105,18 @@ function renderQuestion() {
   $('next').hidden = true;
   $('instructions').hidden = false;
   if (!active) {
-    $('questionTopic').textContent = mode === 'learn' ? 'DIE WELT ENTDECKEN' : 'LÄNDER FINDEN';
+    $('questionTopic').textContent = mode === 'learn' ? 'DIE WELT ENTDECKEN' : names[mode].toLocaleUpperCase('de-DE');
     $('question').textContent = mode === 'learn' ? 'Welches Land interessiert dich?' : game?.finished ? 'Weiter auf Entdeckungsreise' : 'Bereit für eine Weltreise?';
     $('instructions').textContent = 'Klicke auf ein Land oder einen kleinen Länderpunkt, um mehr zu erfahren.';
     return;
   }
   const c = currentQuestion(game);
-  $('questionTopic').textContent = game.practice ? 'FEHLER ÜBEN · OHNE WERTUNG' : 'LÄNDER FINDEN';
+  $('questionTopic').textContent = game.practice ? 'FEHLER ÜBEN · OHNE WERTUNG' : names[mode].toLocaleUpperCase('de-DE');
   const strong = document.createElement('strong');
-  strong.textContent = c.name;
-  $('question').replaceChildren('Wo liegt ', strong, '?');
+  strong.textContent = mode === 'capitals' ? c.capitals.join(' · ') : c.name;
+  $('question').replaceChildren(mode === 'capitals'
+    ? 'Zu welchem Land gehört diese Hauptstadt / dieser Regierungssitz: '
+    : 'Wo liegt ', strong, '?');
   $('instructions').textContent = 'Wähle das gesuchte Land auf der Karte.';
   $('questionCount').textContent = `Frage ${game.index + 1}/${game.questions.length}`;
   $('points').textContent = `${score(game)} Punkte`;
@@ -126,6 +128,7 @@ function renderQuestion() {
     $('instructions').hidden = true;
     $('feedback').className = response.correct ? 'good' : 'bad';
     $('feedback').textContent = response.correct ? `Richtig! Das ist ${c.name}.` : `Deine Antwort: ${byCode.get(response.selected).name}. Richtige Antwort: ${c.name}.`;
+    if (mode === 'capitals') $('feedback').textContent += ` Hauptstadt / Regierungssitz: ${c.capitals.join(' · ')}.`;
     $('next').hidden = false;
     $('next').textContent = game.index === game.questions.length - 1 ? 'Ergebnis ansehen' : 'Weiter';
   }
@@ -143,6 +146,7 @@ function renderResults() {
     button.addEventListener('click', () => showCountry(a.target, true));
     const text = document.createElement('span');
     text.textContent = `Deine Antwort: ${byCode.get(a.selected).name} · Richtig: ${byCode.get(a.target).name}`;
+    if (mode === 'capitals') text.textContent += ` · Hauptstadt / Regierungssitz: ${byCode.get(a.target).capitals.join(' · ')}`;
     li.append(button, text);
     return li;
   }));
@@ -238,7 +242,7 @@ async function initialize() {
   $('closeDialog').addEventListener('click', () => $('modeDialog').close());
   $('closeInfo').addEventListener('click', closeInfo);
   $('start').addEventListener('click', () => {
-    if (mode === 'quiz') startRound();
+    if (mode !== 'learn') startRound();
     else { launch(); focusRegion(); }
   });
   $('restart').addEventListener('click', () => startRound(game.practice ? createGame(game.questions, game.questions.length, Math.random, true) : null));

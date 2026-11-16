@@ -115,7 +115,7 @@ p{
 }
 .modeGrid{
   display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-columns:repeat(3,minmax(0,1fr));
   gap:14px
 }
 .modeCard{
@@ -524,10 +524,11 @@ dialog::backdrop{
 }
 .dialogModes{
   display:flex;
+  flex-wrap:wrap;
   gap:12px
 }
 .dialogModes button{
-  flex:1
+  flex:1 1 160px
 }
 @media(min-width:1600px){
   .mapHost{

@@ -440,6 +440,7 @@ progress{
 }
 .mapToolbar{
   display:flex;
+  flex-wrap:wrap;
   align-items:center;
   justify-content:center;
   gap:8px;
@@ -474,8 +475,7 @@ progress{
 .mapHelp{
   font-size:.8rem;
   color:var(--muted);
-  border-top:1px solid #263552;
-  padding:0 20px 12px
+  padding:0 20px
 }
 .mapHelp summary{
   cursor:pointer;

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="description" content="Entdecke 195 Länder, ihre Flaggen und Hauptstädte. Übe die Lage der Länder auf einer interaktiven Weltkarte.">
+  <title>WorldQuiz – Die Länder der Welt entdecken</title>
+  <link rel="icon" href="globe.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+<main class="container">
+  <header class="topbar">
+    <div><h1><img src="globe.svg" alt="" width="48" height="48">WorldQuiz</h1><p class="subtitle">Eine Welt, 195 Länder. Entdecke, lerne und finde sie auf der Karte.</p></div>
+    <span class="eyebrow">DEINE REISE UM DIE WELT</span>
+  </header>
+  <section id="modeCards" aria-labelledby="modeHeading">
+    <h2 id="modeHeading">Was möchtest du entdecken?</h2>
+    <div class="modeGrid">
+      <button class="modeCard selected" data-mode="learn" aria-pressed="true"><img src="globe.svg" alt="" width="72" height="72"><span><strong>Lernen</strong><span>Erkunde Länder, Flaggen und Hauptstädte in deinem Tempo.</span><small>Ohne Wertung</small></span></button>
+      <button class="modeCard" data-mode="quiz" aria-pressed="false"><span class="cardIcon" aria-hidden="true">⌖</span><span><strong>Länder finden</strong><span>Weißt du, wo es liegt? Zeige das gesuchte Land auf der Karte.</span><small>Weltweit oder nach Kontinent</small></span></button>
+    </div>
+  </section>
+  <div class="workspace">
+    <aside class="sidebar">
+      <details id="settings" class="panel" open>
+        <summary>Einstellungen</summary>
+        <div class="modeSummary"><span id="modeName">Lernen</span><button id="changeMode" class="secondary small" hidden>Modus wechseln</button></div>
+        <label class="field" for="continent">Region<select id="continent"><option>Welt</option><option>Afrika</option><option>Asien</option><option>Europa</option><option>Nordamerika</option><option>Südamerika</option><option>Ozeanien</option></select></label>
+        <label id="countField" class="field" for="count" hidden>Fragenanzahl<select id="count"></select></label>
+        <p id="poolSummary" class="muted">195 Länder zum Entdecken</p>
+        <button id="start" class="primary">Karte erkunden</button>
+      </details>
+      <section id="questionBar" class="panel questionBar" aria-labelledby="question">
+        <span id="questionTopic" class="eyebrow">DIE WELT ENTDECKEN</span>
+        <h2 id="question" aria-live="polite">Welches Land interessiert dich?</h2>
+        <p id="instructions" class="muted">Klicke auf ein Land oder einen kleinen Länderpunkt, um mehr zu erfahren.</p>
+        <div id="quizStats" hidden><div class="stats"><span id="questionCount"></span><span id="points"></span></div><progress id="progress" value="0" max="10" aria-label="Beantwortete Fragen"></progress><p id="progressText" class="muted"></p></div>
+        <p id="feedback" role="status" aria-live="polite"></p>
+        <div class="actions"><button id="next" hidden>Weiter</button><button id="restart" class="secondary" hidden>Neu starten</button></div>
+      </section>
+      <section id="countryInfo" class="panel countryInfo" aria-labelledby="countryName" hidden>
+        <button id="closeInfo" class="close secondary" aria-label="Länderinformationen schließen">×</button>
+        <div class="flagFrame"><img id="flag" alt=""><p id="flagFallback" hidden>Flagge nicht verfügbar</p></div>
+        <span id="countryContinent" class="eyebrow"></span><h2 id="countryName"></h2>
+        <dl><dt>Hauptstadt / Regierungssitz</dt><dd id="capital"></dd><dt>Fläche</dt><dd id="area"></dd></dl>
+        <p id="fact"></p><a id="wikipedia" target="_blank" rel="noopener noreferrer">Mehr auf Wikipedia ↗</a>
+      </section>
+      <section id="results" class="panel results" aria-labelledby="resultTitle" hidden>
+        <span class="eyebrow">RUNDE ABGESCHLOSSEN</span><h2 id="resultTitle"></h2><p id="resultMessage"></p>
+        <h3>Deine Fehler</h3><ol id="mistakeList"></ol><p id="perfect" hidden>Alles richtig!</p>
+        <div class="actions"><button id="retry" hidden>Fehler wiederholen</button><button id="newRound" class="secondary">Neue Runde</button></div>
+      </section>
+    </aside>
+    <section class="mapWrap" aria-label="Weltkarte">
+      <div class="mapHeader"><div><span class="eyebrow">INTERAKTIVE WELTKARTE</span><h2 id="mapTitle">Die ganze Welt</h2></div><span class="mapBadge">195 Länder</span></div>
+      <div id="mapHost" class="mapHost" tabindex="0" aria-label="Weltkarte: Plus und Minus zum Zoomen, Pfeiltasten zum Verschieben, Pos1 zum Zurücksetzen" aria-busy="true"><p id="mapStatus" role="status">Die Weltkarte wird geladen …</p></div>
+      <div class="mapToolbar"><button id="zoomOut" class="secondary" aria-label="Karte verkleinern">−</button><output id="zoomPercentage" aria-label="Kartenzoom">100 %</output><button id="zoomIn" class="secondary" aria-label="Karte vergrößern">+</button><button id="resetMap" class="secondary">Zurücksetzen</button></div>
+      <p class="mapLegend"><span class="legendDot"></span> Kleine Staaten und Inseln sind auch über Punkte auswählbar.</p>
+      <details class="mapHelp"><summary>Kartenhilfe</summary><p>Mausrad oder + / −: zoomen. Ziehen: verschieben. Auf dem Smartphone mit zwei Fingern zoomen; vergrößert mit einem Finger verschieben.</p><p>Tastatur: Karte mit Tab fokussieren, + / − zum Zoomen, Pfeiltasten zum Verschieben, Pos1 zum Zurücksetzen. Länder mit Tab und Enter oder Leertaste auswählen.</p><p>Länder außerhalb der gewählten Region bleiben als Orientierung sichtbar und sind ebenfalls anklickbar. Gebiete außerhalb der Länderauswahl zählen nicht als Antwort.</p></details>
+    </section>
+  </div>
+  <footer><span>WorldQuiz · Die Welt kennenlernen</span><a href="ATTRIBUTION.md">Daten &amp; Quellen</a><span>195 Länder: UN-Mitglieder sowie Vatikanstadt und Palästina. Grenzen nach Natural Earth; umstrittene Gebiete sind schematisch dargestellt.</span></footer>
+  <noscript><p>Bitte aktiviere JavaScript, um die Karte und das Quiz zu verwenden.</p></noscript>
+</main>
+<dialog id="modeDialog" aria-labelledby="dialogTitle"><div class="dialogHeader"><h2 id="dialogTitle">Modus auswählen</h2><button id="closeDialog" class="secondary" aria-label="Modusauswahl schließen">×</button></div><p class="muted">Ein anderer Modus beendet die aktuelle Runde.</p><div class="dialogModes"><button data-mode="learn">Lernen</button><button data-mode="quiz">Länder finden</button></div></dialog>
+</body>
+</html>

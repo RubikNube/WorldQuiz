@@ -1,0 +1,14 @@
+{
+  "name": "worldquiz",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Die Länder der Welt auf einer interaktiven Karte kennenlernen",
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test",
+    "serve:dist": "python3 -m http.server 8000 --directory dist",
+    "data:generate": "python3 scripts/generate-data.py"
+  }
+}

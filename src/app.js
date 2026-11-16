@@ -13,6 +13,7 @@ const regionBounds = {
 };
 let countries, byCode, validCodes, zoom, svg;
 let mode = 'learn', game = null, selectedCode = null;
+let advanceTimer = null;
 const number = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2 });
 const mobileLayout = matchMedia('(max-width: 1099px)');
 const scrollBehavior = () => matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
@@ -207,6 +208,7 @@ function launch() {
 }
 
 function startRound(practiceGame = null) {
+  cancelAdvance();
   launch();
   game = practiceGame || createGame(eligibleCountries(countries, $('continent').value), Number($('count').value));
   closeInfo();
@@ -219,6 +221,7 @@ function startRound(practiceGame = null) {
 function chooseMode(nextMode) {
   $('modeDialog').close();
   if (mode === nextMode) return;
+  cancelAdvance();
   mode = nextMode;
   game = null;
   $('modeName').textContent = names[mode];
@@ -227,6 +230,7 @@ function chooseMode(nextMode) {
     el.setAttribute('aria-pressed', String(el.dataset.mode === mode));
   });
   $('countField').hidden = mode === 'learn';
+  $('autoLabel').hidden = mode === 'learn';
   $('start').textContent = mode === 'learn' ? 'Karte erkunden' : 'Quiz starten';
   closeInfo();
   updateCounts();
@@ -239,7 +243,31 @@ function selectCountry(code) {
   if (submitted) {
     renderQuestion();
     showCountry(currentQuestion(game).code, true);
+    if (game.answers[game.index].correct && $('autoNext').checked) {
+      advanceTimer = window.setTimeout(advanceQuestion, 1600);
+    }
   } else showCountry(code);
+}
+
+function cancelAdvance() {
+  window.clearTimeout(advanceTimer);
+  advanceTimer = null;
+}
+
+function advanceQuestion() {
+  cancelAdvance();
+  if (!nextQuestion(game)) return;
+  closeInfo();
+  renderQuestion();
+  renderMap();
+  if (game.finished) {
+    renderResults();
+    $('results').scrollIntoView({ block: 'nearest' });
+    $('newRound').focus({ preventScroll: true });
+  } else {
+    $('questionBar').focus({ preventScroll: true });
+    revealQuestionMap();
+  }
 }
 
 async function initialize() {
@@ -294,24 +322,14 @@ async function initialize() {
   $('restart').addEventListener('click', () => startRound(game.practice ? createGame(game.questions, game.questions.length, Math.random, true) : null));
   $('newRound').addEventListener('click', () => startRound());
   $('retry').addEventListener('click', () => { const practice = retryGame(game); if (practice) startRound(practice); });
-  function advanceQuestion() {
-    if (!nextQuestion(game)) return;
-    closeInfo();
-    renderQuestion();
-    renderMap();
-    if (game.finished) {
-      renderResults();
-      $('results').scrollIntoView({ block: 'nearest' });
-      $('newRound').focus({ preventScroll: true });
-    } else {
-      $('questionBar').focus({ preventScroll: true });
-      revealQuestionMap();
-    }
-  }
   $('next').addEventListener('click', advanceQuestion);
+  $('autoNext').addEventListener('change', () => {
+    if (!$('autoNext').checked) cancelAdvance();
+  });
   $('questionBar').tabIndex = -1;
-  $('continent').addEventListener('change', () => { game = null; closeInfo(); updateCounts(); focusRegion(); renderQuestion(); renderMap(); });
+  $('continent').addEventListener('change', () => { cancelAdvance(); game = null; closeInfo(); updateCounts(); focusRegion(); renderQuestion(); renderMap(); });
   $('count').addEventListener('change', () => {
+    cancelAdvance();
     if (game && !game.finished) { game = null; closeInfo(); renderQuestion(); renderMap(); }
   });
   updateCounts();

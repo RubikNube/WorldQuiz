@@ -16,7 +16,23 @@ let mode = 'learn', game = null, selectedCode = null;
 let advanceTimer = null;
 const number = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2 });
 const mobileLayout = matchMedia('(max-width: 1099px)');
+const compactLayout = matchMedia('(max-width: 600px)');
 const scrollBehavior = () => matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
+
+function sizeMobileMap() {
+  const map = document.querySelector('.mapWrap');
+  if (!compactLayout.matches) {
+    map.style.removeProperty('--mobile-map-height');
+    return;
+  }
+  const questionHeight = $('questionBar').getBoundingClientRect().height;
+  const headerHeight = document.querySelector('.mapHeader').getBoundingClientRect().height;
+  const toolbarHeight = document.querySelector('.mapToolbar').getBoundingClientRect().height;
+  // Leave room for the pinned question, the map heading, controls and scroll gaps.
+  const available = (window.visualViewport?.height ?? innerHeight)
+    - questionHeight - headerHeight - toolbarHeight - 36;
+  map.style.setProperty('--mobile-map-height', `${Math.max(280, Math.floor(available))}px`);
+}
 
 // Match BayernQuiz: reveal inline details below the pinned question.
 function revealCountryInfo() {
@@ -155,12 +171,19 @@ function renderQuestion() {
     return;
   }
   const c = currentQuestion(game);
+  $('questionTopic').classList.toggle('practiceTopic', game.practice);
   $('questionTopic').textContent = game.practice ? 'FEHLER ÜBEN · OHNE WERTUNG' : names[mode].toLocaleUpperCase('de-DE');
   const strong = document.createElement('strong');
   strong.textContent = mode === 'capitals' ? c.capitals.join(' · ') : c.name;
-  $('question').replaceChildren(mode === 'capitals'
-    ? 'Zu welchem Land gehört diese Hauptstadt / dieser Regierungssitz: '
-    : 'Wo liegt ', strong, '?');
+  const prefix = document.createElement('span');
+  prefix.textContent = mode === 'capitals' ? 'Zu welchem Land gehört: ' : 'Wo liegt ';
+  if (mode === 'capitals') {
+    const fullPrefix = document.createElement('span');
+    fullPrefix.className = 'fullCapitalPrompt';
+    fullPrefix.textContent = 'Zu welchem Land gehört diese Hauptstadt / dieser Regierungssitz: ';
+    prefix.className = 'compactCapitalPrompt';
+    $('question').replaceChildren(fullPrefix, prefix, strong, '?');
+  } else $('question').replaceChildren(prefix, strong, '?');
   $('instructions').textContent = 'Wähle das gesuchte Land auf der Karte.';
   $('questionCount').textContent = `Frage ${game.index + 1}/${game.questions.length}`;
   $('points').textContent = `${score(game)} Punkte`;
@@ -335,6 +358,13 @@ async function initialize() {
   updateCounts();
   renderMap();
   sizeSidebar();
+  const mobileMapObserver = new ResizeObserver(sizeMobileMap);
+  for (const element of [$('questionBar'), document.querySelector('.mapHeader'), document.querySelector('.mapToolbar')]) {
+    mobileMapObserver.observe(element);
+  }
+  sizeMobileMap();
+  window.addEventListener('resize', sizeMobileMap);
+  window.visualViewport?.addEventListener('resize', sizeMobileMap);
   window.addEventListener('resize', sizeSidebar);
   window.addEventListener('scroll', sizeSidebar, { passive: true });
   $('mapHost').setAttribute('aria-busy', 'false');

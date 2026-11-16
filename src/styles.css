@@ -236,6 +236,9 @@ p{
 .questionBar strong{
   color:#9dd4ff
 }
+.compactCapitalPrompt{
+  display:none
+}
 .quizActive .questionBar{
   position:sticky;
   top:0;
@@ -344,11 +347,28 @@ progress{
   color:#7becbb
 }
 .mapWrap{
+  display:flex;
+  flex-direction:column;
   background:#132039;
   border:1px solid #263552;
   border-radius:14px;
   min-width:0;
   overflow:hidden
+}
+.mapStage{
+  display:contents
+}
+.mapToolbar{
+  order:1
+}
+.mapHelp{
+  order:2
+}
+.mapHost{
+  order:3
+}
+.mapLegend{
+  order:4
 }
 .mapHeader{
   display:flex;
@@ -648,6 +668,74 @@ dialog::backdrop{
   .panel{
     padding:15px
   }
+  .quizActive .questionBar{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:4px 10px;
+    padding:10px 12px
+  }
+  .quizActive .questionBar h2{
+    grid-column:1/-1;
+    font-size:1.1rem;
+    line-height:1.3;
+    margin:0 0 2px;
+    overflow-wrap:anywhere
+  }
+  .quizActive #questionTopic:not(.practiceTopic),
+  .quizActive #instructions,
+  .quizActive #progressText{
+    position:absolute;
+    width:1px;
+    height:1px;
+    padding:0;
+    margin:-1px;
+    overflow:hidden;
+    clip-path:inset(50%);
+    white-space:nowrap
+  }
+  .quizActive .practiceTopic{
+    grid-column:1/-1
+  }
+  .quizActive #quizStats{
+    align-self:center;
+    min-width:0
+  }
+  .quizActive .stats{
+    font-size:.75rem;
+    flex-wrap:wrap;
+    gap:2px 10px
+  }
+  .quizActive progress{
+    margin:5px 0 0;
+    height:5px
+  }
+  .quizActive .actions{
+    grid-column:2;
+    grid-row:2;
+    align-self:center
+  }
+  .quizActive .actions button{
+    font-size:.75rem;
+    padding:6px 10px
+  }
+  .quizActive .questionBar:has(.practiceTopic) .actions{
+    grid-row:3
+  }
+  .quizActive #feedback{
+    grid-column:1/-1;
+    margin:4px 0;
+    font-size:.8rem
+  }
+  .quizActive .questionBar:has(#next:not([hidden])) .actions{
+    grid-column:1/-1;
+    grid-row:auto
+  }
+  .fullCapitalPrompt{
+    display:none
+  }
+  .compactCapitalPrompt{
+    display:inline
+  }
   .countryHeader{
     display:grid;
     grid-template-columns:64px minmax(0,1fr);
@@ -687,20 +775,40 @@ dialog::backdrop{
     margin-bottom:8px
   }
   .mapHeader{
-    padding:15px 15px 0
+    padding:8px 12px
+  }
+  .mapHeader .eyebrow,.mapBadge{
+    display:none
   }
   .mapHeader h2{
-    font-size:1.12rem
+    font-size:1rem;
+    margin:0
+  }
+  .mapStage{
+    display:block;
+    position:relative;
+    order:1;
+    padding-bottom:56px
   }
   .mapHost{
-    height:360px
+    height:var(--mobile-map-height,60dvh);
+    min-height:280px;
+    margin:0
   }
   .mapLegend{
     align-items:flex-start;
     text-align:center
   }
   .mapToolbar{
-    gap:6px
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    height:56px;
+    padding:6px;
+    flex-wrap:nowrap;
+    gap:6px;
+    background:#132039
   }
   .mapToolbar button{
     font-size:.85rem;

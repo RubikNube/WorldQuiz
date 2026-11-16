@@ -86,6 +86,18 @@ async function capitalsRound(all = false) {
   await choose('count', String(total));
   await click('#start');
   if (!all) await waitForQuestionMap();
+  if (!all) {
+    // Stress the responsive prompt with the longest complete capital label.
+    const original = await evaluate(`document.querySelector('#question strong').textContent`);
+    await evaluate(`document.querySelector('#question strong').textContent=window.testCountries.map(c=>c.capitals.join(' · ')).sort((a,b)=>b.length-a.length)[0]`);
+    await settleLayout();
+    assert.equal(await evaluate(`getComputedStyle(document.querySelector('.compactCapitalPrompt')).display`), 'inline');
+    assert.equal(await evaluate(`document.documentElement.scrollWidth<=innerWidth`), true);
+    assert.ok(await evaluate(`document.querySelector('#mapHost').getBoundingClientRect().height>=280`));
+    await screenshot('/tmp/worldquiz-mobile-long-capital.png');
+    await evaluate(`document.querySelector('#question strong').textContent=${JSON.stringify(original)}`);
+    await settleLayout();
+  }
   assert.match(await evaluate(`document.querySelector('#questionTopic').textContent`), /HAUPTSTÄDTE ZUORDNEN/);
   const seen = new Set();
   let missed;
@@ -122,6 +134,7 @@ async function capitalsRound(all = false) {
   }
   await click('#retry');
   await click('#restart');
+  if (!all) assert.equal(await evaluate(`document.querySelector('.practiceTopic').getBoundingClientRect().height>0`), true);
   assert.equal(await evaluate(`document.querySelector('#question strong').textContent`), missed.capitals.join(' · '));
   assert.equal(await evaluate(`document.querySelector('#questionCount').textContent`), 'Frage 1/1');
   await evaluate(`document.querySelector('[data-country="${missed.code}"]').focus()`);
@@ -284,6 +297,38 @@ try {
   await waitForQuestionMap();
   assert.equal(await evaluate(`document.querySelector('#settings').open`), false);
   assert.equal(await evaluate(`document.documentElement.scrollWidth<=window.innerWidth`), true);
+  for (const [width, height] of [[320, 667], [375, 667], [390, 844]]) {
+    await cdp('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: true });
+    await click('#restart');
+    await waitForQuestionMap();
+    const layout = await evaluate(`(()=>{
+      const map=document.querySelector('#mapHost').getBoundingClientRect();
+      const controls=document.querySelector('.mapToolbar').getBoundingClientRect();
+      return {mapHeight:map.height,mapTop:map.top,mapBottom:map.bottom,controlsTop:controls.top,
+        controlsBottom:controls.bottom,viewport:visualViewport.height,
+        overflow:document.documentElement.scrollWidth>innerWidth,
+        touchTargets:[...document.querySelectorAll('.mapToolbar button,#restart')].every(b=>b.getBoundingClientRect().height>=44)};
+    })()`);
+    assert.ok(layout.mapHeight >= height * .6, `${width}: map uses at least 60% of viewport (${layout.mapHeight}px)`);
+    assert.ok(layout.mapTop >= 0 && layout.controlsBottom <= layout.viewport, `${width}: map and controls fit on screen`);
+    assert.ok(layout.controlsTop >= layout.mapBottom, `${width}: controls do not cover countries`);
+    assert.equal(layout.overflow, false);
+    assert.equal(layout.touchTargets, true);
+    assert.equal(await evaluate(`document.querySelector('.mapHelp').getBoundingClientRect().top>=document.querySelector('#mapHost').getBoundingClientRect().bottom`), true);
+    await evaluate(`document.querySelector('.mapHelp').open=true`);
+    await settleLayout();
+    assert.equal(await evaluate(`document.documentElement.scrollWidth<=innerWidth`), true);
+    await evaluate(`document.querySelector('.mapHelp').open=false`);
+    await screenshot(`/tmp/worldquiz-compact-${width}.png`);
+  }
+  await cdp('Emulation.setDeviceMetricsOverride', { width: 844, height: 390, deviceScaleFactor: 1, mobile: true });
+  await click('#restart');
+  await waitForQuestionMap();
+  assert.equal(await evaluate(`getComputedStyle(document.querySelector('#questionBar')).position`), 'static');
+  assert.equal(await evaluate(`document.documentElement.scrollHeight>innerHeight && document.documentElement.scrollWidth<=innerWidth`), true);
+  await cdp('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
+  await click('#restart');
+  await waitForQuestionMap();
   await screenshot('/tmp/worldquiz-mobile.png');
   // Use the upper part of the map so the gesture stays inside Chromium's
   // headless input surface as well as the emulated phone viewport.

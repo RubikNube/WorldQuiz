@@ -115,7 +115,7 @@ p{
 }
 .modeGrid{
   display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-columns:repeat(2,minmax(0,1fr));
   gap:14px
 }
 .modeCard{
@@ -857,3 +857,5 @@ dialog::backdrop{
 #resetRecordsForm fieldset { border:1px solid var(--border); margin:0 0 12px; min-width:0; }
 #resetRecordsForm .check { min-height:44px; }
 input:focus-visible { outline:3px solid #ffcf66; outline-offset:3px; }
+
+.bookIcon{border-radius:12px;background:#1b2943;color:#9dd4ff}

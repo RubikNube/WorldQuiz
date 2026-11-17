@@ -1,9 +1,10 @@
+import { createMistakes } from './mistakes.js';
 import { createHighscores, highscoreMessage } from './highscores.js';
-import { eligibleCountries, allowedCounts, createGame, currentQuestion, answer, nextQuestion, score, mistakes, retryGame } from './game.js';
+import { eligibleCountries, allowedCounts, createGame, createCorrectionGame, questionTopic, currentQuestion, answer, nextQuestion, score, mistakes, retryGame } from './game.js';
 import { createMapZoom } from './map-zoom.js';
 
 const $ = id => document.getElementById(id);
-const names = { learn: 'Lernen', quiz: 'Länder finden', capitals: 'Hauptstädte zuordnen' };
+const names = { learn: 'Lernen', quiz: 'Länder finden', capitals: 'Hauptstädte zuordnen', correction: 'Fehler korrigieren' };
 const regionBounds = {
   Afrika: { x: 465, y: 155, width: 315, height: 310 },
   Asien: { x: 650, y: 25, width: 525, height: 355 },
@@ -15,6 +16,7 @@ const regionBounds = {
 let countries, byCode, validCodes, zoom, svg;
 let mode = 'learn', game = null, selectedCode = null;
 let advanceTimer = null;
+let savedMistakes;
 let highscores, roundRecord = null, resetTarget = null;
 const number = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2 });
 const mobileLayout = matchMedia('(max-width: 1099px)');
@@ -110,7 +112,7 @@ function renderRecords() {
     const best = highscores.getBest(label.dataset.modeBest, region, count);
     label.textContent = `${best === null ? 'Dein Rekord: noch keiner' : `Dein Rekord: ${best}/${count}`} · ${region} · ${count} Fragen`;
   }
-  $('highscores').hidden = mode === 'learn';
+  $('highscores').hidden = !['quiz', 'capitals'].includes(mode);
   const best = highscores.getBest(mode, region, count);
   $('personalBest').textContent = `${best === null ? 'Dein Rekord: noch keiner' : `Dein Rekord: ${best}/${count}`} · ${region} · ${count} Fragen`;
   $('highscoreStorage').textContent = highscores.persistent
@@ -119,6 +121,23 @@ function renderRecords() {
   const active = Boolean(game && !game.finished);
   $('resetRecords').disabled = active || !highscores.hasRecords;
   $('resetRecordsHint').hidden = !active;
+}
+
+function renderMistakes() {
+  const correction = mode === 'correction';
+  $('correctionCount').textContent = `${savedMistakes.count} offene Fragen`;
+  $('mistakeHelp').hidden = !correction;
+  $('mistakeStorage').textContent = savedMistakes.persistent
+    ? 'Fehler werden nur in diesem Browser gespeichert.'
+    : 'Fehler bleiben für diese Sitzung erhalten; dauerhaftes Speichern ist nicht verfügbar.';
+  $('start').disabled = correction && !savedMistakes.count;
+  $('newRound').disabled = correction && !savedMistakes.count;
+  $('restart').disabled = correction && !savedMistakes.count;
+  $('newRound').textContent = correction ? 'Neue Übungsrunde' : 'Neue Runde';
+  $('restart').textContent = correction ? 'Übung neu starten' : 'Neu starten';
+  $('correctionProgress').textContent = game && !game.finished && game.answers[game.index]
+    ? game.correctionMessage ?? '' : '';
+  if (correction) $('poolSummary').textContent = `${savedMistakes.count} offene Fragen · Bis zu 10 Fragen pro Runde · Ohne Rekordwertung`;
 }
 
 function setupRecordReset() {
@@ -168,10 +187,10 @@ function setupRecordReset() {
 }
 
 function focusRegion() {
-  const region = $('continent').value;
+  const region = mode === 'correction' ? 'Welt' : $('continent').value;
   $('mapTitleFull').textContent = region === 'Welt' ? 'Die ganze Welt' : region;
   $('mapTitleCompact').textContent = region;
-  if ($('continent').value === 'Welt') zoom.reset();
+  if (region === 'Welt') zoom.reset();
   else {
     const region = $('continent').value;
     const base = regionBounds[region];
@@ -193,7 +212,7 @@ function renderMap() {
     const code = el.dataset.country;
     const correct = response?.target === code;
     const wrong = response && !response.correct && response.selected === code;
-    el.classList.toggle('outside', $('continent').value !== 'Welt' && byCode.get(code).continent !== $('continent').value);
+    el.classList.toggle('outside', mode !== 'correction' && $('continent').value !== 'Welt' && byCode.get(code).continent !== $('continent').value);
     el.classList.toggle('selected', selectedCode === code && !correct && !wrong);
     el.classList.toggle('correct', Boolean(correct));
     el.classList.toggle('wrong', Boolean(wrong));
@@ -227,6 +246,7 @@ function showCountry(code, reveal = false, { scrollToMap = false } = {}) {
 
 function renderQuestion() {
   renderRecords();
+  renderMistakes();
   const active = game && !game.finished;
   document.body.classList.toggle('quizActive', Boolean(active));
   $('quizStats').hidden = !active;
@@ -238,17 +258,19 @@ function renderQuestion() {
   if (!active) {
     $('questionTopic').textContent = mode === 'learn' ? 'DIE WELT ENTDECKEN' : names[mode].toLocaleUpperCase('de-DE');
     $('question').textContent = mode === 'learn' ? 'Welches Land interessiert dich?' : game?.finished ? 'Weiter auf Entdeckungsreise' : 'Bereit für eine Weltreise?';
+    if (mode === 'correction' && !game?.finished) $('question').textContent = savedMistakes.count ? 'Bereit, deine Fehler zu korrigieren?' : 'Keine offenen Fehler. Spiele ein Quiz, um schwierige Fragen hier zu sammeln.';
     $('instructions').textContent = 'Klicke auf ein Land oder einen kleinen Länderpunkt, um mehr zu erfahren.';
     return;
   }
   const c = currentQuestion(game);
+  const topic = questionTopic(game);
   $('questionTopic').classList.toggle('practiceTopic', game.practice);
-  $('questionTopic').textContent = game.practice ? 'FEHLER ÜBEN · OHNE WERTUNG' : names[mode].toLocaleUpperCase('de-DE');
+  $('questionTopic').textContent = game.practice ? `${mode === 'correction' ? 'FEHLER KORRIGIEREN' : 'FEHLER ÜBEN'} · ${names[topic].toLocaleUpperCase('de-DE')} · OHNE WERTUNG` : names[mode].toLocaleUpperCase('de-DE');
   const strong = document.createElement('strong');
-  strong.textContent = mode === 'capitals' ? c.capitals.join(' · ') : c.name;
+  strong.textContent = topic === 'capitals' ? c.capitals.join(' · ') : c.name;
   const prefix = document.createElement('span');
-  prefix.textContent = mode === 'capitals' ? 'Zu welchem Land gehört: ' : 'Wo liegt ';
-  if (mode === 'capitals') {
+  prefix.textContent = topic === 'capitals' ? 'Zu welchem Land gehört: ' : 'Wo liegt ';
+  if (topic === 'capitals') {
     const fullPrefix = document.createElement('span');
     fullPrefix.className = 'fullCapitalPrompt';
     fullPrefix.textContent = 'Zu welchem Land gehört diese Hauptstadt / dieser Regierungssitz: ';
@@ -266,33 +288,37 @@ function renderQuestion() {
     $('instructions').hidden = true;
     $('feedback').className = response.correct ? 'good' : 'bad';
     $('feedback').textContent = response.correct ? `Richtig! Das ist ${c.name}.` : `Deine Antwort: ${byCode.get(response.selected).name}. Richtige Antwort: ${c.name}.`;
-    if (mode === 'capitals') $('feedback').textContent += ` Hauptstadt / Regierungssitz: ${c.capitals.join(' · ')}.`;
+    if (topic === 'capitals') $('feedback').textContent += ` Hauptstadt / Regierungssitz: ${c.capitals.join(' · ')}.`;
     $('next').hidden = false;
     $('next').textContent = game.index === game.questions.length - 1 ? 'Ergebnis ansehen' : 'Weiter';
   }
 }
 
 function renderResults() {
+  const correction = game.mode === 'correction';
+  $('correctionSummary').textContent = correction ? `${game.clearedCount} Fragen korrigiert. ${savedMistakes.count ? `${savedMistakes.count} offene Fragen verbleiben.` : 'Alle gespeicherten Fehler korrigiert!'}` : '';
   $('highscoreResult').textContent = highscoreMessage(roundRecord);
   const wrong = mistakes(game);
   $('resultTitle').textContent = `${score(game)} von ${game.questions.length} richtig`;
   $('resultMessage').textContent = game.practice ? 'Übungsrunde abgeschlossen. Jeder Versuch hilft dir beim Lernen.' : 'Gut entdeckt! Erkunde die Karte weiter oder starte eine neue Runde.';
   $('mistakeList').replaceChildren(...wrong.map(a => {
+    const topic = a.topic ?? game.mode;
     const li = document.createElement('li');
     const button = document.createElement('button');
     button.className = 'secondary small';
-    button.textContent = byCode.get(a.target).name;
+    button.textContent = `${a.topic ? `${names[topic]}: ` : ''}${byCode.get(a.target).name}`;
     button.addEventListener('click', () => showCountry(a.target, true, { scrollToMap: true }));
     const text = document.createElement('span');
     text.textContent = `Deine Antwort: ${byCode.get(a.selected).name} · Richtig: ${byCode.get(a.target).name}`;
-    if (mode === 'capitals') text.textContent += ` · Hauptstadt / Regierungssitz: ${byCode.get(a.target).capitals.join(' · ')}`;
+    if (topic === 'capitals') text.textContent += ` · Hauptstadt / Regierungssitz: ${byCode.get(a.target).capitals.join(' · ')}`;
     li.append(button, text);
     return li;
   }));
-  $('retry').hidden = !wrong.length;
+  $('retry').hidden = correction || !wrong.length;
   $('retry').textContent = `Fehler wiederholen (${wrong.length})`;
   $('perfect').hidden = Boolean(wrong.length);
-  if (game.practice && !wrong.length) $('resultMessage').textContent = 'Alle Fehler geschafft!';
+  $('perfect').textContent = correction ? 'In dieser Runde alles richtig!' : 'Alles richtig!';
+  if (game.practice && !correction && !wrong.length) $('resultMessage').textContent = 'Alle Fehler geschafft!';
 }
 
 function launch() {
@@ -303,11 +329,13 @@ function launch() {
 }
 
 function startRound(practiceGame = null) {
+  if (mode === 'correction' && !savedMistakes.count) return;
   cancelAdvance();
   launch();
-  game = practiceGame || createGame(eligibleCountries(countries, $('continent').value), Number($('count').value));
+  game = mode === 'correction' ? createCorrectionGame(countries, savedMistakes.selectQuestions())
+    : practiceGame || createGame(eligibleCountries(countries, $('continent').value), Number($('count').value));
   game.mode = mode;
-  game.region = $('continent').value;
+  game.region = mode === 'correction' ? 'Welt' : $('continent').value;
   roundRecord = null;
   closeInfo();
   focusRegion();
@@ -327,18 +355,23 @@ function chooseMode(nextMode) {
     el.classList.toggle('selected', el.dataset.mode === mode);
     el.setAttribute('aria-pressed', String(el.dataset.mode === mode));
   });
-  $('countField').hidden = mode === 'learn';
+  $('countField').hidden = mode === 'learn' || mode === 'correction';
+  $('regionField').hidden = mode === 'correction';
   $('autoLabel').hidden = mode === 'learn';
-  $('start').textContent = mode === 'learn' ? 'Karte erkunden' : 'Quiz starten';
+  $('start').textContent = mode === 'learn' ? 'Karte erkunden' : mode === 'correction' ? 'Fehler korrigieren' : 'Quiz starten';
   closeInfo();
   updateCounts();
   focusRegion();
   renderQuestion();
+  renderMap();
 }
 
 function selectCountry(code) {
   const submitted = answer(game, code, validCodes);
   if (submitted) {
+    const progress = savedMistakes.recordAnswer(game);
+    game.correctionMessage = progress ? progress.cleared ? 'Fehler korrigiert!' : progress.streak ? '1 von 2 richtig' : '' : '';
+    if (progress?.cleared && game.mode === 'correction') game.clearedCount++;
     renderQuestion();
     showCountry(currentQuestion(game).code, true);
     if (game.answers[game.index].correct && $('autoNext').checked) {
@@ -374,6 +407,7 @@ async function initialize() {
   if (responses.some(r => !r.ok)) throw new Error('Lokale Kartendaten konnten nicht geladen werden.');
   countries = await responses[0].json();
   highscores = createHighscores(countries);
+  savedMistakes = createMistakes(countries);
   setupRecordReset();
   byCode = new Map(countries.map(c => [c.code, c]));
   validCodes = new Set(byCode.keys());
@@ -420,7 +454,7 @@ async function initialize() {
     if (mode !== 'learn') startRound();
     else { launch(); focusRegion(); }
   });
-  $('restart').addEventListener('click', () => startRound(game.practice ? createGame(game.questions, game.questions.length, Math.random, true) : null));
+  $('restart').addEventListener('click', () => startRound(mode !== 'correction' && game.practice ? createGame(game.questions, game.questions.length, Math.random, true) : null));
   $('newRound').addEventListener('click', () => startRound());
   $('retry').addEventListener('click', () => { const practice = retryGame(game); if (practice) startRound(practice); });
   $('next').addEventListener('click', advanceQuestion);
@@ -436,6 +470,7 @@ async function initialize() {
   });
   updateCounts();
   renderRecords();
+  renderMistakes();
   renderMap();
   sizeSidebar();
   const mobileMapObserver = new ResizeObserver(sizeMobileMap);

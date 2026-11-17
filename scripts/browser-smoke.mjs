@@ -74,9 +74,85 @@ async function click(selector) {
 const choose = (id, value) => evaluate(`document.getElementById(${JSON.stringify(id)}).value=${JSON.stringify(value)};document.getElementById(${JSON.stringify(id)}).dispatchEvent(new Event('change'))`);
 const countryClick = code => evaluate(`document.querySelector('[data-country="${code}"]').dispatchEvent(new MouseEvent('click',{bubbles:true}))`);
 async function correct() {
-  const code = await evaluate(`window.testCountries.find(c=>(document.querySelector('#modeName').textContent==='Hauptstädte zuordnen'?c.capitals.join(' · '):c.name)===document.querySelector('#question strong').textContent).code`);
+  const code = await evaluate(`window.testCountries.find(c=>(document.querySelector('#question .fullCapitalPrompt')!==null?c.capitals.join(' · '):c.name)===document.querySelector('#question strong').textContent).code`);
   await countryClick(code);
   if (await evaluate(`matchMedia('(max-width:1099px)').matches`)) await waitForInfo();
+}
+async function checkCorrections() {
+  const ready = () => wait(`document.querySelector('#worldMap') && document.querySelector('#mapHost').getAttribute('aria-busy')==='false'`);
+  const saved = () => evaluate(`JSON.parse(localStorage.getItem('worldQuizMistakes'))?.entries ?? []`);
+  await cdp('Emulation.setTouchEmulationEnabled', { enabled: false });
+  for (const width of [1440, 320]) {
+    await cdp('Emulation.setDeviceMetricsOverride', { width, height: width === 320 ? 844 : 1000, deviceScaleFactor: 1, mobile: width === 320 });
+    await evaluate(`localStorage.removeItem('worldQuizMistakes')`);
+    await cdp('Page.reload'); await ready();
+    await click('[data-mode="correction"]');
+    assert.equal(await evaluate(`document.querySelector('#start').disabled`), true);
+    assert.equal(await evaluate(`document.querySelector('#regionField').hidden && document.querySelector('#countField').hidden && document.querySelector('#highscores').hidden`), true);
+    await click('[data-mode="quiz"]');
+    await choose('continent', 'Europa'); await choose('count', '5');
+    await evaluate(`document.querySelector('#autoNext').checked=false`);
+    await click('#start');
+    const target = await evaluate(`document.querySelector('#question strong').textContent`);
+    const wrong = await evaluate(`(async()=>{window.testCountries=await (await fetch('assets/data/countries.json')).json();return window.testCountries.find(c=>c.name!==${JSON.stringify(target)}).code})()`);
+    await countryClick(wrong);
+    assert.equal((await saved()).length, 1, 'mistake saves before completing round');
+    await cdp('Page.reload'); await ready();
+    assert.equal(await evaluate(`document.querySelector('#correctionCount').textContent`), '1 offene Fragen');
+    // Seed both topics for the same country, with different progress.
+    await evaluate(`localStorage.setItem('worldQuizMistakes',JSON.stringify({version:1,entries:[{topic:'quiz',code:'de',streak:0},{topic:'capitals',code:'de',streak:1}]}))`);
+    await cdp('Page.reload'); await ready();
+    await evaluate(`(async()=>{window.testCountries=await (await fetch('assets/data/countries.json')).json();document.querySelector('#autoNext').checked=false})()`);
+    await click('[data-mode="quiz"]'); await choose('continent', 'Europa'); await choose('count', '5');
+    await click('[data-mode="correction"]');
+    await screenshot(`/tmp/worldquiz-correction-card-${width}.png`);
+    await click('#start');
+    assert.equal(await evaluate(`document.querySelector('#mapTitleFull').textContent`), 'Die ganze Welt');
+    const topics = new Set();
+    for (let i = 0; i < 2; i++) {
+      const capital = await evaluate(`!!document.querySelector('#question .fullCapitalPrompt')`);
+      topics.add(capital ? 'capitals' : 'quiz');
+      await correct();
+      assert.equal(await evaluate(`document.querySelector('#correctionProgress').textContent`), capital ? 'Fehler korrigiert!' : '1 von 2 richtig');
+      if (i === 0) await screenshot(`/tmp/worldquiz-correction-answer-${width}.png`);
+      await click('#next');
+    }
+    assert.equal(topics.size, 2);
+    assert.match(await evaluate(`document.querySelector('#correctionSummary').textContent`), /1 Fragen korrigiert. 1 offene Fragen/);
+    assert.equal(await evaluate(`document.querySelector('#retry').hidden`), true);
+    assert.equal(await evaluate(`document.querySelector('#highscoreResult').textContent`), '');
+    await click('#newRound');
+    assert.equal(await evaluate(`document.querySelector('#questionCount').textContent`), 'Frage 1/1');
+    await correct();
+    assert.deepEqual(await saved(), []);
+    assert.equal(await evaluate(`document.querySelector('#restart').disabled`), true);
+    await click('#next');
+    assert.match(await evaluate(`document.querySelector('#correctionSummary').textContent`), /Alle gespeicherten Fehler korrigiert/);
+    assert.equal(await evaluate(`document.querySelector('#newRound').disabled && document.querySelector('#start').disabled`), true);
+    assert.equal(await evaluate(`document.documentElement.scrollWidth<=innerWidth`), true);
+    await click('#changeMode'); await click('.dialogModes [data-mode="quiz"]');
+    assert.equal(await evaluate(`document.querySelector('#continent').value`), 'Europa');
+    assert.equal(await evaluate(`document.querySelector('#count').value`), '5');
+    // Restart samples current entries after one question has been cleared.
+    await evaluate(`localStorage.setItem('worldQuizMistakes',JSON.stringify({version:1,entries:[{topic:'quiz',code:'de',streak:1},{topic:'capitals',code:'de',streak:1}]}))`);
+    await cdp('Page.reload'); await ready();
+    await evaluate(`document.querySelector('#autoNext').checked=false`);
+    await click('[data-mode="correction"]'); await click('#start');
+    await countryClick('de'); await click('#restart');
+    assert.equal(await evaluate(`document.querySelector('#questionCount').textContent`), 'Frage 1/1');
+    await countryClick('fr'); await click('#next');
+    assert.equal((await saved())[0].streak, 0);
+    assert.equal(await evaluate(`document.querySelector('#retry').hidden`), true);
+    // Auto-advance commits and clears a single saved entry.
+    await click('#newRound');
+    await evaluate(`document.querySelector('#autoNext').checked=true`);
+    await countryClick('de');
+    await wait(`!document.querySelector('#results').hidden`);
+    assert.equal((await saved())[0].streak, 1);
+    await click('#newRound'); await countryClick('de');
+    await wait(`!document.querySelector('#results').hidden`);
+    assert.deepEqual(await saved(), []);
+  }
 }
 async function capitalsRound(all = false) {
   await click('#changeMode');
@@ -442,10 +518,11 @@ try {
   await screenshot('/tmp/worldquiz-mobile-answer.png');
   assert.equal(await evaluate(`document.documentElement.scrollWidth<=window.innerWidth`), true);
   await capitalsRound();
+  await checkCorrections();
   assert.deepEqual(exceptions, []);
   assert.deepEqual(failures, []);
   assert.ok(requests.every(url => url.startsWith(new URL(base).origin) || url.startsWith('data:')), 'No external API or image requests');
-  console.log('Browser checks passed: profiles, flag fallback, country/capitals quizzes, all 195 capital prompts, scoring, practice, records, reset dialogs, keyboard, drag, pinch, desktop/mobile, local requests.');
+  console.log('Browser checks passed: profiles, flag fallback, country/capitals quizzes, all 195 capital prompts, scoring, practice, saved corrections, records, reset dialogs, keyboard, drag, pinch, desktop/mobile, local requests.');
   console.log('Screenshots: /tmp/worldquiz-desktop.png, /tmp/worldquiz-mobile.png, /tmp/worldquiz-mobile-answer.png');
 } finally {
   ws.close();

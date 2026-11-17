@@ -27,10 +27,28 @@ export function currentQuestion(game) {
   return game && !game.finished ? game.questions[game.index] : null;
 }
 
+export function questionTopic(game, question = currentQuestion(game)) {
+  return game?.mode === 'correction' ? question?.topic : game?.mode;
+}
+
+export function createCorrectionGame(countries, references, random = Math.random) {
+  const byCode = new Map(countries.map(c => [c.code, c]));
+  if (!references.length || references.length > 10
+    || new Set(references.map(q => `${q.topic}:${q.code}`)).size !== references.length
+    || references.some(q => !['quiz', 'capitals'].includes(q.topic) || !byCode.has(q.code))) {
+    throw new RangeError('Ungültige Fehlerauswahl');
+  }
+  return {
+    questions: shuffle(references.map(q => ({ ...byCode.get(q.code), topic: q.topic })), random),
+    index: 0, answers: [], practice: true, finished: false, mode: 'correction', region: 'Welt', clearedCount: 0,
+  };
+}
+
 export function answer(game, code, validCodes) {
   if (!game || game.finished || game.answers.length > game.index || !validCodes.has(code)) return false;
   const target = currentQuestion(game);
-  game.answers.push({ target: target.code, selected: code, correct: code === target.code });
+  game.answers.push({ target: target.code, selected: code, correct: code === target.code,
+    ...(game.mode === 'correction' ? { topic: target.topic } : {}) });
   return true;
 }
 
@@ -44,6 +62,7 @@ export function nextQuestion(game) {
 export function score(game) { return game.answers.filter(a => a.correct).length; }
 export function mistakes(game) { return game.answers.filter(a => !a.correct); }
 export function retryGame(game, random = Math.random) {
+  if (game.mode === 'correction') return null;
   const codes = new Set(mistakes(game).map(a => a.target));
   if (!game.finished || !codes.size) return null;
   const questions = game.questions.filter(c => codes.has(c.code));

@@ -50,8 +50,38 @@ startet die aktuelle Runde neu (bei Übungen mit ihrem vollständigen Fragensatz
 Ein Regionswechsel oder eine Änderung der Fragenanzahl beendet eine laufende
 Runde. Ein Wechsel zu einem anderen Modus beendet sie ebenfalls. Das bloße
 Öffnen oder Schließen der Modusauswahl sowie die Auswahl des aktuellen Modus
-behalten den Spielstand. Runden und Fehler werden nur im Arbeitsspeicher
-gehalten; ein Neuladen beginnt von vorn.
+behalten den Spielstand. Laufende Runden bleiben nur im Arbeitsspeicher; ein
+Neuladen beginnt von vorn. Gespeicherte Fehler bleiben erhalten.
+
+## Fehler korrigieren
+
+**Fehler korrigieren** speichert falsch beantwortete Fragen aus **Länder finden**,
+**Hauptstädte zuordnen** und ihren Fehlerübungen sofort in diesem Browser. Die
+Themenkarte zeigt die Anzahl offener Fragen. Länder- und Hauptstadtfragen zum
+selben Land zählen getrennt. Der Modus wird über die Modusauswahl aktiviert;
+**Fehler wiederholen** übt weiterhin nur die Fehler der letzten Runde.
+
+Jede gespeicherte Frage muss in zwei aufeinanderfolgenden Runden richtig
+beantwortet werden. Auch normale Quizrunden und Fehlerübungen zählen. Eine
+falsche Antwort setzt den Fortschritt zurück. Nach einer richtigen Antwort
+erscheint **1 von 2 richtig**, nach der zweiten **Fehler korrigiert!**.
+
+Eine Korrekturrunde mischt weltweit bis zu zehn unterschiedliche gespeicherte
+Fragen aus beiden Themen. Fragen ohne richtige Antwort haben bei der Auswahl
+Vorrang; innerhalb der Gruppen und im gewählten Fragensatz ist die Reihenfolge
+zufällig. Region und Fragenanzahl sind in diesem Modus ausgeblendet.
+**Neue Übungsrunde** und **Übung neu starten** wählen aus den aktuell offenen
+Fragen neu aus. Ohne offene Fragen ist der Start deaktiviert. Diese Übungen
+erhalten keine Rekordwertung. Das Ergebnis zeigt die in der Runde korrigierten
+und die insgesamt noch offenen Fragen. Auch nach einer fehlerfreien Runde können
+noch Fragen offen sein.
+
+Antworten werden sofort gespeichert: Abbrechen, Moduswechsel und Neuladen
+behalten den Fortschritt. Die Speicherung benötigt weder Konto noch Server.
+Falls Browser-Speicher ausfällt, bleiben Fehler für die Sitzung erhalten; ein
+Hinweis erscheint in den Einstellungen. Das Löschen der Browserdaten entfernt
+sie. Das Zurücksetzen von Rekorden hat keinen Einfluss auf gespeicherte Fehler.
+Fehler aus Sitzungen vor Einführung dieser Funktion können nicht übernommen werden.
 
 ## Persönliche Rekorde
 

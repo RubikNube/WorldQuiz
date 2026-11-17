@@ -419,6 +419,7 @@ progress{
   touch-action:pan-y pinch-zoom
 }
 .country{
+  outline:none;
   fill:#2a3a63;
   stroke:#8090ad;
   stroke-width:.65;

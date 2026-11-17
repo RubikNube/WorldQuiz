@@ -119,3 +119,25 @@ test('correction construction rejects empty, duplicate, oversized and invalid re
     assert.throws(() => createCorrectionGame(countries, refs), RangeError);
   }
 });
+
+test('flag mistakes persist separately and mixed correction rounds clear all three topics', () => {
+  const db = storage();
+  let store = createMistakes(countries, () => db);
+  for (const topic of ['quiz', 'capitals', 'flags']) respond(store, false, topic);
+  store = createMistakes(countries, () => db);
+  assert.equal(store.count, 3);
+  respond(store, true, 'flags');
+  respond(store, false, 'flags');
+  assert.equal(store.entries.find(e => e.topic === 'flags').streak, 0);
+  for (let round = 0; round < 2; round++) {
+    const game = createCorrectionGame(countries, store.selectQuestions());
+    assert.deepEqual(new Set(game.questions.map(q => q.topic)), new Set(['quiz', 'capitals', 'flags']));
+    while (!game.finished) {
+      answer(game, country.code, codes);
+      assert.equal(store.recordAnswer(game).cleared, round === 1);
+      nextQuestion(game);
+    }
+    store = createMistakes(countries, () => db);
+    assert.equal(store.count, round === 0 ? 3 : 0);
+  }
+});

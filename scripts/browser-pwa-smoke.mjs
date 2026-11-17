@@ -142,6 +142,17 @@ try {
       assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true);
       assert.ok(await evaluate(`document.querySelector('#offlineStatus').getBoundingClientRect().width > 0`));
     }
+    await click('[data-mode="flags"]');
+    await evaluate(`document.querySelector('#autoNext').checked=false`);
+    await click('#start');
+    await wait(`document.querySelector('#questionFlag').complete && document.querySelector('#questionFlag').naturalWidth>0`);
+    await evaluate(`(async()=>{
+      const countries=await (await fetch('assets/data/countries.json')).json();
+      const flag=document.querySelector('#questionFlag').getAttribute('src');
+      const code=countries.find(country=>country.flag===flag).code;
+      document.querySelector('[data-country="'+code+'"]').dispatchEvent(new MouseEvent('click',{bubbles:true}));
+    })()`);
+    assert.equal(await evaluate(`document.querySelector('#progress').value`), 1);
     await cdp('Network.emulateNetworkConditions', { offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1 });
     const savedStorage = await evaluate(`JSON.stringify({...localStorage})`);
     await evaluate(`window.pwaUpdateMarker = 'round-still-open'`);

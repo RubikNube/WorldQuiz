@@ -6,7 +6,7 @@ export function createMistakes(countries, storageProvider = () => globalThis.loc
   const codes = new Set(countries.map(c => c.code));
   const entries = new Map();
   const recorded = new WeakSet();
-  const valid = entry => entry && ['quiz', 'capitals'].includes(entry.topic)
+  const valid = entry => entry && ['quiz', 'capitals', 'flags'].includes(entry.topic)
     && codes.has(entry.code) && (entry.streak === 0 || entry.streak === 1);
   let storage, persistent = true;
   try {

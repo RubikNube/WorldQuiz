@@ -4,7 +4,7 @@ import { eligibleCountries, allowedCounts, createGame, createCorrectionGame, que
 import { createMapZoom } from './map-zoom.js';
 
 const $ = id => document.getElementById(id);
-const names = { learn: 'Lernen', quiz: 'Länder finden', capitals: 'Hauptstädte zuordnen', correction: 'Fehler korrigieren' };
+const names = { learn: 'Lernen', quiz: 'Länder finden', capitals: 'Hauptstädte zuordnen', flags: 'Flaggenquiz', correction: 'Fehler korrigieren' };
 const regionBounds = {
   Afrika: { x: 465, y: 155, width: 315, height: 310 },
   Asien: { x: 650, y: 25, width: 525, height: 355 },
@@ -112,7 +112,7 @@ function renderRecords() {
     const best = highscores.getBest(label.dataset.modeBest, region, count);
     label.textContent = `${best === null ? 'Dein Rekord: noch keiner' : `Dein Rekord: ${best}/${count}`} · ${region} · ${count} Fragen`;
   }
-  $('highscores').hidden = !['quiz', 'capitals'].includes(mode);
+  $('highscores').hidden = !['quiz', 'capitals', 'flags'].includes(mode);
   const best = highscores.getBest(mode, region, count);
   $('personalBest').textContent = `${best === null ? 'Dein Rekord: noch keiner' : `Dein Rekord: ${best}/${count}`} · ${region} · ${count} Fragen`;
   $('highscoreStorage').textContent = highscores.persistent
@@ -255,6 +255,7 @@ function renderQuestion() {
   $('feedback').textContent = '';
   $('next').hidden = true;
   $('instructions').hidden = false;
+  $('questionFlagFrame').hidden = true;
   if (!active) {
     $('questionTopic').textContent = mode === 'learn' ? 'DIE WELT ENTDECKEN' : names[mode].toLocaleUpperCase('de-DE');
     $('question').textContent = mode === 'learn' ? 'Welches Land interessiert dich?' : game?.finished ? 'Weiter auf Entdeckungsreise' : 'Bereit für eine Weltreise?';
@@ -270,7 +271,16 @@ function renderQuestion() {
   strong.textContent = topic === 'capitals' ? c.capitals.join(' · ') : c.name;
   const prefix = document.createElement('span');
   prefix.textContent = topic === 'capitals' ? 'Zu welchem Land gehört: ' : 'Wo liegt ';
-  if (topic === 'capitals') {
+  if (topic === 'flags') {
+    $('question').textContent = 'Zu welchem Land gehört diese Flagge?';
+    $('questionFlagFrame').hidden = false;
+    // Keep a failed image visible as a fallback across answer rerenders.
+    if ($('questionFlag').getAttribute('src') !== c.flag) {
+      $('questionFlag').hidden = false;
+      $('questionFlagFallback').hidden = true;
+      $('questionFlag').src = c.flag;
+    }
+  } else if (topic === 'capitals') {
     const fullPrefix = document.createElement('span');
     fullPrefix.className = 'fullCapitalPrompt';
     fullPrefix.textContent = 'Zu welchem Land gehört diese Hauptstadt / dieser Regierungssitz: ';
@@ -311,6 +321,13 @@ function renderResults() {
     const text = document.createElement('span');
     text.textContent = `Deine Antwort: ${byCode.get(a.selected).name} · Richtig: ${byCode.get(a.target).name}`;
     if (topic === 'capitals') text.textContent += ` · Hauptstadt / Regierungssitz: ${byCode.get(a.target).capitals.join(' · ')}`;
+    if (topic === 'flags') {
+      const flag = document.createElement('img');
+      flag.className = 'mistakeFlag';
+      flag.src = byCode.get(a.target).flag;
+      flag.alt = `Flagge von ${byCode.get(a.target).name}`;
+      li.append(flag);
+    }
     li.append(button, text);
     return li;
   }));
@@ -439,6 +456,7 @@ async function initialize() {
       feature.dispatchEvent(new MouseEvent('click', { bubbles: true }));
     }
   });
+  $('questionFlag').addEventListener('error', () => { $('questionFlag').hidden = true; $('questionFlagFallback').hidden = false; });
   $('flag').addEventListener('error', () => { $('flag').hidden = true; $('flagFallback').hidden = false; });
   document.querySelectorAll('[data-mode]').forEach(el => el.addEventListener('click', () => chooseMode(el.dataset.mode)));
   $('changeMode').addEventListener('click', () => {

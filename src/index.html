@@ -28,6 +28,7 @@
       <button class="modeCard selected" data-mode="learn" aria-pressed="true"><img src="globe.svg" alt="" width="72" height="72"><span><strong>Lernen</strong><span>Erkunde Länder, Flaggen und Hauptstädte in deinem Tempo.</span><small>Ohne Wertung</small></span></button>
       <button class="modeCard" data-mode="quiz" aria-pressed="false"><span class="cardIcon" aria-hidden="true">⌖</span><span><strong>Länder finden</strong><span>Weißt du, wo es liegt? Zeige das gesuchte Land auf der Karte.</span><small data-mode-best="quiz">Dein Rekord: noch keiner · Welt · 10 Fragen</small></span></button>
       <button class="modeCard" data-mode="capitals" aria-pressed="false"><span class="cardIcon" aria-hidden="true">⌂</span><span><strong>Hauptstädte zuordnen</strong><span>Zu welchem Land gehört die Hauptstadt? Wähle es auf der Karte.</span><small data-mode-best="capitals">Dein Rekord: noch keiner · Welt · 10 Fragen</small></span></button>
+      <button class="modeCard" data-mode="flags" aria-pressed="false"><span class="cardIcon" aria-hidden="true">⚑</span><span><strong>Flaggenquiz</strong><span>Zu welchem Land gehört die Flagge? Wähle es auf der Karte.</span><small data-mode-best="flags">Dein Rekord: noch keiner · Welt · 10 Fragen</small></span></button>
       <button class="modeCard" data-mode="correction" aria-pressed="false"><span class="cardIcon bookIcon" aria-hidden="true"><svg viewBox="0 0 64 64" width="54" height="54" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M32 12C23 6 12 6 4 10v44c8-4 19-4 28 2 9-6 20-6 28-2V10c-8-4-19-4-28 2v44"/><path d="m11 20 13-2m-13 12 13-2m16-10 13 2m-13 8 13 2"/></svg></span><span><strong>Fehler korrigieren</strong><span>Übe gespeicherte Fehler aus allen Quizthemen.</span><small id="correctionCount">0 offene Fragen</small></span></button>
     </div>
   </section>
@@ -54,6 +55,7 @@
       <section id="questionBar" class="panel questionBar" aria-labelledby="question">
         <span id="questionTopic" class="eyebrow">DIE WELT ENTDECKEN</span>
         <h2 id="question" aria-live="polite">Welches Land interessiert dich?</h2>
+        <div id="questionFlagFrame" hidden><img id="questionFlag" alt="Gesuchte Flagge"><p id="questionFlagFallback" role="status" hidden>Flagge nicht verfügbar</p></div>
         <p id="instructions" class="muted">Klicke auf ein Land oder einen kleinen Länderpunkt, um mehr zu erfahren.</p>
         <div id="quizStats" hidden><div class="stats"><span id="questionCount"></span><span id="points"></span></div><progress id="progress" value="0" max="10" aria-label="Beantwortete Fragen"></progress><p id="progressText" class="muted"></p></div>
         <p id="feedback" role="status" aria-live="polite"></p>
@@ -99,7 +101,7 @@
     <span>WorldQuiz · Die Welt kennenlernen</span><a href="ATTRIBUTION.md">Daten &amp; Quellen</a><span>195 Länder: UN-Mitglieder sowie Vatikanstadt und Palästina. Grenzen nach Natural Earth; umstrittene Gebiete sind schematisch dargestellt.</span></footer>
   <noscript><p>Bitte aktiviere JavaScript, um die Karte und das Quiz zu verwenden.</p></noscript>
 </main>
-<dialog id="modeDialog" aria-labelledby="dialogTitle"><div class="dialogHeader"><h2 id="dialogTitle">Modus auswählen</h2><button id="closeDialog" class="secondary" aria-label="Modusauswahl schließen">×</button></div><p class="muted">Ein anderer Modus beendet die aktuelle Runde.</p><div class="dialogModes"><button data-mode="learn">Lernen</button><button data-mode="quiz">Länder finden</button><button data-mode="capitals">Hauptstädte zuordnen</button><button data-mode="correction">Fehler korrigieren</button></div></dialog>
+<dialog id="modeDialog" aria-labelledby="dialogTitle"><div class="dialogHeader"><h2 id="dialogTitle">Modus auswählen</h2><button id="closeDialog" class="secondary" aria-label="Modusauswahl schließen">×</button></div><p class="muted">Ein anderer Modus beendet die aktuelle Runde.</p><div class="dialogModes"><button data-mode="learn">Lernen</button><button data-mode="quiz">Länder finden</button><button data-mode="capitals">Hauptstädte zuordnen</button><button data-mode="flags">Flaggenquiz</button><button data-mode="correction">Fehler korrigieren</button></div></dialog>
 <dialog id="resetRecordsDialog" aria-labelledby="resetRecordsTitle" aria-describedby="resetRecordsDescription">
   <form id="resetRecordsForm">
     <h2 id="resetRecordsTitle">Rekorde zurücksetzen?</h2>

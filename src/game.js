@@ -35,7 +35,7 @@ export function createCorrectionGame(countries, references, random = Math.random
   const byCode = new Map(countries.map(c => [c.code, c]));
   if (!references.length || references.length > 10
     || new Set(references.map(q => `${q.topic}:${q.code}`)).size !== references.length
-    || references.some(q => !['quiz', 'capitals'].includes(q.topic) || !byCode.has(q.code))) {
+    || references.some(q => !['quiz', 'capitals', 'flags'].includes(q.topic) || !byCode.has(q.code))) {
     throw new RangeError('Ungültige Fehlerauswahl');
   }
   return {

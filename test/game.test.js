@@ -69,3 +69,18 @@ test('mistake practice supports one-country rounds and only remaining mistakes',
   assert.equal(fresh.practice, false);
   assert.equal(fresh.answers.length, 0);
 });
+
+test('flag rounds score only the first answer and retry only missed flags', () => {
+  const game = Object.assign(createGame(countries, 2), { mode: 'flags' });
+  const missed = currentQuestion(game);
+  assert.ok(missed.flag);
+  answer(game, countries.find(c => c.code !== missed.code).code, valid);
+  assert.equal(answer(game, missed.code, valid), false);
+  nextQuestion(game);
+  answer(game, currentQuestion(game).code, valid);
+  nextQuestion(game);
+  assert.equal(score(game), 1);
+  const practice = retryGame(game);
+  assert.equal(practice.practice, true);
+  assert.deepEqual(practice.questions, [missed]);
+});

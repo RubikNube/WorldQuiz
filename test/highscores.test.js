@@ -36,7 +36,7 @@ test('first, improved, tied and lower records include zero and only write once p
 
 test('records are independent across mode, region and count, including full-region rounds', () => {
   const records = createHighscores(countries, () => storage());
-  for (const options of [{}, { mode: 'capitals' }, { region: 'Europa' }, { count: 10 }, { region: 'Europa', count: eligibleCountries(countries, 'Europa').length }]) {
+  for (const options of [{}, { mode: 'capitals' }, { mode: 'flags' }, { region: 'Europa' }, { count: 10 }, { region: 'Europa', count: eligibleCountries(countries, 'Europa').length }]) {
     assert.equal(records.recordCompletedRound(round(2, options)).kind, 'first');
   }
   assert.equal(records.getBest('capitals', 'Europa', 5), null);
@@ -113,4 +113,19 @@ test('failed persistent resets leave both copies intact and can be retried', () 
   assert.equal(db.getItem(key), original);
   db.setItem = set; db.removeItem = remove;
   assert.equal(records.resetAll(), true);
+});
+
+test('flag records persist independently, reset separately and exclude practice', () => {
+  const db = storage();
+  let records = createHighscores(countries, () => db);
+  records.recordCompletedRound(round(2));
+  records.recordCompletedRound(round(3, { mode: 'flags' }));
+  assert.equal(records.recordCompletedRound(round(5, { mode: 'flags', practice: true })), null);
+  records = createHighscores(countries, () => db);
+  assert.equal(records.getBest('flags', 'Welt', 5), 3);
+  assert.equal(records.getBest('quiz', 'Welt', 5), 2);
+  assert.equal(records.resetRecord('flags', 'Welt', 5), true);
+  records = createHighscores(countries, () => db);
+  assert.equal(records.getBest('flags', 'Welt', 5), null);
+  assert.equal(records.getBest('quiz', 'Welt', 5), 2);
 });

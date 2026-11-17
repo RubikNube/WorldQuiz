@@ -7,7 +7,7 @@ export function createHighscores(countries, storageProvider = () => globalThis.l
   const counts = new Map(['Welt', ...CONTINENTS].map(region =>
     [region, allowedCounts(eligibleCountries(countries, region).length)]));
   function validRecord(mode, region, count, points) {
-    return ['quiz', 'capitals'].includes(mode) && counts.get(region)?.includes(count)
+    return ['quiz', 'capitals', 'flags'].includes(mode) && counts.get(region)?.includes(count)
       && Number.isInteger(points) && points >= 0 && points <= count;
   }
   const records = new Map();

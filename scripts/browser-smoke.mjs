@@ -74,9 +74,75 @@ async function click(selector) {
 const choose = (id, value) => evaluate(`document.getElementById(${JSON.stringify(id)}).value=${JSON.stringify(value)};document.getElementById(${JSON.stringify(id)}).dispatchEvent(new Event('change'))`);
 const countryClick = code => evaluate(`document.querySelector('[data-country="${code}"]').dispatchEvent(new MouseEvent('click',{bubbles:true}))`);
 async function correct() {
+  if (await evaluate(`matchMedia('(max-width:1099px)').matches && document.querySelector('#countryInfo').hidden`)) await waitForQuestionMap();
   const code = await evaluate(`window.testCountries.find(c=>(document.querySelector('#question .fullCapitalPrompt')!==null?c.capitals.join(' · '):c.name)===document.querySelector('#question strong').textContent).code`);
   await countryClick(code);
   if (await evaluate(`matchMedia('(max-width:1099px)').matches`)) await waitForInfo();
+}
+async function flagsRound(width) {
+  await cdp('Emulation.setDeviceMetricsOverride', { width, height: 1000, deviceScaleFactor: 1, mobile: width < 600 });
+  await cdp('Emulation.setTouchEmulationEnabled', { enabled: false });
+  await cdp('Page.reload');
+  await wait(`document.querySelector('#mapHost').getAttribute('aria-busy')==='false'`);
+  await evaluate(`(async()=>{window.testCountries=await (await fetch('assets/data/countries.json')).json();document.querySelector('#autoNext').checked=false})()`);
+  await click('[data-mode="flags"]');
+  await choose('continent', 'Welt'); await choose('count', '5');
+  await click('#start');
+  if (width < 600) await waitForQuestionMap();
+  const target = () => evaluate(`window.testCountries.find(c=>c.flag===document.querySelector('#questionFlag').getAttribute('src'))`);
+  const missed = await target();
+  let previous;
+  for (let i = 0; i < 5; i++) {
+    await wait(`document.querySelector('#questionFlag').complete && document.querySelector('#questionFlag').naturalWidth>0`);
+    const country = await target();
+    assert.notEqual(country.code, previous);
+    previous = country.code;
+    assert.equal(await evaluate(`document.querySelector('#question').textContent`), 'Zu welchem Land gehört diese Flagge?');
+    assert.equal(await evaluate(`document.querySelector('#questionFlag').alt`), 'Gesuchte Flagge');
+    assert.equal(await evaluate(`document.querySelector('#countryInfo').hidden`), true);
+    assert.equal(await evaluate(`document.documentElement.scrollWidth<=innerWidth`), true);
+    if (width < 600) {
+      assert.ok(await evaluate(`document.querySelector('#questionBar').getBoundingClientRect().height<innerHeight/2`));
+    }
+    if (i === 0) {
+      await click('#changeMode'); await click('.dialogModes [data-mode="flags"]');
+      assert.equal((await target()).code, country.code, 'same mode preserves the question');
+      await countryClick(country.code === 'de' ? 'fr' : 'de');
+      await countryClick(country.code);
+      assert.equal(await evaluate(`document.querySelector('#points').textContent`), '0 Punkte');
+    } else {
+      await evaluate(`(()=>{const el=document.querySelector('[data-country="${country.code}"]');el.focus();el.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true}))})()`);
+    }
+    assert.ok((await evaluate(`document.querySelector('#feedback').textContent`)).includes(country.name));
+    if (i === 0) await screenshot(`/tmp/worldquiz-flags-${width}.png`);
+    await click('#next');
+  }
+  assert.equal(await evaluate(`document.querySelector('#resultTitle').textContent`), '4 von 5 richtig');
+  assert.equal(await evaluate(`document.querySelector('#questionFlagFrame').hidden`), true);
+  assert.equal(await evaluate(`document.querySelector('#mistakeList .mistakeFlag').getAttribute('src')`), missed.flag);
+  const best = await evaluate(`JSON.parse(localStorage.getItem('worldQuizHighscores')).records['flags:Welt:5']`);
+  assert.ok(best >= 4);
+  assert.ok(await evaluate(`JSON.parse(localStorage.getItem('worldQuizMistakes')).entries.some(e=>e.topic==='flags'&&e.code==='${missed.code}')`));
+  await click('#retry');
+  assert.equal((await target()).code, missed.code);
+  await countryClick(missed.code); await click('#next');
+  assert.equal(await evaluate(`document.querySelector('#highscoreResult').textContent`), '');
+  assert.equal(await evaluate(`JSON.parse(localStorage.getItem('worldQuizHighscores')).records['flags:Welt:5']`), best);
+  // Confirm varied aspect ratios fit the prompt without cropping or overflow.
+  await click('#newRound');
+  for (const code of ['np', 'ch', 'qa']) {
+    await evaluate(`document.querySelector('#questionFlag').src=window.testCountries.find(c=>c.code==='${code}').flag`);
+    await wait(`document.querySelector('#questionFlag').complete && document.querySelector('#questionFlag').naturalWidth>0`);
+    assert.equal(await evaluate(`getComputedStyle(document.querySelector('#questionFlag')).objectFit`), 'contain');
+    assert.equal(await evaluate(`document.documentElement.scrollWidth<=innerWidth`), true);
+  }
+  await cdp('Network.setBlockedURLs', { urls: ['*flag-unavailable.svg'] });
+  await evaluate(`document.querySelector('#questionFlag').src='flag-unavailable.svg'`);
+  await wait(`!document.querySelector('#questionFlagFallback').hidden`);
+  assert.equal(await evaluate(`document.querySelector('#progress').value`), 0);
+  await cdp('Network.setBlockedURLs', { urls: [] });
+  await click('#changeMode'); await click('.dialogModes [data-mode="quiz"]');
+  assert.equal(await evaluate(`document.querySelector('#questionFlagFrame').hidden`), true);
 }
 async function checkCorrections() {
   const ready = () => wait(`document.querySelector('#worldMap') && document.querySelector('#mapHost').getAttribute('aria-busy')==='false'`);
@@ -519,10 +585,12 @@ try {
   assert.equal(await evaluate(`document.documentElement.scrollWidth<=window.innerWidth`), true);
   await capitalsRound();
   await checkCorrections();
+  await flagsRound(1440);
+  await flagsRound(320);
   assert.deepEqual(exceptions, []);
   assert.deepEqual(failures, []);
   assert.ok(requests.every(url => url.startsWith(new URL(base).origin) || url.startsWith('data:')), 'No external API or image requests');
-  console.log('Browser checks passed: profiles, flag fallback, country/capitals quizzes, all 195 capital prompts, scoring, practice, saved corrections, records, reset dialogs, keyboard, drag, pinch, desktop/mobile, local requests.');
+  console.log('Browser checks passed: profiles, flag fallback, country/capitals/flag quizzes, all 195 capital prompts, scoring, practice, saved corrections, records, reset dialogs, keyboard, drag, pinch, desktop/mobile, local requests.');
   console.log('Screenshots: /tmp/worldquiz-desktop.png, /tmp/worldquiz-mobile.png, /tmp/worldquiz-mobile-answer.png');
 } finally {
   ws.close();

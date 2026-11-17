@@ -66,13 +66,13 @@ function revealCountryInfo() {
   });
 }
 
-function revealQuestionMap() {
+function revealMap({ forQuestion = false } = {}) {
   // Wait for closing details and browser scroll adjustments before measuring.
   requestAnimationFrame(() => requestAnimationFrame(() => {
-    if (!game || game.finished || !mobileLayout.matches) return;
+    if (forQuestion && (!game || game.finished || !mobileLayout.matches)) return;
     const questionBar = $('questionBar');
-    const sticky = getComputedStyle(questionBar).position === 'sticky';
-    const target = sticky ? document.querySelector('.mapWrap') : questionBar;
+    const sticky = mobileLayout.matches && getComputedStyle(questionBar).position === 'sticky';
+    const target = forQuestion && !sticky ? questionBar : document.querySelector('.mapWrap');
     const top = (window.visualViewport?.offsetTop ?? 0)
       + (sticky ? questionBar.getBoundingClientRect().height : 0) + 12;
     const delta = target.getBoundingClientRect().top - top;
@@ -201,7 +201,7 @@ function renderMap() {
   });
 }
 
-function showCountry(code, reveal = false) {
+function showCountry(code, reveal = false, { scrollToMap = false } = {}) {
   const c = byCode.get(code);
   if (!c) return;
   selectedCode = code;
@@ -219,7 +219,10 @@ function showCountry(code, reveal = false) {
   $('flag').src = c.flag;
   if (reveal) zoom.revealPoint(c.anchor);
   renderMap();
-  revealCountryInfo();
+  if (scrollToMap) {
+    $('mapHost').focus({ preventScroll: true });
+    revealMap();
+  } else revealCountryInfo();
 }
 
 function renderQuestion() {
@@ -279,7 +282,7 @@ function renderResults() {
     const button = document.createElement('button');
     button.className = 'secondary small';
     button.textContent = byCode.get(a.target).name;
-    button.addEventListener('click', () => showCountry(a.target, true));
+    button.addEventListener('click', () => showCountry(a.target, true, { scrollToMap: true }));
     const text = document.createElement('span');
     text.textContent = `Deine Antwort: ${byCode.get(a.selected).name} · Richtig: ${byCode.get(a.target).name}`;
     if (mode === 'capitals') text.textContent += ` · Hauptstadt / Regierungssitz: ${byCode.get(a.target).capitals.join(' · ')}`;
@@ -310,7 +313,7 @@ function startRound(practiceGame = null) {
   focusRegion();
   renderQuestion();
   renderMap();
-  revealQuestionMap();
+  revealMap({ forQuestion: true });
 }
 
 function chooseMode(nextMode) {
@@ -362,7 +365,7 @@ function advanceQuestion() {
     $('newRound').focus({ preventScroll: true });
   } else {
     $('questionBar').focus({ preventScroll: true });
-    revealQuestionMap();
+    revealMap({ forQuestion: true });
   }
 }
 

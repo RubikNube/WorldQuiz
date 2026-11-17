@@ -358,14 +358,8 @@ progress{
 .mapStage{
   display:contents
 }
-.mapHelp{
-  order:2
-}
 .mapHost{
   order:3
-}
-.mapLegend{
-  order:4
 }
 .mapHeader{
   display:flex;
@@ -503,7 +497,7 @@ progress{
   gap:8px;
   font-size:.75rem;
   color:var(--muted);
-  padding:0 15px
+  margin:0
 }
 .legendDot{
   width:7px;
@@ -514,8 +508,7 @@ progress{
 }
 .mapHelp{
   font-size:.8rem;
-  color:var(--muted);
-  padding:0 20px
+  color:var(--muted)
 }
 .mapHelp summary{
   cursor:pointer;
@@ -536,6 +529,12 @@ footer{
   color:var(--muted);
   border-top:1px solid #263552;
   padding-top:16px
+}
+.footerHelp{
+  width:100%;
+  min-width:0;
+  display:grid;
+  gap:8px
 }
 footer>span:last-child{
   width:100%;

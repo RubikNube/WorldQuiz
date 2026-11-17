@@ -157,6 +157,16 @@ async function screenshot(path) {
   const response = await cdp('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
   await writeFile(path, Buffer.from(response.data, 'base64'));
 }
+async function checkFooterHelp() {
+  assert.equal(await evaluate(`document.querySelectorAll('footer .mapHelp,footer .mapLegend').length===2 && !document.querySelector('.mapWrap .mapHelp,.mapWrap .mapLegend')`), true);
+  assert.equal(await evaluate(`document.querySelector('.mapHelp').open`), false);
+  const mapHeight = await evaluate(`document.querySelector('.mapWrap').getBoundingClientRect().height`);
+  await evaluate(`document.querySelector('.mapHelp').open=true`);
+  await settleLayout();
+  assert.equal(await evaluate(`document.documentElement.scrollWidth<=innerWidth`), true);
+  assert.equal(await evaluate(`document.querySelector('.mapWrap').getBoundingClientRect().height`), mapHeight);
+  await evaluate(`document.querySelector('.mapHelp').open=false`);
+}
 try {
   await cdp('Runtime.enable');
   await cdp('Page.enable');
@@ -166,6 +176,7 @@ try {
   await cdp('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1000, deviceScaleFactor: 1, mobile: false });
   await cdp('Page.navigate', { url: base });
   await wait(`document.querySelector('#worldMap') && document.querySelector('#mapHost').getAttribute('aria-busy')==='false'`);
+  await checkFooterHelp();
   await evaluate(`(async()=>{window.testCountries=await (await fetch('assets/data/countries.json')).json()})()`);
   assert.equal(await evaluate(`document.querySelectorAll('#worldMap [data-country]').length>=195`), true);
   await countryClick('fr');
@@ -311,14 +322,10 @@ try {
     })()`);
     assert.ok(layout.mapHeight >= height * .6, `${width}: map uses at least 60% of viewport (${layout.mapHeight}px)`);
     assert.ok(layout.mapTop >= 0 && layout.controlsBottom <= layout.viewport, `${width}: map and controls fit on screen`);
-    assert.ok(layout.controlsTop >= layout.mapBottom, `${width}: controls do not cover countries`);
+    assert.ok(layout.controlsBottom <= layout.mapTop, `${width}: controls stay above the map`);
     assert.equal(layout.overflow, false);
     assert.equal(layout.touchTargets, true);
-    assert.equal(await evaluate(`document.querySelector('.mapHelp').getBoundingClientRect().top>=document.querySelector('#mapHost').getBoundingClientRect().bottom`), true);
-    await evaluate(`document.querySelector('.mapHelp').open=true`);
-    await settleLayout();
-    assert.equal(await evaluate(`document.documentElement.scrollWidth<=innerWidth`), true);
-    await evaluate(`document.querySelector('.mapHelp').open=false`);
+    await checkFooterHelp();
     await screenshot(`/tmp/worldquiz-compact-${width}.png`);
   }
   await cdp('Emulation.setDeviceMetricsOverride', { width: 844, height: 390, deviceScaleFactor: 1, mobile: true });

@@ -59,9 +59,17 @@
       </section>
     </aside>
     <section class="mapWrap" aria-label="Weltkarte">
-      <div class="mapHeader"><div><span class="eyebrow">INTERAKTIVE WELTKARTE</span><h2 id="mapTitle">Die ganze Welt</h2></div><span class="mapBadge">195 Länder</span></div>
+      <div class="mapHeader">
+        <div class="mapHeading">
+          <span class="eyebrow">INTERAKTIVE WELTKARTE</span>
+          <div class="mapTitleRow">
+            <h2 id="mapTitle"><span id="mapTitleFull">Die ganze Welt</span><span id="mapTitleCompact">Welt</span></h2>
+            <div class="mapToolbar" role="group" aria-label="Kartenzoom"><button id="zoomOut" class="secondary" aria-label="Karte verkleinern">−</button><output id="zoomPercentage" aria-label="Kartenzoom">100 %</output><button id="zoomIn" class="secondary" aria-label="Karte vergrößern">+</button><button id="resetMap" class="secondary" aria-label="Kartenzoom zurücksetzen" title="Kartenzoom zurücksetzen"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10a9 9 0 1 1 2 8M3 4v6h6"/></svg></button></div>
+          </div>
+        </div>
+        <span class="mapBadge">195 Länder</span>
+      </div>
       <div class="mapStage">
-      <div class="mapToolbar" role="group" aria-label="Kartenzoom"><button id="zoomOut" class="secondary" aria-label="Karte verkleinern">−</button><output id="zoomPercentage" aria-label="Kartenzoom">100 %</output><button id="zoomIn" class="secondary" aria-label="Karte vergrößern">+</button><button id="resetMap" class="secondary">Zurücksetzen</button></div>
       <div id="mapHost" class="mapHost" tabindex="0" aria-label="Weltkarte: Plus und Minus zum Zoomen, Pfeiltasten zum Verschieben, Pos1 zum Zurücksetzen" aria-busy="true"><p id="mapStatus" role="status">Die Weltkarte wird geladen …</p></div>
       </div>
       <details class="mapHelp"><summary>Kartenhilfe</summary><p>Mausrad oder + / −: zoomen. Ziehen: verschieben. Auf dem Smartphone mit zwei Fingern zoomen; vergrößert mit einem Finger verschieben.</p><p>Tastatur: Karte mit Tab fokussieren, + / − zum Zoomen, Pfeiltasten zum Verschieben, Pos1 zum Zurücksetzen. Länder mit Tab und Enter oder Leertaste auswählen.</p><p>Länder außerhalb der gewählten Region bleiben als Orientierung sichtbar und sind ebenfalls anklickbar. Gebiete außerhalb der Länderauswahl zählen nicht als Antwort.</p></details>

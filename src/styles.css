@@ -358,9 +358,6 @@ progress{
 .mapStage{
   display:contents
 }
-.mapToolbar{
-  order:1
-}
 .mapHelp{
   order:2
 }
@@ -379,7 +376,19 @@ progress{
 }
 .mapHeader h2{
   font-size:1.3rem;
-  margin:4px 0 0
+  margin:0;
+  white-space:nowrap
+}
+.mapHeading{
+  min-width:0
+}
+.mapTitleRow{
+  display:flex;
+  align-items:center;
+  gap:12px
+}
+#mapTitleCompact{
+  display:none
 }
 .mapBadge{
   color:#b5c8e5;
@@ -467,14 +476,18 @@ progress{
 }
 .mapToolbar{
   display:flex;
-  flex-wrap:wrap;
+  flex:none;
   align-items:center;
-  justify-content:center;
-  gap:8px;
-  padding:12px
+  gap:8px
 }
 .mapToolbar button{
-  min-width:44px
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:44px;
+  min-width:44px;
+  height:44px;
+  padding:0
 }
 .mapToolbar output{
   min-width:6ch;
@@ -784,11 +797,18 @@ dialog::backdrop{
     font-size:1rem;
     margin:0
   }
+  .mapTitleRow{
+    gap:8px
+  }
+  #mapTitleFull{
+    display:none
+  }
+  #mapTitleCompact{
+    display:inline
+  }
   .mapStage{
     display:block;
-    position:relative;
-    order:1;
-    padding-bottom:56px
+    order:1
   }
   .mapHost{
     height:var(--mobile-map-height,60dvh);
@@ -800,22 +820,18 @@ dialog::backdrop{
     text-align:center
   }
   .mapToolbar{
-    position:absolute;
-    bottom:0;
-    left:0;
-    right:0;
-    height:56px;
-    padding:6px;
-    flex-wrap:nowrap;
-    gap:6px;
-    background:#132039
+    gap:6px
   }
   .mapToolbar button{
-    font-size:.85rem;
-    padding:8px 10px
+    font-size:.85rem
   }
   .eyebrow{
     font-size:.62rem
+  }
+}
+@media(max-width:400px){
+  .mapToolbar output{
+    display:none
   }
 }
 @media(max-height:500px){

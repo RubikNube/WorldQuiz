@@ -27,10 +27,9 @@ function sizeMobileMap() {
   }
   const questionHeight = $('questionBar').getBoundingClientRect().height;
   const headerHeight = document.querySelector('.mapHeader').getBoundingClientRect().height;
-  const toolbarHeight = document.querySelector('.mapToolbar').getBoundingClientRect().height;
-  // Leave room for the pinned question, the map heading, controls and scroll gaps.
+  // The map header includes the zoom controls.
   const available = (window.visualViewport?.height ?? innerHeight)
-    - questionHeight - headerHeight - toolbarHeight - 36;
+    - questionHeight - headerHeight - 36;
   map.style.setProperty('--mobile-map-height', `${Math.max(280, Math.floor(available))}px`);
 }
 
@@ -103,7 +102,9 @@ function updateCounts() {
 }
 
 function focusRegion() {
-  $('mapTitle').textContent = $('continent').value === 'Welt' ? 'Die ganze Welt' : $('continent').value;
+  const region = $('continent').value;
+  $('mapTitleFull').textContent = region === 'Welt' ? 'Die ganze Welt' : region;
+  $('mapTitleCompact').textContent = region;
   if ($('continent').value === 'Welt') zoom.reset();
   else {
     const region = $('continent').value;

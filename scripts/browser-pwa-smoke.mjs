@@ -8,12 +8,13 @@ import { resolve, extname } from 'node:path';
 
 const directory = resolve('dist');
 const workerSource = await readFile(resolve(directory, 'sw.js'), 'utf8');
-let updated = false;
+const updatedWorkers = new Set();
 const mime = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css',
   '.svg': 'image/svg+xml', '.json': 'application/json', '.webmanifest': 'application/manifest+json', '.png': 'image/png' };
 const server = createServer(async (request, response) => {
   try {
     let path = decodeURIComponent(new URL(request.url, 'http://localhost').pathname);
+    const updated = updatedWorkers.has(path);
     if (path.startsWith('/WorldQuiz/')) path = path.slice('/WorldQuiz'.length);
     const file = resolve(directory, `.${path.endsWith('/') ? `${path}index.html` : path}`);
     if (!file.startsWith(`${directory}/`)) throw Error('Invalid path');
@@ -75,7 +76,6 @@ try {
   await cdp('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1000, deviceScaleFactor: 1, mobile: false });
 
   for (const scope of ['/', '/WorldQuiz/']) {
-    updated = false;
     const base = `${origin}${scope}`;
     await cdp('Page.navigate', { url: base });
     await ready();
@@ -95,8 +95,8 @@ try {
     await cdp('Page.navigate', { url: `${base}?offline-test=1` });
     await ready();
     assert.equal(await evaluate(`localStorage.getItem('pwa-test-preserve')`), 'saved');
-    // Neither profile has been opened before going offline.
-    for (const code of ['de', 'tv']) {
+    // These profiles have not been opened before going offline.
+    for (const code of ['de', 'tv', 'xk', 'tw', 'eh']) {
       await evaluate(`document.querySelector('[data-country="${code}"]').dispatchEvent(new MouseEvent('click',{bubbles:true}))`);
       await wait(`!document.querySelector('#countryInfo').hidden && document.querySelector('#flag').complete && document.querySelector('#flag').naturalWidth > 0`);
     }
@@ -156,7 +156,7 @@ try {
     await cdp('Network.emulateNetworkConditions', { offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1 });
     const savedStorage = await evaluate(`JSON.stringify({...localStorage})`);
     await evaluate(`window.pwaUpdateMarker = 'round-still-open'`);
-    updated = true;
+    updatedWorkers.add(`${scope}sw.js`);
     await evaluate(`(async()=>{await (await navigator.serviceWorker.getRegistration()).update()})()`);
     await wait(`(async()=>!!(await navigator.serviceWorker.getRegistration()).waiting)()`);
     assert.equal(await evaluate(`(async()=> (await navigator.serviceWorker.getRegistration()).active.state)()`), 'activated');

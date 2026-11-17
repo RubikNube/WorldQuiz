@@ -125,8 +125,10 @@ Rekorde erhalten und der Dialog zeigt einen Hinweis.
 ## Daten und Aktualisierung
 
 Enthalten sind 193 UN-Mitglieder sowie Palästina und Vatikanstadt als geografische
-Darstellung des Heiligen Stuhls. Andere Gebiete dienen als nicht gewerteter
-Kartenkontext. Die Kontinentzuordnung ist eine feste Lernzuordnung, beschrieben
+Darstellung des Heiligen Stuhls. Hinzu kommen Kosovo, Taiwan und Westsahara:
+Insgesamt sind 198 Länder und Gebiete im Lernen und in allen Quizmodi auswählbar.
+Weitere Gebiete dienen als nicht gewerteter Kartenkontext.
+Die Kontinentzuordnung ist eine feste Lernzuordnung, beschrieben
 in [Daten und Quellen](ATTRIBUTION.md).
 
 Die Karte verwendet Natural Earth 1:50m in Equal-Earth-Projektion. Flaggen und
@@ -145,7 +147,7 @@ ursprünglichen Entwurf vorgesehenen Wikidata-Abfrage. Die abgeleitete Datenbank
 und die Lizenz werden mit ausgeliefert. Quellen, Abrufdatum und Lizenzhinweise
 stehen in [ATTRIBUTION.md](ATTRIBUTION.md).
 Die Einwohnerzahlen stammen aus dem gebündelten Natural-Earth-Snapshot
-(Schätzungen von 2019–2020) und werden nicht laufend aktualisiert.
+(Schätzungen von 2017–2020) und werden nicht laufend aktualisiert.
 
 ## Als App installieren und offline spielen
 

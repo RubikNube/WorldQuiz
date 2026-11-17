@@ -15,13 +15,18 @@ abgerufen am 16. November 2026. Sie steht unter der
 Die angepasste Datenbank wird ebenfalls unter ODbL bereitgestellt:
 [countries.json](assets/data/countries.json). Der unveränderte Ausgangssnapshot
 ist als [countries-source.json](assets/data/countries-source.json) enthalten.
-Änderungen: Auswahl der 195 Quizziele, deutsche Namen und Hauptstadtangaben,
+Änderungen: Auswahl der 198 Quizziele, deutsche Namen und Hauptstadtangaben,
 Kontinentzuordnung, Kartenanker und kurze deutsche Informationstexte.
 Die Lizenz der Datenbank ist unabhängig von der GPL-Lizenz des Anwendungscodes.
 
 Die Auswahl umfasst die [193 UN-Mitglieder](https://www.un.org/en/about-us/member-states)
 und die [Beobachterstaaten Heiliger Stuhl und Palästina](https://www.un.org/en/about-us/non-member-states).
 Der Heilige Stuhl wird auf der Karte durch Vatikanstadt dargestellt.
+Zusätzlich sind Kosovo, Taiwan und Westsahara auswählbar (insgesamt 198 Ziele).
+Die Statushinweise orientieren sich an den Angaben zur
+[Anerkennung Kosovos](https://www.bundestag.de/resource/blob/959762/WD-2-038-23-pdf.pdf),
+zur [Taiwan-Frage](https://www.auswaertiges-amt.de/de/newsroom/2545960-2545960)
+und zum [UN-Status Westsaharas](https://www.un.org/dppa/decolonization/en/nsgt/western-sahara).
 Kapitalangaben können mehrere Funktionen unterscheiden. Flächen sind ungefähre
 Werte aus dem Snapshot und keine fortlaufend aktualisierten Messungen.
 Wikipedia-Links dienen zum Weiterlesen; es werden keine Artikeltexte kopiert.
@@ -40,20 +45,22 @@ abgerufen am 16. November 2026 aus
 Der Ausgangssnapshot ist als `assets/data/world-source.geojson` enthalten.
 Darstellung in Equal-Earth-Projektion (Šavrič, Patterson und Jenny, 2018).
 Die Einwohnerzahlen der Länderprofile verwenden die Felder `POP_EST` und
-`POP_YEAR` dieses Snapshots. Es sind gerundete Schätzungen von 2019–2020;
+`POP_YEAR` dieses Snapshots. Es sind gerundete Schätzungen von 2017–2020;
 das jeweilige Bezugsjahr wird neben der Einwohnerzahl angezeigt.
 
 Die Karte folgt den [De-facto-Grenzen von Natural Earth](https://www.naturalearthdata.com/about/disputed-boundaries-policy/).
 Diese Darstellung ist keine Aussage über die völkerrechtliche Anerkennung.
-Separate umstrittene Kontextgebiete sind gestrichelt dargestellt. Taiwan,
-Kosovo, abhängige Gebiete und die Antarktis sind keine Quizziele. Kleine Staaten
+Separate umstrittene Kontextgebiete sind gestrichelt dargestellt. Kosovo, Taiwan
+und Westsahara besitzen auswählbare Profile mit Hinweisen zu ihrem Status.
+Abhängige Gebiete und die Antarktis bleiben Kartenkontext. Kleine Staaten
 und Inselgruppen besitzen zusätzliche Auswahlpunkte. Kartenumrisse sind
 generalisiert und nicht zur Navigation geeignet.
 
 ## Flaggen
 
 Lokale SVG-Dateien von [Flagpedia / Flagcdn](https://flagpedia.net/download),
-abgerufen am 16. November 2026. Flagpedia stellt diese Flaggendarstellungen
+abgerufen am 16. November 2026; Kosovo, Taiwan und Westsahara ergänzt am
+17. November 2026. Flagpedia stellt diese Flaggendarstellungen
 als frei nutzbare Public-Domain-Dateien bereit. Die Dateien wurden unverändert
 über `https://flagcdn.com/{iso-alpha-2}.svg` heruntergeladen.
 

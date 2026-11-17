@@ -27,11 +27,15 @@ CAPITALS = {
     'VN': ['Hanoi'], 'YE': ['Sanaa'], 'ZA': ['Pretoria', 'Kapstadt', 'Bloemfontein'],
     'SZ': ['Mbabane (Verwaltung)', 'Lobamba (Parlament und Königssitz)'],
     'BO': ['Sucre (Hauptstadt)', 'La Paz (Regierungssitz)'],
+    'EH': ['El Aaiún (beansprucht)'], 'TW': ['Taipeh'], 'XK': ['Pristina'],
     'CH': ['Bern (Bundesstadt)'], 'IL': ['Jerusalem (Status international umstritten)'],
 }
 NAMES = {'VA': 'Vatikanstadt', 'PS': 'Palästina', 'CZ': 'Tschechien', 'SZ': 'Eswatini', 'CV': 'Kap Verde', 'TL': 'Osttimor'}
 WIKI = {'CD': 'Demokratische Republik Kongo', 'CG': 'Republik Kongo', 'GE': 'Georgien', 'FM': 'Föderierte Staaten von Mikronesien', 'VA': 'Vatikanstadt'}
 FACTS = {
+    'XK': 'Kosovo erklärte 2008 seine Unabhängigkeit; seine staatliche Anerkennung ist international umstritten.',
+    'TW': 'Taiwan besitzt eine eigene Regierung; sein politischer Status ist international umstritten.',
+    'EH': 'Westsahara wird von den Vereinten Nationen als Gebiet ohne Selbstregierung geführt; sein endgültiger Status ist ungeklärt.',
     'DE': 'Deutschland besteht aus 16 Bundesländern.',
     'FR': 'Zu Frankreich gehören auch Gebiete außerhalb Europas, etwa Französisch-Guayana.',
     'AU': 'Das Great Barrier Reef liegt vor der Nordostküste Australiens.',
@@ -93,8 +97,8 @@ def continent(c):
 
 def main():
     original = json.loads((DATA / 'countries-source.json').read_text())
-    countries = [c for c in original if c['unMember'] or c['cca2'] in ('VA', 'PS')]
-    assert len(countries) == 195
+    countries = [c for c in original if c['unMember'] or c['cca2'] in ('VA', 'PS', 'XK', 'TW', 'EH')]
+    assert len(countries) == 198
     features = json.loads((DATA / 'world-source.geojson').read_text())['features']
     population_by3 = {f['properties']['ADM0_A3']: f['properties'] for f in features}
     by3 = {c['cca3']: c['cca2'].lower() for c in countries}
@@ -151,7 +155,7 @@ def main():
                 # Input geometry is already split at the antimeridian.
                 commands.append('M' + 'L'.join(f'{x},{y}' for x, y in points) + 'Z')
         d = ''.join(commands)
-        # Dataset breakaway/context units remain separate and non-selectable.
+        # Units outside the selected profiles remain non-selectable context.
         if code:
             name = html.escape(profiles_by_code[code]['name'], quote=True)
             attrs = f'class="country" data-country="{code}" role="button" tabindex="0" aria-label="{name}"'

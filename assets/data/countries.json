@@ -1865,6 +1865,29 @@
     ]
   },
   {
+    "code": "xk",
+    "name": "Kosovo",
+    "capitals": [
+      "Pristina"
+    ],
+    "continent": "Europa",
+    "areaKm2": 10908,
+    "fact": "Kosovo erklärte 2008 seine Unabhängigkeit; seine staatliche Anerkennung ist international umstritten.",
+    "population": 1794248,
+    "populationYear": 2019,
+    "flag": "assets/flags/xk.svg",
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Kosovo",
+    "anchor": [
+      659.61,
+      115.53
+    ],
+    "marker": true,
+    "sourceUrls": [
+      "https://github.com/mledoze/countries",
+      "https://www.naturalearthdata.com/"
+    ]
+  },
+  {
     "code": "hr",
     "name": "Kroatien",
     "capitals": [
@@ -3823,6 +3846,29 @@
     ]
   },
   {
+    "code": "tw",
+    "name": "Taiwan",
+    "capitals": [
+      "Taipeh"
+    ],
+    "continent": "Asien",
+    "areaKm2": 36193,
+    "fact": "Taiwan besitzt eine eigene Regierung; sein politischer Status ist international umstritten.",
+    "population": 23568378,
+    "populationYear": 2020,
+    "flag": "assets/flags/tw.svg",
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Taiwan",
+    "anchor": [
+      974.98,
+      190.53
+    ],
+    "marker": true,
+    "sourceUrls": [
+      "https://github.com/mledoze/countries",
+      "https://www.naturalearthdata.com/"
+    ]
+  },
+  {
     "code": "tz",
     "name": "Tansania",
     "capitals": [
@@ -4344,6 +4390,29 @@
     "anchor": [
       929.1,
       198.61
+    ],
+    "marker": false,
+    "sourceUrls": [
+      "https://github.com/mledoze/countries",
+      "https://www.naturalearthdata.com/"
+    ]
+  },
+  {
+    "code": "eh",
+    "name": "Westsahara",
+    "capitals": [
+      "El Aaiún (beansprucht)"
+    ],
+    "continent": "Afrika",
+    "areaKm2": 266000,
+    "fact": "Westsahara wird von den Vereinten Nationen als Gebiet ohne Selbstregierung geführt; sein endgültiger Status ist ungeklärt.",
+    "population": 603253,
+    "populationYear": 2017,
+    "flag": "assets/flags/eh.svg",
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Westsahara",
+    "anchor": [
+      560.86,
+      189.22
     ],
     "marker": false,
     "sourceUrls": [

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0b1220">
-  <meta name="description" content="Entdecke 195 Länder, ihre Flaggen und Hauptstädte. Übe die Lage der Länder auf einer interaktiven Weltkarte.">
+  <meta name="description" content="Entdecke 198 Länder, ihre Flaggen und Hauptstädte. Übe die Lage der Länder auf einer interaktiven Weltkarte.">
   <title>WorldQuiz – Die Länder der Welt entdecken</title>
   <link rel="icon" href="globe.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
@@ -15,7 +15,7 @@
 <body>
 <main class="container">
   <header class="topbar">
-    <div><h1><img src="globe.svg" alt="" width="48" height="48">WorldQuiz</h1><p class="subtitle">Eine Welt, 195 Länder. Entdecke, lerne und finde sie auf der Karte.</p></div>
+    <div><h1><img src="globe.svg" alt="" width="48" height="48">WorldQuiz</h1><p class="subtitle">Eine Welt, 198 Länder. Entdecke, lerne und finde sie auf der Karte.</p></div>
     <span class="eyebrow">DEINE REISE UM DIE WELT</span>
   </header>
   <div class="pwaTools">
@@ -40,7 +40,7 @@
         <label id="regionField" class="field" for="continent">Region<select id="continent"><option>Welt</option><option>Afrika</option><option>Asien</option><option>Europa</option><option>Nordamerika</option><option>Südamerika</option><option>Ozeanien</option></select></label>
         <label id="countField" class="field" for="count" hidden>Fragenanzahl<select id="count"></select></label>
         <label id="autoLabel" class="check" for="autoNext" hidden><input id="autoNext" type="checkbox" checked> Automatisch weiter</label>
-        <p id="poolSummary" class="muted">195 Länder zum Entdecken</p>
+        <p id="poolSummary" class="muted">198 Länder zum Entdecken</p>
         <div id="highscores" hidden>
           <p id="personalBest" tabindex="-1"></p>
           <p id="highscoreStorage" class="muted"></p>
@@ -86,7 +86,7 @@
             <div class="mapToolbar" role="group" aria-label="Kartenzoom"><button id="zoomOut" class="secondary" aria-label="Karte verkleinern">−</button><output id="zoomPercentage" aria-label="Kartenzoom">100 %</output><button id="zoomIn" class="secondary" aria-label="Karte vergrößern">+</button><button id="resetMap" class="secondary" aria-label="Kartenzoom zurücksetzen" title="Kartenzoom zurücksetzen"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10a9 9 0 1 1 2 8M3 4v6h6"/></svg></button></div>
           </div>
         </div>
-        <span class="mapBadge">195 Länder</span>
+        <span class="mapBadge">198 Länder</span>
       </div>
       <div class="mapStage">
       <div id="mapHost" class="mapHost" tabindex="0" aria-label="Weltkarte: Plus und Minus zum Zoomen, Pfeiltasten zum Verschieben, Pos1 zum Zurücksetzen" aria-busy="true"><p id="mapStatus" role="status">Die Weltkarte wird geladen …</p></div>
@@ -98,7 +98,7 @@
       <details class="mapHelp"><summary>Kartenhilfe</summary><p>Mausrad oder + / −: zoomen. Ziehen: verschieben. Auf dem Smartphone mit zwei Fingern zoomen; vergrößert mit einem Finger verschieben.</p><p>Tastatur: Karte mit Tab fokussieren, + / − zum Zoomen, Pfeiltasten zum Verschieben, Pos1 zum Zurücksetzen. Länder mit Tab und Enter oder Leertaste auswählen.</p><p>Länder außerhalb der gewählten Region bleiben als Orientierung sichtbar und sind ebenfalls anklickbar. Gebiete außerhalb der Länderauswahl zählen nicht als Antwort.</p></details>
       <p class="mapLegend"><span class="legendDot"></span> Kleine Staaten und Inseln sind auch über Punkte auswählbar.</p>
     </div>
-    <span>WorldQuiz · Die Welt kennenlernen</span><a href="ATTRIBUTION.md">Daten &amp; Quellen</a><span>195 Länder: UN-Mitglieder sowie Vatikanstadt und Palästina. Grenzen nach Natural Earth; umstrittene Gebiete sind schematisch dargestellt.</span></footer>
+    <span>WorldQuiz · Die Welt kennenlernen</span><a href="ATTRIBUTION.md">Daten &amp; Quellen</a><span>198 Länder und Gebiete: UN-Mitglieder sowie Vatikanstadt, Palästina, Kosovo, Taiwan und Westsahara. Grenzen nach Natural Earth; umstrittene Gebiete sind schematisch dargestellt.</span></footer>
   <noscript><p>Bitte aktiviere JavaScript, um die Karte und das Quiz zu verwenden.</p></noscript>
 </main>
 <dialog id="modeDialog" aria-labelledby="dialogTitle"><div class="dialogHeader"><h2 id="dialogTitle">Modus auswählen</h2><button id="closeDialog" class="secondary" aria-label="Modusauswahl schließen">×</button></div><p class="muted">Ein anderer Modus beendet die aktuelle Runde.</p><div class="dialogModes"><button data-mode="learn">Lernen</button><button data-mode="quiz">Länder finden</button><button data-mode="capitals">Hauptstädte zuordnen</button><button data-mode="flags">Flaggenquiz</button><button data-mode="correction">Fehler korrigieren</button></div></dialog>

@@ -29,7 +29,7 @@ def download(country):
 
 if __name__ == '__main__':
     data = json.loads((ROOT / 'assets/data/countries-source.json').read_text())
-    countries = [c for c in data if c['unMember'] or c['cca2'] in ('VA', 'PS')]
+    countries = [c for c in data if c['unMember'] or c['cca2'] in ('VA', 'PS', 'XK', 'TW', 'EH')]
     with ThreadPoolExecutor(max_workers=6) as executor:
         list(executor.map(download, countries))
     print(f'{len(countries)} local flags ready.')

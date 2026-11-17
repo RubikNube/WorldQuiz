@@ -10,8 +10,8 @@ test('continent pools partition all countries and offer valid round sizes', () =
   const continents = new Set(countries.map(c => c.continent));
   assert.equal(continents.size, 6);
   const pools = [...continents].map(c => eligibleCountries(countries, c));
-  assert.equal(pools.reduce((n, p) => n + p.length, 0), 195);
-  assert.equal(eligibleCountries(countries).length, 195);
+  assert.equal(pools.reduce((n, p) => n + p.length, 0), 198);
+  assert.equal(eligibleCountries(countries).length, 198);
   for (const pool of pools) {
     const counts = allowedCounts(pool.length);
     assert.ok(counts.includes(10));
@@ -27,7 +27,7 @@ test('round samples unique targets without mutating source data', () => {
   assert.equal(game.questions.length, 20);
   assert.equal(new Set(game.questions.map(c => c.code)).size, 20);
   assert.deepEqual(countries.map(c => c.code), original);
-  assert.throws(() => createGame(countries, 196), RangeError);
+  assert.throws(() => createGame(countries, countries.length + 1), RangeError);
   assert.throws(() => createGame(countries, 0), RangeError);
 });
 

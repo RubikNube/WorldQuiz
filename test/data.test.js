@@ -13,15 +13,15 @@ test('all population estimates and reference years match the bundled map source'
     const feature = features.find(f => f.properties.ADM0_A3 === original.cca3)
       || features.find(f => f.properties.ISO_A2_EH === original.cca2);
     assert.ok(Number.isInteger(c.population) && c.population > 0, c.code);
-    assert.ok(Number.isInteger(c.populationYear) && c.populationYear >= 2019 && c.populationYear <= 2020, c.code);
+    assert.ok(Number.isInteger(c.populationYear), c.code);
     assert.equal(c.population, Math.round(feature.properties.POP_EST), c.code);
     assert.equal(c.populationYear, feature.properties.POP_YEAR, c.code);
   }
 });
 
-test('all 195 UN-set profiles are complete, uniquely keyed, and geographically selectable', async () => {
-  assert.equal(countries.length, 195);
-  const expected = source.filter(c => c.unMember || ['VA', 'PS'].includes(c.cca2)).map(c => c.cca2.toLowerCase()).sort();
+test('all 198 selected profiles are complete, uniquely keyed, and geographically selectable', async () => {
+  assert.equal(countries.length, 198);
+  const expected = source.filter(c => c.unMember || ['VA', 'PS', 'XK', 'TW', 'EH'].includes(c.cca2)).map(c => c.cca2.toLowerCase()).sort();
   assert.deepEqual(countries.map(c => c.code).sort(), expected);
   const targets = [...svg.matchAll(/data-country="([a-z]{2})"/g)].map(m => m[1]);
   assert.deepEqual([...new Set(targets)].sort(), expected);
@@ -39,8 +39,19 @@ test('all 195 UN-set profiles are complete, uniquely keyed, and geographically s
   }
 });
 
+test('Kosovo, Taiwan, and Western Sahara have selectable profiles in their regions', () => {
+  for (const [code, name, region] of [['xk', 'Kosovo', 'Europa'], ['tw', 'Taiwan', 'Asien'], ['eh', 'Westsahara', 'Afrika']]) {
+    const country = countries.find(c => c.code === code);
+    assert.equal(country.name, name);
+    assert.equal(country.continent, region);
+    assert.match(svg, new RegExp(`<path class="country" data-country="${code}" role="button" tabindex="0" aria-label="${name}"`));
+  }
+  assert.deepEqual(countries.find(c => c.code === 'eh').capitals, ['El Aaiún (beansprucht)']);
+  assert.equal(countries.find(c => c.code === 'eh').populationYear, 2017);
+});
+
 test('microstates and island states have markers and antimeridian geometry stays split', () => {
-  for (const code of ['va', 'sm', 'mc', 'nr', 'tv', 'ki', 'mt', 'sg', 'li']) {
+  for (const code of ['va', 'sm', 'mc', 'nr', 'tv', 'ki', 'mt', 'sg', 'li', 'xk']) {
     assert.equal(countries.find(c => c.code === code).marker, true, code);
     assert.match(svg, new RegExp(`class="country marker" data-country="${code}"`));
   }

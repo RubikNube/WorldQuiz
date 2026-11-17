@@ -224,7 +224,7 @@ async function capitalsRound(all = false) {
   await click('#changeMode');
   await click('.dialogModes [data-mode="capitals"]');
   await choose('continent', 'Welt');
-  const total = all ? 195 : 5;
+  const total = all ? 198 : 5;
   await choose('count', String(total));
   await click('#start');
   if (!all) await waitForQuestionMap();
@@ -265,7 +265,7 @@ async function capitalsRound(all = false) {
     assert.ok(feedback.includes(prompt));
     await click('#next');
   }
-  if (all) assert.equal(seen.size, 195);
+  if (all) assert.equal(seen.size, 198);
   assert.equal(await evaluate(`document.querySelector('#resultTitle').textContent`), `${total - 1} von ${total} richtig`);
   assert.ok((await evaluate(`document.querySelector('#mistakeList').textContent`)).includes(missed.capitals.join(' · ')));
   if (!all) {
@@ -411,7 +411,17 @@ try {
   await checkFooterHelp();
   await evaluate(`(async()=>{window.testCountries=await (await fetch('assets/data/countries.json')).json()})()`);
   await checkRecords();
-  assert.equal(await evaluate(`document.querySelectorAll('#worldMap [data-country]').length>=195`), true);
+  assert.equal(await evaluate(`document.querySelectorAll('#worldMap [data-country]').length>=198`), true);
+  for (const [code, name] of [['xk', 'Kosovo'], ['tw', 'Taiwan'], ['eh', 'Westsahara']]) {
+    await evaluate(`(()=>{
+      const target=document.querySelector('path[data-country="${code}"]');
+      target.focus();
+      target.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true}));
+    })()`);
+    assert.equal(await evaluate(`document.querySelector('#countryName').textContent`), name);
+    await wait(`document.querySelector('#flag').complete && document.querySelector('#flag').naturalWidth>0`);
+    assert.equal(await evaluate(`document.querySelector('#flag').getAttribute('src')`), `assets/flags/${code}.svg`);
+  }
   await countryClick('fr');
   assert.equal(await evaluate(`document.querySelector('#countryName').textContent`), 'Frankreich');
   await wait(`document.querySelector('#flag').complete && document.querySelector('#flag').naturalWidth>0`);
@@ -590,7 +600,7 @@ try {
   assert.deepEqual(exceptions, []);
   assert.deepEqual(failures, []);
   assert.ok(requests.every(url => url.startsWith(new URL(base).origin) || url.startsWith('data:')), 'No external API or image requests');
-  console.log('Browser checks passed: profiles, flag fallback, country/capitals/flag quizzes, all 195 capital prompts, scoring, practice, saved corrections, records, reset dialogs, keyboard, drag, pinch, desktop/mobile, local requests.');
+  console.log('Browser checks passed: profiles, flag fallback, country/capitals/flag quizzes, all 198 capital prompts, scoring, practice, saved corrections, records, reset dialogs, keyboard, drag, pinch, desktop/mobile, local requests.');
   console.log('Screenshots: /tmp/worldquiz-desktop.png, /tmp/worldquiz-mobile.png, /tmp/worldquiz-mobile-answer.png');
 } finally {
   ws.close();

@@ -848,3 +848,12 @@ dialog::backdrop{
     transition:none!important
   }
 }
+
+#highscores { margin:16px 0; }
+#highscores p { margin:6px 0; }
+#highscoreStorage, #resetRecordsHint, #resetRecordsStatus { font-size:.8rem; }
+#resetRecords { margin-top:8px; }
+#highscoreResult { color:#9dd4ff; font-weight:650; }
+#resetRecordsForm fieldset { border:1px solid var(--border); margin:0 0 12px; min-width:0; }
+#resetRecordsForm .check { min-height:44px; }
+input:focus-visible { outline:3px solid #ffcf66; outline-offset:3px; }

@@ -1,3 +1,4 @@
+import { createHighscores, highscoreMessage } from './highscores.js';
 import { eligibleCountries, allowedCounts, createGame, currentQuestion, answer, nextQuestion, score, mistakes, retryGame } from './game.js';
 import { createMapZoom } from './map-zoom.js';
 
@@ -14,6 +15,7 @@ const regionBounds = {
 let countries, byCode, validCodes, zoom, svg;
 let mode = 'learn', game = null, selectedCode = null;
 let advanceTimer = null;
+let highscores, roundRecord = null, resetTarget = null;
 const number = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2 });
 const mobileLayout = matchMedia('(max-width: 1099px)');
 const compactLayout = matchMedia('(max-width: 600px)');
@@ -101,6 +103,70 @@ function updateCounts() {
   $('poolSummary').textContent = `${pool.length} Länder ${mode === 'learn' ? 'zum Entdecken' : 'im Fragenpool'}`;
 }
 
+function renderRecords() {
+  const region = $('continent').value;
+  const count = Number($('count').value);
+  for (const label of document.querySelectorAll('[data-mode-best]')) {
+    const best = highscores.getBest(label.dataset.modeBest, region, count);
+    label.textContent = `${best === null ? 'Dein Rekord: noch keiner' : `Dein Rekord: ${best}/${count}`} · ${region} · ${count} Fragen`;
+  }
+  $('highscores').hidden = mode === 'learn';
+  const best = highscores.getBest(mode, region, count);
+  $('personalBest').textContent = `${best === null ? 'Dein Rekord: noch keiner' : `Dein Rekord: ${best}/${count}`} · ${region} · ${count} Fragen`;
+  $('highscoreStorage').textContent = highscores.persistent
+    ? 'Rekorde werden nur in diesem Browser gespeichert.'
+    : 'Rekorde bleiben für diese Sitzung erhalten; dauerhaftes Speichern ist nicht verfügbar.';
+  const active = Boolean(game && !game.finished);
+  $('resetRecords').disabled = active || !highscores.hasRecords;
+  $('resetRecordsHint').hidden = !active;
+}
+
+function setupRecordReset() {
+  function describeReset() {
+    $('resetRecordsDescription').textContent = $('resetAllRecords').checked
+      ? 'Alle Rekorde für alle Modi, Regionen und Fragenanzahlen in diesem Browser werden gelöscht.'
+      : `Nur der Rekord für ${names[resetTarget.mode]}, ${resetTarget.region}, ${resetTarget.count} Fragen wird gelöscht.`;
+  }
+  $('resetRecords').addEventListener('click', () => {
+    if ((game && !game.finished) || !highscores.hasRecords) return;
+    resetTarget = { mode, region: $('continent').value, count: Number($('count').value) };
+    const selected = highscores.getBest(resetTarget.mode, resetTarget.region, resetTarget.count) !== null;
+    $('resetSelectedLabel').textContent = `Diesen Rekord: ${names[mode]}, ${resetTarget.region}, ${resetTarget.count} Fragen`;
+    $('resetSelectedRecord').disabled = !selected;
+    $('resetSelectedRecord').checked = selected;
+    $('resetAllRecords').checked = !selected;
+    $('resetRecordsError').textContent = '';
+    $('resetRecordsStatus').textContent = '';
+    describeReset();
+    $('resetRecordsDialog').showModal();
+    $('cancelResetRecords').focus();
+  });
+  for (const id of ['resetSelectedRecord', 'resetAllRecords']) $(id).addEventListener('change', describeReset);
+  $('cancelResetRecords').addEventListener('click', () => $('resetRecordsDialog').close());
+  $('resetRecordsDialog').addEventListener('close', () => {
+    if ($('resetRecordsDialog').open) return;
+    resetTarget = null;
+    ($('resetRecords').disabled ? $('personalBest') : $('resetRecords')).focus({ preventScroll: true });
+  });
+  $('resetRecordsForm').addEventListener('submit', event => {
+    event.preventDefault();
+    if (!resetTarget || !$('resetRecordsDialog').open) return;
+    const all = $('resetAllRecords').checked;
+    const success = all ? highscores.resetAll() : highscores.resetRecord(resetTarget.mode, resetTarget.region, resetTarget.count);
+    if (!success) {
+      $('resetRecordsError').textContent = 'Die Rekorde konnten nicht zurückgesetzt werden. Bitte versuche es erneut.';
+      return;
+    }
+    if (all || (game?.mode === resetTarget.mode && game?.region === resetTarget.region && game?.questions.length === resetTarget.count)) {
+      roundRecord = null;
+      $('highscoreResult').textContent = '';
+    }
+    renderRecords();
+    $('resetRecordsStatus').textContent = all ? 'Alle Rekorde zurückgesetzt.' : 'Rekord zurückgesetzt.';
+    $('resetRecordsDialog').close();
+  });
+}
+
 function focusRegion() {
   const region = $('continent').value;
   $('mapTitleFull').textContent = region === 'Welt' ? 'Die ganze Welt' : region;
@@ -157,6 +223,7 @@ function showCountry(code, reveal = false) {
 }
 
 function renderQuestion() {
+  renderRecords();
   const active = game && !game.finished;
   document.body.classList.toggle('quizActive', Boolean(active));
   $('quizStats').hidden = !active;
@@ -203,6 +270,7 @@ function renderQuestion() {
 }
 
 function renderResults() {
+  $('highscoreResult').textContent = highscoreMessage(roundRecord);
   const wrong = mistakes(game);
   $('resultTitle').textContent = `${score(game)} von ${game.questions.length} richtig`;
   $('resultMessage').textContent = game.practice ? 'Übungsrunde abgeschlossen. Jeder Versuch hilft dir beim Lernen.' : 'Gut entdeckt! Erkunde die Karte weiter oder starte eine neue Runde.';
@@ -235,6 +303,9 @@ function startRound(practiceGame = null) {
   cancelAdvance();
   launch();
   game = practiceGame || createGame(eligibleCountries(countries, $('continent').value), Number($('count').value));
+  game.mode = mode;
+  game.region = $('continent').value;
+  roundRecord = null;
   closeInfo();
   focusRegion();
   renderQuestion();
@@ -281,6 +352,7 @@ function cancelAdvance() {
 function advanceQuestion() {
   cancelAdvance();
   if (!nextQuestion(game)) return;
+  if (game.finished) roundRecord = highscores.recordCompletedRound(game);
   closeInfo();
   renderQuestion();
   renderMap();
@@ -298,6 +370,8 @@ async function initialize() {
   const responses = await Promise.all([fetch('assets/data/countries.json'), fetch('world.svg')]);
   if (responses.some(r => !r.ok)) throw new Error('Lokale Kartendaten konnten nicht geladen werden.');
   countries = await responses[0].json();
+  highscores = createHighscores(countries);
+  setupRecordReset();
   byCode = new Map(countries.map(c => [c.code, c]));
   validCodes = new Set(byCode.keys());
   const documentSvg = new DOMParser().parseFromString(await responses[1].text(), 'image/svg+xml');
@@ -355,8 +429,10 @@ async function initialize() {
   $('count').addEventListener('change', () => {
     cancelAdvance();
     if (game && !game.finished) { game = null; closeInfo(); renderQuestion(); renderMap(); }
+    renderRecords();
   });
   updateCounts();
+  renderRecords();
   renderMap();
   sizeSidebar();
   const mobileMapObserver = new ResizeObserver(sizeMobileMap);

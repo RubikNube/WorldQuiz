@@ -53,6 +53,28 @@ Runde. Ein Wechsel zu einem anderen Modus beendet sie ebenfalls. Das bloße
 behalten den Spielstand. Runden und Fehler werden nur im Arbeitsspeicher
 gehalten; ein Neuladen beginnt von vorn.
 
+## Persönliche Rekorde
+
+**Länder finden** und **Hauptstädte zuordnen** speichern persönliche Rekorde
+getrennt nach Modus, Region und Fragenanzahl. Die Themenkarten und Einstellungen
+zeigen **Dein Rekord** für die aktuelle Auswahl. Das Ergebnis meldet einen ersten,
+verbesserten oder eingestellten Rekord. Nur richtige Antworten zählen; es gibt
+keine Zeitwertung. Erst das Weitergehen nach der letzten Antwort beendet und
+wertet die Runde, auch bei automatischem Weitergehen. Lernen, abgebrochene und
+neu gestartete Runden sowie Fehlerübungen erhalten keine Rekordwertung.
+
+Rekorde bleiben ausschließlich in diesem Browser gespeichert, ohne Konto oder
+Übertragung an einen Server. Das Löschen der Browserdaten entfernt sie. Ist
+Browser-Speicher nicht verfügbar, bleiben Rekorde für die aktuelle Sitzung
+erhalten; ein Hinweis erscheint in den Einstellungen.
+
+**Rekorde zurücksetzen…** bietet nach einer Bestätigung den Rekord der aktuellen
+Auswahl oder alle Rekorde zum Löschen an. Während einer laufenden Runde ist das
+Zurücksetzen nicht verfügbar. **Abbrechen** oder Escape schließt den Dialog ohne
+Änderungen. Andere Einstellungen bleiben erhalten; das Löschen kann nicht
+rückgängig gemacht werden. Scheitert das Speichern der Löschung, bleiben die
+Rekorde erhalten und der Dialog zeigt einen Hinweis.
+
 ## Kartenbedienung
 
 - Maus: Mausrad oder **+ / −** zum Zoomen (100–3200 %); Ziehen zum Verschieben.

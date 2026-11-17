@@ -153,6 +153,96 @@ async function capitalsRound(all = false) {
   await click('.dialogModes [data-mode="quiz"]');
   assert.equal(await evaluate(`document.querySelector('#quizStats').hidden`), true);
 }
+async function checkRecords() {
+  const saved = () => evaluate(`JSON.parse(localStorage.getItem('worldQuizHighscores'))?.records ?? {}`);
+  const best = () => evaluate(`document.querySelector('#personalBest').textContent`);
+  const ready = () => wait(`document.querySelector('#worldMap') && document.querySelector('#mapHost').getAttribute('aria-busy')==='false'`);
+  await evaluate(`localStorage.removeItem('worldQuizHighscores')`);
+  await cdp('Page.reload'); await ready();
+  await evaluate(`(async()=>{window.testCountries=await (await fetch('assets/data/countries.json')).json();document.querySelector('#autoNext').checked=false})()`);
+  await click('[data-mode="quiz"]');
+  await choose('count', '5');
+  assert.match(await best(), /noch keiner/);
+  await click('#start');
+  assert.equal(await evaluate(`document.querySelector('#resetRecords').disabled`), true);
+  for (let i = 0; i < 5; i++) {
+    if (i === 0) {
+      const wrong = await evaluate(`window.testCountries.find(c=>c.name!==document.querySelector('#question strong').textContent).code`);
+      await countryClick(wrong);
+    } else await correct();
+    if (i < 4) await click('#next');
+  }
+  assert.deepEqual(await saved(), {}, 'last answer alone does not save a record');
+  await click('#next');
+  assert.equal((await saved())['quiz:Welt:5'], 4);
+  assert.equal(await evaluate(`document.querySelector('#highscoreResult').textContent`), 'Erster Rekord: 4/5!');
+  assert.match(await evaluate(`document.querySelector('[data-mode-best="quiz"]').textContent`), /4\/5/);
+  await click('#retry');
+  await correct(); await click('#next');
+  assert.deepEqual(await saved(), { 'quiz:Welt:5': 4 });
+  assert.equal(await evaluate(`document.querySelector('#highscoreResult').textContent`), '');
+  await choose('continent', 'Europa');
+  assert.match(await best(), /noch keiner/);
+  await choose('continent', 'Welt');
+  await choose('count', '10');
+  assert.match(await best(), /noch keiner/);
+  await choose('count', '5');
+  assert.match(await best(), /4\/5/);
+  await click('#changeMode'); await click('.dialogModes [data-mode="capitals"]');
+  assert.match(await best(), /noch keiner/);
+  await click('#start'); await correct(); await click('#restart');
+  assert.deepEqual(await saved(), { 'quiz:Welt:5': 4 }, 'abandoned and restarted rounds do not save');
+  await choose('continent', 'Europa');
+  await click('#start');
+  for (let i = 0; i < 5; i++) { await correct(); await click('#next'); }
+  assert.equal((await saved())['capitals:Europa:5'], 5);
+  // The existing auto-advance path must commit the final answer exactly once.
+  await click('#newRound');
+  for (let i = 0; i < 4; i++) { await correct(); await click('#next'); }
+  await evaluate(`document.querySelector('#autoNext').checked=true`);
+  await correct();
+  await wait(`!document.querySelector('#results').hidden`);
+  assert.equal(await evaluate(`document.querySelector('#highscoreResult').textContent`), 'Rekord eingestellt: 5/5!');
+  await cdp('Page.reload'); await ready();
+  await click('[data-mode="quiz"]'); await choose('count', '5');
+  assert.match(await best(), /4\/5/);
+  await cdp('Emulation.setDeviceMetricsOverride', { width: 320, height: 667, deviceScaleFactor: 1, mobile: true });
+  await click('#resetRecords');
+  assert.equal(await evaluate(`document.activeElement.id`), 'cancelResetRecords');
+  assert.equal(await evaluate(`document.querySelector('#resetRecordsDialog').scrollWidth<=document.querySelector('#resetRecordsDialog').clientWidth`), true);
+  await screenshot('/tmp/worldquiz-records-mobile.png');
+  await click('#cancelResetRecords');
+  await wait(`document.activeElement.id==='resetRecords'`);
+  await cdp('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1000, deviceScaleFactor: 1, mobile: false });
+  assert.equal((await saved())['quiz:Welt:5'], 4);
+  await click('#resetRecords');
+  await cdp('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27 });
+  await cdp('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27 });
+  await wait(`!document.querySelector('#resetRecordsDialog').open`);
+  assert.equal((await saved())['quiz:Welt:5'], 4);
+  // A failed reset keeps the dialog open and both copies intact.
+  await evaluate(`window.originalRemove=Storage.prototype.removeItem;Storage.prototype.removeItem=function(k){if(k==='worldQuizHighscores')throw Error('blocked');return window.originalRemove.call(this,k)};window.originalSet=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k==='worldQuizHighscores')throw Error('blocked');return window.originalSet.call(this,k,v)}`);
+  await click('#resetRecords'); await click('#resetRecordsForm button[type="submit"]');
+  assert.equal(await evaluate(`document.querySelector('#resetRecordsDialog').open`), true);
+  assert.match(await evaluate(`document.querySelector('#resetRecordsError').textContent`), /nicht zurückgesetzt/);
+  assert.equal((await saved())['quiz:Welt:5'], 4);
+  await evaluate(`Storage.prototype.removeItem=window.originalRemove;Storage.prototype.setItem=window.originalSet`);
+  await click('#resetRecordsForm button[type="submit"]');
+  assert.deepEqual(await saved(), { 'capitals:Europa:5': 5 });
+  await click('#resetRecords');
+  assert.equal(await evaluate(`document.querySelector('#resetSelectedRecord').disabled && document.querySelector('#resetAllRecords').checked`), true);
+  await click('#resetRecordsForm button[type="submit"]');
+  assert.deepEqual(await saved(), {});
+  assert.equal(await evaluate(`document.querySelector('#resetRecords').disabled`), true);
+  await cdp('Page.addScriptToEvaluateOnNewDocument', { source: `Object.defineProperty(window, 'localStorage', { configurable:true, get(){throw Error('blocked storage')} })` }).then(async ({identifier}) => {
+    await cdp('Page.reload'); await ready();
+    await click('[data-mode="quiz"]');
+    assert.match(await evaluate(`document.querySelector('#highscoreStorage').textContent`), /für diese Sitzung/);
+    await cdp('Page.removeScriptToEvaluateOnNewDocument', { identifier });
+  });
+  await cdp('Page.reload'); await ready();
+  await evaluate(`(async()=>{window.testCountries=await (await fetch('assets/data/countries.json')).json()})()`);
+}
 async function screenshot(path) {
   const response = await cdp('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
   await writeFile(path, Buffer.from(response.data, 'base64'));
@@ -178,6 +268,7 @@ try {
   await wait(`document.querySelector('#worldMap') && document.querySelector('#mapHost').getAttribute('aria-busy')==='false'`);
   await checkFooterHelp();
   await evaluate(`(async()=>{window.testCountries=await (await fetch('assets/data/countries.json')).json()})()`);
+  await checkRecords();
   assert.equal(await evaluate(`document.querySelectorAll('#worldMap [data-country]').length>=195`), true);
   await countryClick('fr');
   assert.equal(await evaluate(`document.querySelector('#countryName').textContent`), 'Frankreich');
@@ -354,7 +445,7 @@ try {
   assert.deepEqual(exceptions, []);
   assert.deepEqual(failures, []);
   assert.ok(requests.every(url => url.startsWith(new URL(base).origin) || url.startsWith('data:')), 'No external API or image requests');
-  console.log('Browser checks passed: profiles, flag fallback, country/capitals quizzes, all 195 capital prompts, scoring, practice, keyboard, drag, pinch, desktop/mobile, local requests.');
+  console.log('Browser checks passed: profiles, flag fallback, country/capitals quizzes, all 195 capital prompts, scoring, practice, records, reset dialogs, keyboard, drag, pinch, desktop/mobile, local requests.');
   console.log('Screenshots: /tmp/worldquiz-desktop.png, /tmp/worldquiz-mobile.png, /tmp/worldquiz-mobile-answer.png');
 } finally {
   ws.close();

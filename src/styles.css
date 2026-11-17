@@ -401,6 +401,7 @@ progress{
   white-space:nowrap
 }
 .mapHost{
+  -webkit-tap-highlight-color:transparent;
   width:100%;
   height:clamp(350px,57dvh,700px);
   overflow:hidden;

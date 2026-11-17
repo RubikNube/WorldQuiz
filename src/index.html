@@ -7,8 +7,10 @@
   <meta name="description" content="Entdecke 195 Länder, ihre Flaggen und Hauptstädte. Übe die Lage der Länder auf einer interaktiven Weltkarte.">
   <title>WorldQuiz – Die Länder der Welt entdecken</title>
   <link rel="icon" href="globe.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="styles.css">
   <script type="module" src="app.js"></script>
+  <script type="module" src="pwa.js"></script>
 </head>
 <body>
 <main class="container">
@@ -16,6 +18,10 @@
     <div><h1><img src="globe.svg" alt="" width="48" height="48">WorldQuiz</h1><p class="subtitle">Eine Welt, 195 Länder. Entdecke, lerne und finde sie auf der Karte.</p></div>
     <span class="eyebrow">DEINE REISE UM DIE WELT</span>
   </header>
+  <div class="pwaTools">
+    <button id="installApp" class="secondary" type="button" hidden>App installieren</button>
+    <span id="offlineStatus" role="status" aria-live="polite"></span>
+  </div>
   <section id="modeCards" aria-labelledby="modeHeading">
     <h2 id="modeHeading">Was möchtest du entdecken?</h2>
     <div class="modeGrid">

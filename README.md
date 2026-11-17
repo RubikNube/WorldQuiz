@@ -126,7 +126,7 @@ in [Daten und Quellen](ATTRIBUTION.md).
 
 Die Karte verwendet Natural Earth 1:50m in Equal-Earth-Projektion. Flaggen und
 Länderdaten sind lokal gebündelt. Beim Spielen gibt es keine externen API- oder
-Bildaufrufe. Eine installierbare Offline-App/PWA ist in dieser Version nicht enthalten.
+Bildaufrufe. Die gebaute Version ist als App installierbar und nach dem ersten vollständigen Download offline nutzbar.
 
 Ausgangsdaten stehen unter `assets/data/`. `scripts/generate-data.py` enthält
 deutsche Namens- und Hauptstadtanpassungen, Fakten und die Kartenprojektion.
@@ -142,12 +142,58 @@ stehen in [ATTRIBUTION.md](ATTRIBUTION.md).
 Die Einwohnerzahlen stammen aus dem gebündelten Natural-Earth-Snapshot
 (Schätzungen von 2019–2020) und werden nicht laufend aktualisiert.
 
+## Als App installieren und offline spielen
+
+Die gebaute Version in `dist/` ist eine Progressive Web App (PWA). Auf Android
+WorldQuiz in Chrome öffnen und **App installieren** wählen, sobald der Knopf
+angeboten wird. Alternativ im Browsermenü **App installieren** oder **Zum
+Startbildschirm hinzufügen** wählen; auf iPhone und iPad in Safari das Teilen-Menü
+und **Zum Home-Bildschirm** verwenden. Die genaue Installation hängt vom Browser
+ab. Das WorldQuiz-Symbol öffnet die App in einem eigenen Fenster.
+
+Beim ersten Onlinebesuch lädt der Service Worker das gesamte veröffentlichte
+Paket herunter: Karte, alle Flaggen, Spieldateien, Quelldaten und Lizenznachweise
+(etwa 9,2 MB zuzüglich App-Symbolen). Erst **Offline verfügbar** bestätigt den
+abgeschlossenen Download. Danach funktionieren alle vier Modi und auch bisher
+ungeöffnete Länderprofile ohne Verbindung. Externe Wikipedia- und Quellenlinks
+benötigen weiterhin Internet. **Offline noch nicht verfügbar** bedeutet, dass der
+Download noch läuft, fehlgeschlagen ist oder der Browser die Offlinefunktion
+nicht unterstützt. Bei einer späteren Onlineöffnung wird die Installation erneut
+versucht. Browser können gespeicherte Dateien bei Speicherknappheit oder beim
+Löschen von Websitedaten entfernen.
+
+Updates werden beim Onlineöffnen im Hintergrund vollständig heruntergeladen.
+Sie werden aktiv, sobald alle offenen WorldQuiz-Fenster und -Tabs geschlossen
+sind. Eine laufende Runde wird nicht neu geladen. Rekorde und gespeicherte Fehler
+bleiben unter ihren bisherigen Browser-Speicherschlüsseln erhalten; laufende
+Runden werden nicht gespeichert. Browserdaten sind an Browser und Hosting-Origin
+gebunden und werden bei einem Domainwechsel nicht automatisch übernommen.
+
+Zum Prüfen `npm run build` und `npm run serve:dist` ausführen. Auf
+`http://localhost:8000/` ist der Service Worker auch ohne HTTPS erlaubt. In den
+Chromium-Entwicklerwerkzeugen unter **Application** Manifest, Service Worker und
+Cache Storage prüfen. Nach **Offline verfügbar** im Network-Panel **Offline**
+aktivieren und die Seite neu laden; alle Modi und bisher ungeöffnete Flaggen
+müssen funktionieren. Auf Android zusätzlich nach der Installation im Flugmodus
+über das App-Symbol starten. Eine unverschlüsselte LAN-IP ersetzt beim Testen auf
+dem Telefon kein HTTPS. Direktes Öffnen per `file://` oder das Ausliefern von
+`src/` unterstützt die Offlineinstallation nicht.
+
+Die PNG-App-Symbole sind vom vorhandenen `src/globe.svg` abgeleitet; die
+maskierbare Variante hat einen deckenden Hintergrund und zusätzlichen Innenabstand.
+Die Symbole sind eingecheckt; der normale Build benötigt keine Grafikwerkzeuge.
+
 ## Statisch veröffentlichen
 
-Den gesamten Inhalt von `dist/` auf einem statischen HTTP(S)-Host bereitstellen,
+Den gesamten Inhalt von `dist/` auf einem statischen HTTPS-Host bereitstellen,
 beispielsweise GitHub Pages. Domainwurzel und Unterverzeichnisse wie
 `/WorldQuiz/` werden unterstützt; Unterverzeichnisse mit abschließendem Slash
-ausliefern. JavaScript als JavaScript und SVG als `image/svg+xml` ausliefern.
+ausliefern. `manifest.webmanifest` als `application/manifest+json`, JavaScript
+(einschließlich `sw.js`) mit JavaScript-MIME-Typ und SVG als `image/svg+xml`
+ausliefern. Für `sw.js` und `index.html` `Cache-Control: no-cache` setzen; für die
+übrigen unversionierten Dateinamen keine dauerhaft unveränderlichen HTTP-Caches
+verwenden. Neue Builds vollständig und möglichst atomar bereitstellen, damit
+die Offlineinstallation keine Dateien verschiedener Versionen mischt.
 Ein Backend, Benutzerkonto oder API-Schlüssel ist nicht erforderlich.
 
 Für GitHub Pages unter **Settings → Pages → Source** die Option
@@ -159,8 +205,15 @@ manuell über **Actions → Deploy to GitHub Pages → Run workflow** gestartet 
 
 `npm test` prüft Ländervollständigkeit und lokale Flaggen, Kartenreferenzen,
 Marker und Antimeridian-Geometrie, Fragenpools, Wertung, Fehlerübungen sowie
-Zoomgrenzen und Gestenerkennung. Für einen Browser-Smoke-Test nach dem Build
-siehe `scripts/browser-smoke.mjs`.
+Zoomgrenzen und Gestenerkennung. Die PWA-Tests prüfen Manifest, PNG-Abmessungen,
+vollständigen Offlinecache, Build-Versionen, Installationssteuerung, Statusanzeigen,
+fehlgeschlagene Downloads und die Cache-Isolation bei Root- und Unterverzeichnis-Hosting.
+Für einen Browser-Smoke-Test nach dem Build siehe `scripts/browser-smoke.mjs`.
+Mit derselben dort beschriebenen Chromium-Instanz prüft
+`node scripts/browser-pwa-smoke.mjs` zusätzlich Manifest, Offline-Neustart,
+unbesuchte Flaggen, alle vier Modi und den Update-Lebenszyklus unter `/` und
+`/WorldQuiz/`. Der PWA-Test startet einen temporären lokalen HTTP-Server und
+benötigt keinen bereits laufenden App-Server; `dist/` bleibt unverändert.
 
 Der Anwendungscode steht unter GPL-3.0-or-later. Drittdaten besitzen die in
 den Quellenhinweisen angegebenen Lizenzen.

@@ -96,6 +96,14 @@ p{
   gap:24px;
   padding:4px 0 8px
 }
+.pwaTools{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:12px;
+  color:var(--muted);
+  font-size:.875rem
+}
 .subtitle{
   color:var(--muted);
   margin:0

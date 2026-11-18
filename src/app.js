@@ -1,10 +1,10 @@
 import { createMistakes } from './mistakes.js';
 import { createHighscores, highscoreMessage } from './highscores.js';
-import { eligibleCountries, allowedCounts, createGame, createCorrectionGame, questionTopic, currentQuestion, answer, nextQuestion, score, mistakes, retryGame } from './game.js';
+import { eligibleCountries, allowedCounts, createGame, createCorrectionGame, questionTopic, currentQuestion, answer, answerPopulation, roundedPopulation, nextQuestion, score, mistakes, retryGame } from './game.js';
 import { createMapZoom } from './map-zoom.js';
 
 const $ = id => document.getElementById(id);
-const names = { learn: 'Lernen', quiz: 'Länder finden', capitals: 'Hauptstädte zuordnen', flags: 'Flaggenquiz', correction: 'Fehler korrigieren' };
+const names = { learn: 'Lernen', quiz: 'Länder finden', capitals: 'Hauptstädte zuordnen', flags: 'Flaggenquiz', population: 'Einwohnerzahl', correction: 'Fehler korrigieren' };
 const regionBounds = {
   Afrika: { x: 465, y: 155, width: 315, height: 310 },
   Asien: { x: 650, y: 25, width: 525, height: 355 },
@@ -19,6 +19,7 @@ let advanceTimer = null;
 let savedMistakes;
 let highscores, roundRecord = null, resetTarget = null;
 const number = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2 });
+const populationLabel = value => `ca. ${number.format(value)}`;
 const mobileLayout = matchMedia('(max-width: 1099px)');
 const compactLayout = matchMedia('(max-width: 600px)');
 const scrollBehavior = () => matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
@@ -71,6 +72,14 @@ function revealCountryInfo() {
 function revealMap({ forQuestion = false } = {}) {
   // Wait for closing details and browser scroll adjustments before measuring.
   requestAnimationFrame(() => requestAnimationFrame(() => {
+    if (forQuestion && questionTopic(game) === 'population') {
+      if (mobileLayout.matches) $('questionBar').scrollIntoView({ block: 'start', behavior: scrollBehavior() });
+      else {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.scrollTop += $('questionBar').getBoundingClientRect().top - sidebar.getBoundingClientRect().top;
+      }
+      return;
+    }
     if (forQuestion && (!game || game.finished || !mobileLayout.matches)) return;
     const questionBar = $('questionBar');
     const sticky = mobileLayout.matches && getComputedStyle(questionBar).position === 'sticky';
@@ -112,7 +121,7 @@ function renderRecords() {
     const best = highscores.getBest(label.dataset.modeBest, region, count);
     label.textContent = `${best === null ? 'Dein Rekord: noch keiner' : `Dein Rekord: ${best}/${count}`} · ${region} · ${count} Fragen`;
   }
-  $('highscores').hidden = !['quiz', 'capitals', 'flags'].includes(mode);
+  $('highscores').hidden = !['quiz', 'capitals', 'flags', 'population'].includes(mode);
   const best = highscores.getBest(mode, region, count);
   $('personalBest').textContent = `${best === null ? 'Dein Rekord: noch keiner' : `Dein Rekord: ${best}/${count}`} · ${region} · ${count} Fragen`;
   $('highscoreStorage').textContent = highscores.persistent
@@ -256,6 +265,9 @@ function renderQuestion() {
   $('next').hidden = true;
   $('instructions').hidden = false;
   $('questionFlagFrame').hidden = true;
+  $('populationChoices').hidden = true;
+  $('populationChoices').replaceChildren();
+  document.body.classList.toggle('populationQuestion', Boolean(active && questionTopic(game) === 'population'));
   if (!active) {
     $('questionTopic').textContent = mode === 'learn' ? 'DIE WELT ENTDECKEN' : names[mode].toLocaleUpperCase('de-DE');
     $('question').textContent = mode === 'learn' ? 'Welches Land interessiert dich?' : game?.finished ? 'Weiter auf Entdeckungsreise' : 'Bereit für eine Weltreise?';
@@ -271,7 +283,24 @@ function renderQuestion() {
   strong.textContent = topic === 'capitals' ? c.capitals.join(' · ') : c.name;
   const prefix = document.createElement('span');
   prefix.textContent = topic === 'capitals' ? 'Zu welchem Land gehört: ' : 'Wo liegt ';
-  if (topic === 'flags') {
+  if (topic === 'population') {
+    $('question').replaceChildren('Wie viele Einwohner hat ', strong, ` ungefähr (${c.populationYear})?`);
+    $('populationChoices').hidden = false;
+    const response = game.answers[game.index];
+    $('populationChoices').replaceChildren(...c.populationOptions.map(value => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.dataset.population = String(value);
+      button.textContent = populationLabel(value);
+      button.disabled = Boolean(response);
+      if (response && value === roundedPopulation(c.population)) button.className = 'populationCorrect';
+      else if (response && value === response.selectedPopulation) button.className = 'populationWrong';
+      button.addEventListener('click', () => {
+        if (answerPopulation(game, value)) handleAnswer();
+      });
+      return button;
+    }));
+  } else if (topic === 'flags') {
     $('question').textContent = 'Zu welchem Land gehört diese Flagge?';
     $('questionFlagFrame').hidden = false;
     // Keep a failed image visible as a fallback across answer rerenders.
@@ -287,7 +316,9 @@ function renderQuestion() {
     prefix.className = 'compactCapitalPrompt';
     $('question').replaceChildren(fullPrefix, prefix, strong, '?');
   } else $('question').replaceChildren(prefix, strong, '?');
-  $('instructions').textContent = 'Wähle das gesuchte Land auf der Karte.';
+  $('instructions').textContent = topic === 'population'
+    ? 'Wähle die ungefähre Einwohnerzahl. Die Schätzung bezieht sich auf das angegebene Jahr.'
+    : 'Wähle das gesuchte Land auf der Karte.';
   $('questionCount').textContent = `Frage ${game.index + 1}/${game.questions.length}`;
   $('points').textContent = `${score(game)} Punkte`;
   $('progress').max = game.questions.length;
@@ -297,7 +328,9 @@ function renderQuestion() {
   if (response) {
     $('instructions').hidden = true;
     $('feedback').className = response.correct ? 'good' : 'bad';
-    $('feedback').textContent = response.correct ? `Richtig! Das ist ${c.name}.` : `Deine Antwort: ${byCode.get(response.selected).name}. Richtige Antwort: ${c.name}.`;
+    $('feedback').textContent = topic === 'population'
+      ? `${response.correct ? 'Richtig!' : `Deine Antwort: ${populationLabel(response.selectedPopulation)}.`} ${c.name}: ${populationLabel(roundedPopulation(c.population))} Einwohner (${c.populationYear}).`
+      : response.correct ? `Richtig! Das ist ${c.name}.` : `Deine Antwort: ${byCode.get(response.selected).name}. Richtige Antwort: ${c.name}.`;
     if (topic === 'capitals') $('feedback').textContent += ` Hauptstadt / Regierungssitz: ${c.capitals.join(' · ')}.`;
     $('next').hidden = false;
     $('next').textContent = game.index === game.questions.length - 1 ? 'Ergebnis ansehen' : 'Weiter';
@@ -319,7 +352,10 @@ function renderResults() {
     button.textContent = `${a.topic ? `${names[topic]}: ` : ''}${byCode.get(a.target).name}`;
     button.addEventListener('click', () => showCountry(a.target, true, { scrollToMap: true }));
     const text = document.createElement('span');
-    text.textContent = `Deine Antwort: ${byCode.get(a.selected).name} · Richtig: ${byCode.get(a.target).name}`;
+    const target = byCode.get(a.target);
+    text.textContent = topic === 'population'
+      ? `Deine Antwort: ${populationLabel(a.selectedPopulation)} · Richtig: ${populationLabel(roundedPopulation(target.population))} Einwohner (${target.populationYear})`
+      : `Deine Antwort: ${byCode.get(a.selected).name} · Richtig: ${target.name}`;
     if (topic === 'capitals') text.textContent += ` · Hauptstadt / Regierungssitz: ${byCode.get(a.target).capitals.join(' · ')}`;
     if (topic === 'flags') {
       const flag = document.createElement('img');
@@ -350,7 +386,7 @@ function startRound(practiceGame = null) {
   cancelAdvance();
   launch();
   game = mode === 'correction' ? createCorrectionGame(countries, savedMistakes.selectQuestions())
-    : practiceGame || createGame(eligibleCountries(countries, $('continent').value), Number($('count').value));
+    : practiceGame || createGame(eligibleCountries(countries, $('continent').value), Number($('count').value), Math.random, false, mode);
   game.mode = mode;
   game.region = mode === 'correction' ? 'Welt' : $('continent').value;
   roundRecord = null;
@@ -384,17 +420,29 @@ function chooseMode(nextMode) {
 }
 
 function selectCountry(code) {
+  if (questionTopic(game) === 'population') {
+    if (game.answers[game.index]) showCountry(code);
+    return;
+  }
   const submitted = answer(game, code, validCodes);
-  if (submitted) {
-    const progress = savedMistakes.recordAnswer(game);
-    game.correctionMessage = progress ? progress.cleared ? 'Fehler korrigiert!' : progress.streak ? '1 von 2 richtig' : '' : '';
-    if (progress?.cleared && game.mode === 'correction') game.clearedCount++;
-    renderQuestion();
-    showCountry(currentQuestion(game).code, true);
-    if (game.answers[game.index].correct && $('autoNext').checked) {
-      advanceTimer = window.setTimeout(advanceQuestion, 1600);
-    }
-  } else showCountry(code);
+  if (submitted) handleAnswer();
+  else showCountry(code);
+}
+
+function handleAnswer() {
+  const population = questionTopic(game) === 'population';
+  const progress = savedMistakes.recordAnswer(game);
+  game.correctionMessage = progress ? progress.cleared ? 'Fehler korrigiert!' : progress.streak ? '1 von 2 richtig' : '' : '';
+  if (progress?.cleared && game.mode === 'correction') game.clearedCount++;
+  renderQuestion();
+  if (population) {
+    selectedCode = currentQuestion(game).code;
+    renderMap();
+    $('next').focus({ preventScroll: true });
+  } else showCountry(currentQuestion(game).code, true);
+  if (game.answers[game.index].correct && $('autoNext').checked) {
+    advanceTimer = window.setTimeout(advanceQuestion, 1600);
+  }
 }
 
 function cancelAdvance() {
@@ -472,7 +520,7 @@ async function initialize() {
     if (mode !== 'learn') startRound();
     else { launch(); focusRegion(); }
   });
-  $('restart').addEventListener('click', () => startRound(mode !== 'correction' && game.practice ? createGame(game.questions, game.questions.length, Math.random, true) : null));
+  $('restart').addEventListener('click', () => startRound(mode !== 'correction' && game.practice ? createGame(game.questions, game.questions.length, Math.random, true, mode) : null));
   $('newRound').addEventListener('click', () => startRound());
   $('retry').addEventListener('click', () => { const practice = retryGame(game); if (practice) startRound(practice); });
   $('next').addEventListener('click', advanceQuestion);

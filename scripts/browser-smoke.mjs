@@ -63,7 +63,7 @@ async function waitForQuestionMap() {
     const question=document.querySelector('#questionBar');
     const sticky=getComputedStyle(question).position==='sticky';
     const target=sticky?document.querySelector('.mapWrap'):question;
-    const top=(sticky?question.getBoundingClientRect().height:0)+12;
+    const top=document.body.classList.contains('populationQuestion')?0:(sticky?question.getBoundingClientRect().height:0)+12;
     return Math.abs(target.getBoundingClientRect().top-top)<2;
   })()`);
 }
@@ -79,6 +79,73 @@ async function correct() {
   await countryClick(code);
   if (await evaluate(`matchMedia('(max-width:1099px)').matches`)) await waitForInfo();
 }
+async function populationRound(width) {
+  await cdp('Emulation.setDeviceMetricsOverride', { width, height: 844, deviceScaleFactor: 1, mobile: width < 600 });
+  await cdp('Page.reload');
+  await wait(`document.querySelector('#mapHost').getAttribute('aria-busy')==='false'`);
+  await evaluate(`(async()=>{window.testCountries=await (await fetch('assets/data/countries.json')).json();document.querySelector('#autoNext').checked=false})()`);
+  await click('[data-mode="population"]');
+  await choose('continent', 'Europa'); await choose('count', '5');
+  await click('#start');
+  await wait(`document.querySelectorAll('#populationChoices button').length===4`);
+  await countryClick('de');
+  assert.equal(await evaluate(`document.querySelector('#countryInfo').hidden && document.querySelector('#progress').value===0`), true);
+  assert.equal(await evaluate(`document.querySelector('#question').textContent.includes('ungefähr (')`), true);
+  await evaluate(`document.querySelector('#populationChoices button').focus()`);
+  await cdp('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13, text: '\r' });
+  await cdp('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13 });
+  assert.equal(await evaluate(`document.querySelector('#progress').value`), 1);
+  assert.equal(await evaluate(`document.querySelectorAll('#populationChoices button:disabled').length`), 4);
+  const correctPopulation = `Number(window.testCountries.find(c=>c.name===document.querySelector('#question strong').textContent).population.toPrecision(2))`;
+  await countryClick('de');
+  assert.equal(await evaluate(`document.querySelector('#countryInfo').hidden`), false);
+  await click('#next');
+  assert.equal(await evaluate(`document.querySelector('#countryInfo').hidden`), true);
+  for (let i = 1; i < 5; i++) {
+    await evaluate(`(()=>{const right=${correctPopulation};[...document.querySelectorAll('#populationChoices button')].find(b=>Number(b.dataset.population)${i === 1 ? '!==' : '==='}right).click()})()`);
+    await click('#next');
+  }
+  assert.equal(await evaluate(`document.querySelector('#results').hidden`), false);
+  assert.ok(await evaluate(`document.querySelector('#highscoreResult').textContent.length>0`));
+  assert.ok(await evaluate(`document.querySelector('#mistakeList').textContent.includes('Einwohner (')`));
+  await click('#retry');
+  while (!await evaluate(`document.querySelector('#results').hidden===false`)) {
+    await evaluate(`(()=>{const right=${correctPopulation};[...document.querySelectorAll('#populationChoices button')].find(b=>Number(b.dataset.population)===right).click()})()`);
+    await click('#next');
+  }
+  assert.equal(await evaluate(`document.querySelector('#mistakeList').children.length`), 0);
+  assert.equal(await evaluate(`document.querySelector('#highscoreResult').textContent`), '');
+  await click('#newRound');
+  await click('#restart');
+  assert.equal(await evaluate(`document.querySelector('#progress').value`), 0);
+  await wait(`(()=>{const r=document.querySelector('#populationChoices').getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight})()`);
+  assert.equal(await evaluate(`document.documentElement.scrollWidth<=innerWidth`), true);
+  assert.equal(await evaluate(`Array.from(document.querySelectorAll('#populationChoices button')).every(b=>b.getBoundingClientRect().height>=44)`), true);
+  await screenshot(`/tmp/worldquiz-population-${width}.png`);
+  // Mixed correction rounds must switch input types, including after reload.
+  await evaluate(`localStorage.setItem('worldQuizMistakes',JSON.stringify({version:1,entries:[{topic:'population',code:'de',streak:0},{topic:'flags',code:'de',streak:0}]}))`);
+  await cdp('Page.reload');
+  await wait(`document.querySelector('#mapHost').getAttribute('aria-busy')==='false'`);
+  await evaluate(`document.querySelector('#autoNext').checked=false`);
+  await click('[data-mode="correction"]'); await click('#start');
+  for (let pass = 0; pass < 2; pass++) {
+    for (let question = 0; question < 2; question++) {
+      if (await evaluate(`!document.querySelector('#populationChoices').hidden`)) {
+        await evaluate(`(async()=>{const countries=await(await fetch('assets/data/countries.json')).json();const right=Number(countries.find(c=>c.code==='de').population.toPrecision(2));[...document.querySelectorAll('#populationChoices button')].find(b=>Number(b.dataset.population)===right).click()})()`);
+      } else await countryClick('de');
+      await click('#next');
+    }
+    if (!pass) await click('#newRound');
+  }
+  assert.equal(await evaluate(`document.querySelector('#correctionCount').textContent`), '0 offene Fragen');
+  await click('[data-mode="population"]');
+  await click('#start');
+  await evaluate(`(async()=>{window.testCountries=await(await fetch('assets/data/countries.json')).json();document.querySelector('#autoNext').checked=true})()`);
+  await evaluate(`(()=>{const right=${correctPopulation};[...document.querySelectorAll('#populationChoices button')].find(b=>Number(b.dataset.population)===right).click()})()`);
+  await wait(`document.querySelector('#questionCount').textContent==='Frage 2/10'`);
+  assert.equal(await evaluate(`document.querySelectorAll('#populationChoices button:not(:disabled)').length`), 4);
+}
+
 async function flagsRound(width) {
   await cdp('Emulation.setDeviceMetricsOverride', { width, height: 1000, deviceScaleFactor: 1, mobile: width < 600 });
   await cdp('Emulation.setTouchEmulationEnabled', { enabled: false });
@@ -404,6 +471,8 @@ try {
   await cdp('Page.enable');
   await cdp('Network.enable');
   await cdp('Network.setCacheDisabled', { cacheDisabled: true });
+  // Exercise the current build; the separate PWA suite verifies cached versions.
+  await cdp('Network.setBypassServiceWorker', { bypass: true });
   await cdp('Emulation.setTouchEmulationEnabled', { enabled: false });
   await cdp('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1000, deviceScaleFactor: 1, mobile: false });
   await cdp('Page.navigate', { url: base });
@@ -597,10 +666,12 @@ try {
   await checkCorrections();
   await flagsRound(1440);
   await flagsRound(320);
+  await populationRound(1440);
+  await populationRound(320);
   assert.deepEqual(exceptions, []);
   assert.deepEqual(failures, []);
   assert.ok(requests.every(url => url.startsWith(new URL(base).origin) || url.startsWith('data:')), 'No external API or image requests');
-  console.log('Browser checks passed: profiles, flag fallback, country/capitals/flag quizzes, all 198 capital prompts, scoring, practice, saved corrections, records, reset dialogs, keyboard, drag, pinch, desktop/mobile, local requests.');
+  console.log('Browser checks passed: profiles, flag fallback, country/capitals/flag/population quizzes, all 198 capital prompts, scoring, practice, saved corrections, records, reset dialogs, keyboard, drag, pinch, desktop/mobile, local requests.');
   console.log('Screenshots: /tmp/worldquiz-desktop.png, /tmp/worldquiz-mobile.png, /tmp/worldquiz-mobile-answer.png');
 } finally {
   ws.close();

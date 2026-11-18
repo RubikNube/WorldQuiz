@@ -45,6 +45,14 @@ Regionen, Fragenanzahl, Wertung, persönliche Rekorde und Fehlerübungen funktio
 wie bei **Länder finden**. Die Auflösung nennt das gesuchte Land; die Fehlerübersicht
 zeigt zusätzlich die Flagge.
 
+**Einwohnerzahl** nennt ein Land und das Bezugsjahr der Schätzung. Wähle aus vier
+gerundeten Zahlen die ungefähre Einwohnerzahl. Die Zahlen sind auf zwei
+signifikante Stellen gerundet und deutlich voneinander getrennt. Verwendet werden
+die gebündelten historischen Schätzungen von 2017–2020. Vor der Antwort öffnen
+Kartenklicks keine Länderprofile; danach kannst du die Karte wieder erkunden.
+Regionen, Fragenanzahl, persönliche Rekorde und Fehlerübungen funktionieren wie
+bei den anderen Quizthemen.
+
 **Weiter** zeigt die nächste Frage. Nach der letzten Antwort beendet
 **Ergebnis ansehen** die Runde. Das Ergebnis enthält die Fehlerübersicht;
 **Fehler wiederholen** übt nur diese Ziele, auch wenn nur ein Fehler vorliegt.
@@ -61,8 +69,8 @@ Neuladen beginnt von vorn. Gespeicherte Fehler bleiben erhalten.
 ## Fehler korrigieren
 
 **Fehler korrigieren** speichert falsch beantwortete Fragen aus **Länder finden**,
-**Hauptstädte zuordnen**, **Flaggenquiz** und ihren Fehlerübungen sofort in diesem Browser. Die
-Themenkarte zeigt die Anzahl offener Fragen. Länder-, Hauptstadt- und Flaggenfragen zum
+**Hauptstädte zuordnen**, **Flaggenquiz**, **Einwohnerzahl** und ihren Fehlerübungen sofort in diesem Browser. Die
+Themenkarte zeigt die Anzahl offener Fragen. Länder-, Hauptstadt-, Flaggen- und Einwohnerfragen zum
 selben Land zählen getrennt. Der Modus wird über die Modusauswahl aktiviert;
 **Fehler wiederholen** übt weiterhin nur die Fehler der letzten Runde.
 
@@ -72,7 +80,7 @@ falsche Antwort setzt den Fortschritt zurück. Nach einer richtigen Antwort
 erscheint **1 von 2 richtig**, nach der zweiten **Fehler korrigiert!**.
 
 Eine Korrekturrunde mischt weltweit bis zu zehn unterschiedliche gespeicherte
-Fragen aus allen drei Themen. Fragen ohne richtige Antwort haben bei der Auswahl
+Fragen aus allen vier Themen. Fragen ohne richtige Antwort haben bei der Auswahl
 Vorrang; innerhalb der Gruppen und im gewählten Fragensatz ist die Reihenfolge
 zufällig. Region und Fragenanzahl sind in diesem Modus ausgeblendet.
 **Neue Übungsrunde** und **Übung neu starten** wählen aus den aktuell offenen
@@ -90,7 +98,7 @@ Fehler aus Sitzungen vor Einführung dieser Funktion können nicht übernommen w
 
 ## Persönliche Rekorde
 
-**Länder finden**, **Hauptstädte zuordnen** und **Flaggenquiz** speichern persönliche Rekorde
+**Länder finden**, **Hauptstädte zuordnen**, **Flaggenquiz** und **Einwohnerzahl** speichern persönliche Rekorde
 getrennt nach Modus, Region und Fragenanzahl. Die Themenkarten und Einstellungen
 zeigen **Dein Rekord** für die aktuelle Auswahl. Das Ergebnis meldet einen ersten,
 verbesserten oder eingestellten Rekord. Nur richtige Antworten zählen; es gibt
@@ -161,7 +169,7 @@ ab. Das WorldQuiz-Symbol öffnet die App in einem eigenen Fenster.
 Beim ersten Onlinebesuch lädt der Service Worker das gesamte veröffentlichte
 Paket herunter: Karte, alle Flaggen, Spieldateien, Quelldaten und Lizenznachweise
 (etwa 9,2 MB zuzüglich App-Symbolen). Erst **Offline verfügbar** bestätigt den
-abgeschlossenen Download. Danach funktionieren alle fünf Modi und auch bisher
+abgeschlossenen Download. Danach funktionieren alle sechs Modi und auch bisher
 ungeöffnete Länderprofile ohne Verbindung. Externe Wikipedia- und Quellenlinks
 benötigen weiterhin Internet. **Offline noch nicht verfügbar** bedeutet, dass der
 Download noch läuft, fehlgeschlagen ist oder der Browser die Offlinefunktion
@@ -218,7 +226,7 @@ fehlgeschlagene Downloads und die Cache-Isolation bei Root- und Unterverzeichnis
 Für einen Browser-Smoke-Test nach dem Build siehe `scripts/browser-smoke.mjs`.
 Mit derselben dort beschriebenen Chromium-Instanz prüft
 `node scripts/browser-pwa-smoke.mjs` zusätzlich Manifest, Offline-Neustart,
-unbesuchte Flaggen, alle fünf Modi und den Update-Lebenszyklus unter `/` und
+unbesuchte Flaggen, alle sechs Modi und den Update-Lebenszyklus unter `/` und
 `/WorldQuiz/`. Der PWA-Test startet einen temporären lokalen HTTP-Server und
 benötigt keinen bereits laufenden App-Server; `dist/` bleibt unverändert.
 

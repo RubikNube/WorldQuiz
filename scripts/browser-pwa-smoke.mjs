@@ -142,6 +142,21 @@ try {
       assert.equal(await evaluate(`document.documentElement.scrollWidth <= innerWidth`), true);
       assert.ok(await evaluate(`document.querySelector('#offlineStatus').getBoundingClientRect().width > 0`));
     }
+    await click('[data-mode="population"]');
+    await evaluate(`document.querySelector('#autoNext').checked=false`);
+    await click('#start');
+    assert.equal(await evaluate(`document.querySelectorAll('#populationChoices button').length`), 4);
+    await evaluate(`document.querySelector('[data-country="de"]').dispatchEvent(new MouseEvent('click',{bubbles:true}))`);
+    assert.equal(await evaluate(`document.querySelector('#countryInfo').hidden && document.querySelector('#progress').value===0`), true);
+    await evaluate(`(async()=>{
+      const countries=await (await fetch('assets/data/countries.json')).json();
+      const country=countries.find(c=>c.name===document.querySelector('#question strong').textContent);
+      const correct=Number(country.population.toPrecision(2));
+      [...document.querySelectorAll('#populationChoices button')].find(button=>Number(button.dataset.population)===correct).click();
+    })()`);
+    assert.equal(await evaluate(`document.querySelector('#progress').value`), 1);
+    assert.equal(await evaluate(`document.querySelectorAll('#populationChoices button:disabled').length`), 4);
+    assert.equal(await evaluate(`document.querySelectorAll('#populationChoices .populationCorrect').length`), 1);
     await click('[data-mode="flags"]');
     await evaluate(`document.querySelector('#autoNext').checked=false`);
     await click('#start');

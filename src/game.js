@@ -17,10 +17,27 @@ export function shuffle(items, random = Math.random) {
   return result;
 }
 
-export function createGame(countries, count, random = Math.random, practice = false) {
+export function roundedPopulation(population) {
+  if (!Number.isFinite(population) || population <= 0) throw new RangeError('Ungültige Einwohnerzahl');
+  return Math.max(1, Number(population.toPrecision(2)));
+}
+
+export function populationOptions(population, random = Math.random) {
+  const distractors = shuffle([0.25, 0.5, 2, 4], random).slice(0, 3)
+    .map(factor => roundedPopulation(population * factor));
+  return shuffle([roundedPopulation(population), ...distractors], random);
+}
+
+function populationQuestion(country, random) {
+  return { ...country, populationOptions: populationOptions(country.population, random) };
+}
+
+export function createGame(countries, count, random = Math.random, practice = false, mode) {
   if (!Number.isInteger(count) || count < 1 || count > countries.length) throw new RangeError('Ungültige Fragenanzahl');
   if (new Set(countries.map(c => c.code)).size !== countries.length) throw new Error('Doppelte Länder');
-  return { questions: shuffle(countries, random).slice(0, count), index: 0, answers: [], practice, finished: false };
+  const questions = shuffle(countries, random).slice(0, count)
+    .map(c => mode === 'population' ? populationQuestion(c, random) : c);
+  return { questions, index: 0, answers: [], practice, finished: false, ...(mode ? { mode } : {}) };
 }
 
 export function currentQuestion(game) {
@@ -35,19 +52,34 @@ export function createCorrectionGame(countries, references, random = Math.random
   const byCode = new Map(countries.map(c => [c.code, c]));
   if (!references.length || references.length > 10
     || new Set(references.map(q => `${q.topic}:${q.code}`)).size !== references.length
-    || references.some(q => !['quiz', 'capitals', 'flags'].includes(q.topic) || !byCode.has(q.code))) {
+    || references.some(q => !['quiz', 'capitals', 'flags', 'population'].includes(q.topic) || !byCode.has(q.code))) {
     throw new RangeError('Ungültige Fehlerauswahl');
   }
   return {
-    questions: shuffle(references.map(q => ({ ...byCode.get(q.code), topic: q.topic })), random),
+    questions: shuffle(references.map(q => {
+      const country = { ...byCode.get(q.code), topic: q.topic };
+      return q.topic === 'population' ? populationQuestion(country, random) : country;
+    }), random),
     index: 0, answers: [], practice: true, finished: false, mode: 'correction', region: 'Welt', clearedCount: 0,
   };
 }
 
 export function answer(game, code, validCodes) {
-  if (!game || game.finished || game.answers.length > game.index || !validCodes.has(code)) return false;
+  if (!game || game.finished || questionTopic(game) === 'population'
+    || game.answers.length > game.index || !validCodes.has(code)) return false;
   const target = currentQuestion(game);
   game.answers.push({ target: target.code, selected: code, correct: code === target.code,
+    ...(game.mode === 'correction' ? { topic: target.topic } : {}) });
+  return true;
+}
+
+export function answerPopulation(game, selectedPopulation) {
+  if (!game || game.finished || questionTopic(game) !== 'population'
+    || game.answers.length > game.index) return false;
+  const target = currentQuestion(game);
+  if (!target.populationOptions.includes(selectedPopulation)) return false;
+  game.answers.push({ target: target.code, selectedPopulation,
+    correct: selectedPopulation === roundedPopulation(target.population),
     ...(game.mode === 'correction' ? { topic: target.topic } : {}) });
   return true;
 }
@@ -66,5 +98,5 @@ export function retryGame(game, random = Math.random) {
   const codes = new Set(mistakes(game).map(a => a.target));
   if (!game.finished || !codes.size) return null;
   const questions = game.questions.filter(c => codes.has(c.code));
-  return createGame(questions, questions.length, random, true);
+  return createGame(questions, questions.length, random, true, game.mode);
 }

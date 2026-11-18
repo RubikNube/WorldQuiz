@@ -870,6 +870,42 @@ input:focus-visible { outline:3px solid #ffcf66; outline-offset:3px; }
 
 .bookIcon{border-radius:12px;background:#1b2943;color:#9dd4ff}
 
+#populationChoices{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+  margin:12px 0;
+  grid-column:1/-1
+}
+#populationChoices button{
+  min-height:44px;
+  padding:10px 6px;
+  overflow-wrap:anywhere
+}
+#populationChoices button:disabled{
+  opacity:1
+}
+#populationChoices .populationCorrect{
+  background:#d9f4df;
+  color:#14532d;
+  border:2px solid #15803d
+}
+#populationChoices .populationWrong{
+  background:#fee2e2;
+  color:#7f1d1d;
+  border:2px solid #b91c1c
+}
+@media(max-width:1099px){
+  .quizActive.populationQuestion .questionBar{
+    position:static;
+    max-height:none;
+    overflow:visible
+  }
+  .quizActive.populationQuestion .questionBar .actions{
+    grid-row:auto
+  }
+}
+
 /* Keep the flag cue compact inside the sticky question, including on phones. */
 #questionFlagFrame{
   grid-column:1/-1;

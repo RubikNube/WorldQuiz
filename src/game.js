@@ -41,14 +41,17 @@ export function createGame(countries, count, random = Math.random, practice = fa
   return { questions, index: 0, answers: [], practice, finished: false, ...(mode ? { mode } : {}) };
 }
 
-export function createMixedGame(countries, rivers, count, random = Math.random) {
-  if (!Number.isInteger(count) || count < 1 || count > countries.length + rivers.length) {
+export function createMixedGame(countries, rivers, count, random = Math.random, mountains = []) {
+  const total = countries.length + rivers.length + mountains.length;
+  if (!Number.isInteger(count) || count < 1 || count > total) {
     throw new RangeError('Ungültige Fragenanzahl');
   }
-  if (new Set([...countries, ...rivers].map(q => q.code)).size !== countries.length + rivers.length) {
+  if (new Set([...countries, ...rivers, ...mountains].map(q => q.code)).size !== total) {
     throw new Error('Doppelte Ziele');
   }
-  const topics = ['quiz', 'capitals', 'flags', 'population', 'river'];
+  const featurePools = { river: rivers, mountain: mountains };
+  const countryTopics = ['quiz', 'capitals', 'flags', 'population'];
+  const topics = [...countryTopics, ...Object.keys(featurePools)];
   const quotas = Object.fromEntries(topics.map(topic => [topic, 0]));
   let countryCount = 0;
   // Country topics share one pool: allocating a slot consumes a distinct country.
@@ -56,17 +59,19 @@ export function createMixedGame(countries, rivers, count, random = Math.random) 
   for (let remaining = count; remaining > 0;) {
     for (const topic of shuffle(topics, random)) {
       if (!remaining) break;
-      if (topic === 'river' ? quotas.river >= rivers.length : countryCount >= countries.length) continue;
+      if (featurePools[topic] ? quotas[topic] >= featurePools[topic].length : countryCount >= countries.length) continue;
       quotas[topic]++;
-      if (topic !== 'river') countryCount++;
+      if (!featurePools[topic]) countryCount++;
       remaining--;
     }
   }
   const available = shuffle(countries, random);
   let index = 0;
-  const questions = topics.filter(topic => topic !== 'river').flatMap(topic =>
+  const questions = countryTopics.flatMap(topic =>
     Array.from({ length: quotas[topic] }, () => ({ ...available[index++], topic })));
-  questions.push(...shuffle(rivers, random).slice(0, quotas.river).map(river => ({ ...river, topic: 'river' })));
+  for (const [topic, pool] of Object.entries(featurePools)) {
+    questions.push(...shuffle(pool, random).slice(0, quotas[topic]).map(target => ({ ...target, topic })));
+  }
   return createGame(questions, count, random, false, 'mixed');
 }
 
@@ -78,18 +83,19 @@ export function questionTopic(game, question = currentQuestion(game)) {
   return ['correction', 'mixed'].includes(game?.mode) ? question?.topic : game?.mode;
 }
 
-export function createCorrectionGame(countries, references, random = Math.random, rivers = []) {
+export function createCorrectionGame(countries, references, random = Math.random, rivers = [], mountains = []) {
   const byCode = new Map(countries.map(c => [c.code, c]));
   const byRiver = new Map(rivers.map(r => [r.code, r]));
+  const byMountain = new Map(mountains.map(m => [m.code, m]));
   if (!references.length || references.length > 10
     || new Set(references.map(q => `${q.topic}:${q.code}`)).size !== references.length
-    || references.some(q => q.topic === 'river' ? !byRiver.has(q.code)
+    || references.some(q => q.topic === 'mountain' ? !byMountain.has(q.code) : q.topic === 'river' ? !byRiver.has(q.code)
       : !['quiz', 'capitals', 'flags', 'population'].includes(q.topic) || !byCode.has(q.code))) {
     throw new RangeError('Ungültige Fehlerauswahl');
   }
   return {
     questions: shuffle(references.map(q => {
-      const country = { ...(q.topic === 'river' ? byRiver : byCode).get(q.code), topic: q.topic };
+      const country = { ...(q.topic === 'mountain' ? byMountain : q.topic === 'river' ? byRiver : byCode).get(q.code), topic: q.topic };
       return q.topic === 'population' ? populationQuestion(country, random) : country;
     }), random),
     index: 0, answers: [], practice: true, finished: false, mode: 'correction', region: 'Welt', clearedCount: 0,
@@ -101,7 +107,9 @@ export function answer(game, code, validCodes) {
     || game.answers.length > game.index || !validCodes.has(code)) return false;
   const target = currentQuestion(game);
   // A valid code from the other map layer must never submit an answer.
-  if (code.startsWith('river-') !== (questionTopic(game) === 'river')) return false;
+  const entityTopic = code.startsWith('mountain-') ? 'mountain' : code.startsWith('river-') ? 'river' : 'country';
+  const topic = questionTopic(game);
+  if (entityTopic !== (['river', 'mountain'].includes(topic) ? topic : 'country')) return false;
   game.answers.push({ target: target.code, selected: code, correct: code === target.code,
     ...(['correction', 'mixed'].includes(game.mode) ? { topic: target.topic } : {}) });
   return true;

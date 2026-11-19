@@ -257,7 +257,7 @@ export function createMapZoom({ svg, host, zoomIn, zoomOut, resetButton, percent
     event.preventDefault();
   });
   on(host, "focusin", (event) => {
-    const feature = event.target.closest('[data-country], [data-river]');
+    const feature = event.target.closest('[data-country], [data-river], [data-mountain]');
     if (feature) {
       const x = Number(feature.dataset.anchorX), y = Number(feature.dataset.anchorY);
       render(revealView(view, bounds, {x, y, width: 0, height: 0}, view.width * 0.03));

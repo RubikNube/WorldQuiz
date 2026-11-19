@@ -3,6 +3,7 @@
 // Serves dist on a temporary localhost port; never changes the published bundle.
 import assert from 'node:assert/strict';
 import { checkMixedRound } from './browser-mixed.mjs';
+import { checkMountainRound } from './browser-mountains.mjs';
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { resolve, extname } from 'node:path';
@@ -180,6 +181,7 @@ try {
     })()`);
     assert.equal(await evaluate(`document.querySelector('#progress').value`), 1);
     assert.equal(await evaluate(`!document.querySelector('#riverDetails').hidden && document.querySelector('#worldMap').classList.contains('river-mode')`), true);
+    await checkMountainRound({ evaluate, click });
     await checkMixedRound({ evaluate, click });
     await cdp('Network.emulateNetworkConditions', { offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1 });
     const savedStorage = await evaluate(`JSON.stringify({...localStorage})`);

@@ -3,16 +3,22 @@ import { CONTINENTS, eligibleCountries, allowedCounts, score } from "./game.js";
 const STORAGE_KEY = "worldQuizHighscores";
 
 // Each topic's data determines its valid round sizes for each region.
-export function createHighscores(countries, storageProvider = () => globalThis.localStorage, rivers = []) {
+export function createHighscores(countries, storageProvider = () => globalThis.localStorage, rivers = [], mountains = []) {
   const counts = new Map(['Welt', ...CONTINENTS].map(region =>
     [region, allowedCounts(eligibleCountries(countries, region).length)]));
   const riverCounts = new Map(['Welt', ...CONTINENTS].map(region =>
     [region, allowedCounts(eligibleCountries(rivers, region).length).filter(n => n > 0)]));
-  const mixedCounts = new Map(['Welt', ...CONTINENTS].map(region =>
-    [region, allowedCounts(eligibleCountries(countries, region).length + eligibleCountries(rivers, region).length).filter(n => n > 0)]));
+  const mountainCounts = new Map(['Welt', ...CONTINENTS].map(region =>
+    [region, allowedCounts(eligibleCountries(mountains, region).length).filter(n => n > 0)]));
+  const mixedCounts = new Map(['Welt', ...CONTINENTS].map(region => {
+    const previousTotal = eligibleCountries(countries, region).length + eligibleCountries(rivers, region).length;
+    // Retain records for the former "Alle" size when loading or resetting storage.
+    return [region, [...new Set([...allowedCounts(previousTotal),
+      ...allowedCounts(previousTotal + eligibleCountries(mountains, region).length)])].filter(n => n > 0)];
+  }));
   function validRecord(mode, region, count, points) {
-    return ['quiz', 'capitals', 'flags', 'population', 'river', 'mixed'].includes(mode)
-      && (mode === 'mixed' ? mixedCounts : mode === 'river' ? riverCounts : counts).get(region)?.includes(count)
+    return ['quiz', 'capitals', 'flags', 'population', 'river', 'mountain', 'mixed'].includes(mode)
+      && (mode === 'mixed' ? mixedCounts : mode === 'mountain' ? mountainCounts : mode === 'river' ? riverCounts : counts).get(region)?.includes(count)
       && Number.isInteger(points) && points >= 0 && points <= count;
   }
   const records = new Map();

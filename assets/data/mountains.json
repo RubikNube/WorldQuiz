@@ -1,0 +1,724 @@
+[
+  {
+    "code": "mountain-kilimandscharo",
+    "name": "Kilimandscharo",
+    "continent": "Afrika",
+    "coordinates": [
+      37.359167,
+      -3.066667
+    ],
+    "elevationM": 5895,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Kilimandscharo",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Kilimandscharo"
+    ],
+    "anchor": [
+      720.7,
+      305.35
+    ]
+  },
+  {
+    "code": "mountain-mount-kenya",
+    "name": "Mount Kenya",
+    "continent": "Afrika",
+    "coordinates": [
+      37.316667,
+      -0.156111
+    ],
+    "elevationM": 5199,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Mount-Kenya-Massiv",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Mount-Kenya-Massiv"
+    ],
+    "anchor": [
+      720.64,
+      292.68
+    ]
+  },
+  {
+    "code": "mountain-toubkal",
+    "name": "Toubkal",
+    "continent": "Afrika",
+    "coordinates": [
+      -7.91513,
+      31.05963
+    ],
+    "elevationM": 4167,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Jbel_Toubkal",
+    "sourceUrls": [
+      "https://en.wikipedia.org/wiki/Toubkal"
+    ],
+    "anchor": [
+      576.18,
+      160.26
+    ]
+  },
+  {
+    "code": "mountain-kamerunberg",
+    "name": "Kamerunberg",
+    "continent": "Afrika",
+    "coordinates": [
+      9.173436,
+      4.218839
+    ],
+    "elevationM": 4095,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Kamerunberg",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Kamerunberg"
+    ],
+    "anchor": [
+      629.62,
+      273.63
+    ]
+  },
+  {
+    "code": "mountain-ras-daschaen",
+    "name": "Ras Daschän",
+    "continent": "Afrika",
+    "coordinates": [
+      38.37266,
+      13.23692
+    ],
+    "elevationM": 4533,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Ras_Dasch%C3%A4n",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Ras_Dasch%C3%A4n"
+    ],
+    "anchor": [
+      722.48,
+      234.62
+    ]
+  },
+  {
+    "code": "mountain-mount-stanley",
+    "name": "Mount Stanley",
+    "continent": "Afrika",
+    "coordinates": [
+      29.87167,
+      0.38583
+    ],
+    "elevationM": 5109,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Mount_Stanley_(Ruwenzori)",
+    "sourceUrls": [
+      "https://en.wikipedia.org/wiki/Mount_Stanley"
+    ],
+    "anchor": [
+      696.57,
+      290.32
+    ]
+  },
+  {
+    "code": "mountain-everest",
+    "name": "Mount Everest",
+    "continent": "Asien",
+    "coordinates": [
+      86.92501,
+      27.98823
+    ],
+    "elevationM": 8849,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Mount_Everest",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Mount_Everest"
+    ],
+    "anchor": [
+      865.19,
+      172.68
+    ]
+  },
+  {
+    "code": "mountain-k2",
+    "name": "K2",
+    "continent": "Asien",
+    "coordinates": [
+      76.516667,
+      35.883333
+    ],
+    "elevationM": 8611,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/K2",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/K2"
+    ],
+    "anchor": [
+      824.63,
+      141.21
+    ]
+  },
+  {
+    "code": "mountain-kangchendzoenga",
+    "name": "Kangchendzönga",
+    "continent": "Asien",
+    "coordinates": [
+      88.1474,
+      27.703
+    ],
+    "elevationM": 8586,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Kangchendz%C3%B6nga",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Kangchendz%C3%B6nga"
+    ],
+    "anchor": [
+      869.24,
+      173.84
+    ]
+  },
+  {
+    "code": "mountain-fuji",
+    "name": "Fuji",
+    "continent": "Asien",
+    "coordinates": [
+      138.727222,
+      35.360556
+    ],
+    "elevationM": 3776,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Fuji_(Vulkan)",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Fuji_(Vulkan)"
+    ],
+    "anchor": [
+      1008.43,
+      143.24
+    ]
+  },
+  {
+    "code": "mountain-ararat",
+    "name": "Ararat",
+    "continent": "Asien",
+    "coordinates": [
+      44.297222,
+      39.701944
+    ],
+    "elevationM": 5137,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Ararat",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Ararat"
+    ],
+    "anchor": [
+      727.16,
+      126.58
+    ]
+  },
+  {
+    "code": "mountain-damavand",
+    "name": "Damavand",
+    "continent": "Asien",
+    "coordinates": [
+      52.111944,
+      35.953889
+    ],
+    "elevationM": 5610,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Damavand",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Damavand"
+    ],
+    "anchor": [
+      752.93,
+      140.94
+    ]
+  },
+  {
+    "code": "mountain-kinabalu",
+    "name": "Kinabalu",
+    "continent": "Asien",
+    "coordinates": [
+      116.549722,
+      6.083056
+    ],
+    "elevationM": 4095,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Kinabalu",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Kinabalu"
+    ],
+    "anchor": [
+      975.78,
+      265.53
+    ]
+  },
+  {
+    "code": "mountain-semeru",
+    "name": "Semeru",
+    "continent": "Asien",
+    "coordinates": [
+      112.92,
+      -8.107778
+    ],
+    "elevationM": 3676,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Semeru",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Semeru"
+    ],
+    "anchor": [
+      963.32,
+      327.25
+    ]
+  },
+  {
+    "code": "mountain-mont-blanc",
+    "name": "Mont Blanc",
+    "continent": "Europa",
+    "coordinates": [
+      6.864325,
+      45.832544
+    ],
+    "elevationM": 4807,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Mont_Blanc",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Mont_Blanc"
+    ],
+    "elevationNote": "Die Gipfelhöhe verändert sich durch Schnee und Eis beziehungsweise vulkanische Aktivität.",
+    "anchor": [
+      618.9,
+      104.07
+    ]
+  },
+  {
+    "code": "mountain-matterhorn",
+    "name": "Matterhorn",
+    "continent": "Europa",
+    "coordinates": [
+      7.658611,
+      45.976389
+    ],
+    "elevationM": 4478,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Matterhorn",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Matterhorn"
+    ],
+    "anchor": [
+      621.07,
+      103.56
+    ]
+  },
+  {
+    "code": "mountain-zugspitze",
+    "name": "Zugspitze",
+    "continent": "Europa",
+    "coordinates": [
+      10.9863,
+      47.42122
+    ],
+    "elevationM": 2962,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Zugspitze",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Zugspitze"
+    ],
+    "anchor": [
+      629.9,
+      98.46
+    ]
+  },
+  {
+    "code": "mountain-grossglockner",
+    "name": "Großglockner",
+    "continent": "Europa",
+    "coordinates": [
+      12.6939,
+      47.074531
+    ],
+    "elevationM": 3798,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Gro%C3%9Fglockner",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Gro%C3%9Fglockner"
+    ],
+    "anchor": [
+      634.64,
+      99.68
+    ]
+  },
+  {
+    "code": "mountain-triglav",
+    "name": "Triglav",
+    "continent": "Europa",
+    "coordinates": [
+      13.836667,
+      46.378219
+    ],
+    "elevationM": 2864,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Triglav",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Triglav"
+    ],
+    "anchor": [
+      637.95,
+      102.13
+    ]
+  },
+  {
+    "code": "mountain-olymp",
+    "name": "Olymp",
+    "continent": "Europa",
+    "coordinates": [
+      22.35849,
+      40.08622
+    ],
+    "elevationM": 2918,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Olymp",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Olymp"
+    ],
+    "anchor": [
+      664.03,
+      125.13
+    ]
+  },
+  {
+    "code": "mountain-etna",
+    "name": "Ätna",
+    "continent": "Europa",
+    "coordinates": [
+      14.995833,
+      37.751111
+    ],
+    "elevationM": 3403,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/%C3%84tna",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/%C3%84tna"
+    ],
+    "elevationNote": "Die Gipfelhöhe verändert sich durch Schnee und Eis beziehungsweise vulkanische Aktivität.",
+    "anchor": [
+      643.56,
+      134.0
+    ]
+  },
+  {
+    "code": "mountain-ben-nevis",
+    "name": "Ben Nevis",
+    "continent": "Europa",
+    "coordinates": [
+      -5.003546,
+      56.79685
+    ],
+    "elevationM": 1345,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Ben_Nevis",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Ben_Nevis"
+    ],
+    "anchor": [
+      587.43,
+      67.57
+    ]
+  },
+  {
+    "code": "mountain-denali",
+    "name": "Denali",
+    "continent": "Nordamerika",
+    "coordinates": [
+      -151.007708,
+      63.068515
+    ],
+    "elevationM": 6190,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Denali",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Denali"
+    ],
+    "anchor": [
+      243.51,
+      49.43
+    ]
+  },
+  {
+    "code": "mountain-mount-logan",
+    "name": "Mount Logan",
+    "continent": "Nordamerika",
+    "coordinates": [
+      -140.405693,
+      60.567842
+    ],
+    "elevationM": 5959,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Mount_Logan",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Mount_Logan"
+    ],
+    "anchor": [
+      259.97,
+      56.38
+    ]
+  },
+  {
+    "code": "mountain-mount-rainier",
+    "name": "Mount Rainier",
+    "continent": "Nordamerika",
+    "coordinates": [
+      -121.760556,
+      46.853056
+    ],
+    "elevationM": 4392,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Mount_Rainier",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Mount_Rainier"
+    ],
+    "anchor": [
+      267.2,
+      100.46
+    ]
+  },
+  {
+    "code": "mountain-mount-whitney",
+    "name": "Mount Whitney",
+    "continent": "Nordamerika",
+    "coordinates": [
+      -118.291944,
+      36.578333
+    ],
+    "elevationM": 4421,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Mount_Whitney",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Mount_Whitney"
+    ],
+    "anchor": [
+      254.08,
+      138.52
+    ]
+  },
+  {
+    "code": "mountain-pico-de-orizaba",
+    "name": "Pico de Orizaba",
+    "continent": "Nordamerika",
+    "coordinates": [
+      -97.269815,
+      19.03029
+    ],
+    "elevationM": 5636,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Citlalt%C3%A9petl",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Citlalt%C3%A9petl"
+    ],
+    "anchor": [
+      293.78,
+      209.92
+    ]
+  },
+  {
+    "code": "mountain-popocatepetl",
+    "name": "Popocatépetl",
+    "continent": "Nordamerika",
+    "coordinates": [
+      -98.623056,
+      19.027778
+    ],
+    "elevationM": 5426,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Popocat%C3%A9petl",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Popocat%C3%A9petl"
+    ],
+    "anchor": [
+      289.52,
+      209.93
+    ]
+  },
+  {
+    "code": "mountain-aconcagua",
+    "name": "Aconcagua",
+    "continent": "Südamerika",
+    "coordinates": [
+      -70.011667,
+      -32.653333
+    ],
+    "elevationM": 6961,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Aconcagua",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Aconcagua"
+    ],
+    "anchor": [
+      390.95,
+      430.1
+    ]
+  },
+  {
+    "code": "mountain-ojos-del-salado",
+    "name": "Ojos del Salado",
+    "continent": "Südamerika",
+    "coordinates": [
+      -68.54176,
+      -27.10928
+    ],
+    "elevationM": 6893,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Ojos_del_Salado",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Ojos_del_Salado"
+    ],
+    "anchor": [
+      390.13,
+      407.73
+    ]
+  },
+  {
+    "code": "mountain-chimborazo",
+    "name": "Chimborazo",
+    "continent": "Südamerika",
+    "coordinates": [
+      -78.8169,
+      -1.46935
+    ],
+    "elevationM": 6263,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Chimborazo",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Chimborazo"
+    ],
+    "anchor": [
+      345.23,
+      298.4
+    ]
+  },
+  {
+    "code": "mountain-cotopaxi",
+    "name": "Cotopaxi",
+    "continent": "Südamerika",
+    "coordinates": [
+      -78.437131,
+      -0.684067
+    ],
+    "elevationM": 5897,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Cotopaxi",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Cotopaxi"
+    ],
+    "anchor": [
+      346.43,
+      294.98
+    ]
+  },
+  {
+    "code": "mountain-huascaran",
+    "name": "Huascarán",
+    "continent": "Südamerika",
+    "coordinates": [
+      -77.604674,
+      -9.120981
+    ],
+    "elevationM": 6768,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Huascar%C3%A1n",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Huascar%C3%A1n"
+    ],
+    "anchor": [
+      350.63,
+      331.64
+    ]
+  },
+  {
+    "code": "mountain-fitz-roy",
+    "name": "Fitz Roy",
+    "continent": "Südamerika",
+    "coordinates": [
+      -73.043333,
+      -49.271389
+    ],
+    "elevationM": 3406,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Fitz_Roy",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Fitz_Roy"
+    ],
+    "anchor": [
+      404.06,
+      491.95
+    ]
+  },
+  {
+    "code": "mountain-aoraki",
+    "name": "Aoraki / Mount Cook",
+    "continent": "Ozeanien",
+    "coordinates": [
+      170.142103,
+      -43.595136
+    ],
+    "elevationM": 3724,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Aoraki/Mount_Cook",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Aoraki/Mount_Cook"
+    ],
+    "anchor": [
+      1076.11,
+      471.87
+    ]
+  },
+  {
+    "code": "mountain-kosciuszko",
+    "name": "Mount Kosciuszko",
+    "continent": "Ozeanien",
+    "coordinates": [
+      148.263511,
+      -36.455833
+    ],
+    "elevationM": 2228,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Mount_Kosciuszko",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Mount_Kosciuszko"
+    ],
+    "anchor": [
+      1033.87,
+      445.01
+    ]
+  },
+  {
+    "code": "mountain-mount-wilhelm",
+    "name": "Mount Wilhelm",
+    "continent": "Ozeanien",
+    "coordinates": [
+      145.033333,
+      -5.8
+    ],
+    "elevationM": 4509,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Mount_Wilhelm",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Mount_Wilhelm"
+    ],
+    "anchor": [
+      1067.73,
+      317.24
+    ]
+  },
+  {
+    "code": "mountain-puncak-jaya",
+    "name": "Puncak Jaya",
+    "continent": "Ozeanien",
+    "coordinates": [
+      137.158333,
+      -4.078889
+    ],
+    "elevationM": 4884,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Puncak_Jaya",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Puncak_Jaya"
+    ],
+    "anchor": [
+      1042.89,
+      309.76
+    ]
+  },
+  {
+    "code": "mountain-ruapehu",
+    "name": "Ruapehu",
+    "continent": "Ozeanien",
+    "coordinates": [
+      175.5625,
+      -39.289444
+    ],
+    "elevationM": 2797,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Ruapehu",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Ruapehu"
+    ],
+    "anchor": [
+      1105.27,
+      455.86
+    ]
+  },
+  {
+    "code": "mountain-taranaki",
+    "name": "Taranaki",
+    "continent": "Ozeanien",
+    "coordinates": [
+      174.066667,
+      -39.3
+    ],
+    "elevationM": 2518,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Mount_Taranaki",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Mount_Taranaki"
+    ],
+    "anchor": [
+      1100.93,
+      455.9
+    ]
+  }
+]

@@ -68,12 +68,26 @@ mit allen vier gespielt. Benannte Nebenflüsse wie Missouri und Darling sind
 eigene Ziele. Die Karte zeigt vereinfachte Verläufe; die Längen stammen aus den
 verlinkten Quellen und wurden nicht aus der Karte berechnet.
 
-**Gemischtes Quiz** kombiniert Länder, Hauptstädte, Flaggen, Einwohnerzahlen und
-Flüsse. Die Themen werden möglichst gleichmäßig verteilt: Zehn Fragen enthalten
-normalerweise zwei Fragen pro Thema. Jedes Land kommt pro Runde nur einmal vor,
-auch über verschiedene Themen hinweg; jeder Fluss ebenfalls. Bei kleinen Pools
+**Berge finden** fragt „Wo liegt …?“. Wähle den gesuchten Gipfel an seiner
+dreieckigen Markierung auf der Karte. Enthalten sind 40 bekannte Berge aus allen
+sechs Regionen. Vor dem Start, nach einer Antwort und nach der Runde kannst du
+Name, ungefähre Höhe und einen Wikipedia-Link erkunden. Ländernamen und Flüsse
+sind in diesem Modus keine Antworten. Die erste gültige Auswahl zählt; richtige
+und falsche Antworten werden grün beziehungsweise rot markiert.
+
+Bei nah beieinanderliegenden Gipfeln hilft der Zoom. Die Markierungen behalten
+ihre Bildschirmgröße; bei überlappenden Auswahlbereichen wird der nächstgelegene
+Gipfel gewählt. Alle Berge sind außerdem per Tab und Enter / Leertaste erreichbar.
+Regionen, Fragenanzahl, automatische Fortsetzung, Rekorde und Fehlerübungen
+funktionieren wie bei **Flüsse finden**. Höhen werden als Näherungswerte angezeigt
+und nicht abgefragt. In **Lernen** bleiben Berge ausgeblendet.
+
+**Gemischtes Quiz** kombiniert Länder, Hauptstädte, Flaggen, Einwohnerzahlen,
+Flüsse und Berge. Die Themen werden möglichst gleichmäßig verteilt: Zehn Fragen enthalten
+eine oder zwei Fragen pro Thema; zwölf Fragen enthalten zwei pro Thema. Jedes Land kommt pro Runde nur einmal vor,
+auch über verschiedene Themen hinweg; jeder Fluss und jeder Berg ebenfalls. Bei kleinen Pools
 werden fehlende Plätze auf die übrigen Themen verteilt. **Alle** umfasst jedes
-Land und jeden Fluss der gewählten Region einmal. Region, Fragenanzahl,
+Land, jeden Fluss und jeden Berg der gewählten Region einmal. Region, Fragenanzahl,
 automatische Fortsetzung und persönliche Rekorde funktionieren wie gewohnt.
 Fehler werden unter dem jeweiligen Thema gespeichert; **Fehler wiederholen**
 behält Thema und Ziel der verfehlten Fragen bei und erhält keine Rekordwertung.
@@ -94,9 +108,9 @@ Neuladen beginnt von vorn. Gespeicherte Fehler bleiben erhalten.
 ## Fehler korrigieren
 
 **Fehler korrigieren** speichert falsch beantwortete Fragen aus **Länder finden**,
-**Hauptstädte zuordnen**, **Flaggenquiz**, **Einwohnerzahl**, **Flüsse finden**, **Gemischtes Quiz** und ihren Fehlerübungen sofort in diesem Browser. Die
+**Hauptstädte zuordnen**, **Flaggenquiz**, **Einwohnerzahl**, **Flüsse finden**, **Berge finden**, **Gemischtes Quiz** und ihren Fehlerübungen sofort in diesem Browser. Die
 Themenkarte zeigt die Anzahl offener Fragen. Länder-, Hauptstadt-, Flaggen- und Einwohnerfragen zum
-selben Land zählen getrennt. Flussfragen werden pro Fluss gespeichert. Der Modus wird über die Modusauswahl aktiviert;
+selben Land zählen getrennt. Fluss- und Bergfragen werden pro Fluss beziehungsweise Berg gespeichert. Der Modus wird über die Modusauswahl aktiviert;
 **Fehler wiederholen** übt weiterhin nur die Fehler der letzten Runde.
 
 Jede gespeicherte Frage muss in zwei aufeinanderfolgenden Runden richtig
@@ -105,7 +119,7 @@ falsche Antwort setzt den Fortschritt zurück. Nach einer richtigen Antwort
 erscheint **1 von 2 richtig**, nach der zweiten **Fehler korrigiert!**.
 
 Eine Korrekturrunde mischt weltweit bis zu zehn unterschiedliche gespeicherte
-Fragen aus allen fünf Quizthemen. Fragen ohne richtige Antwort haben bei der Auswahl
+Fragen aus allen sechs Quizthemen. Fragen ohne richtige Antwort haben bei der Auswahl
 Vorrang; innerhalb der Gruppen und im gewählten Fragensatz ist die Reihenfolge
 zufällig. Region und Fragenanzahl sind in diesem Modus ausgeblendet.
 **Neue Übungsrunde** und **Übung neu starten** wählen aus den aktuell offenen
@@ -123,7 +137,7 @@ Fehler aus Sitzungen vor Einführung dieser Funktion können nicht übernommen w
 
 ## Persönliche Rekorde
 
-**Länder finden**, **Hauptstädte zuordnen**, **Flaggenquiz**, **Einwohnerzahl**, **Flüsse finden** und **Gemischtes Quiz** speichern persönliche Rekorde
+**Länder finden**, **Hauptstädte zuordnen**, **Flaggenquiz**, **Einwohnerzahl**, **Flüsse finden**, **Berge finden** und **Gemischtes Quiz** speichern persönliche Rekorde
 getrennt nach Modus, Region und Fragenanzahl. Die Themenkarten und Einstellungen
 zeigen **Dein Rekord** für die aktuelle Auswahl. Das Ergebnis meldet einen ersten,
 verbesserten oder eingestellten Rekord. Nur richtige Antworten zählen; es gibt
@@ -159,7 +173,7 @@ Rekorde erhalten und der Dialog zeigt einen Hinweis.
 
 Enthalten sind 193 UN-Mitglieder sowie Palästina und Vatikanstadt als geografische
 Darstellung des Heiligen Stuhls. Hinzu kommen Kosovo, Taiwan und Westsahara:
-Insgesamt sind 198 Länder und Gebiete im Lernen und in den vier Länderquizmodi auswählbar. Das Flussquiz besitzt einen eigenen Pool mit 38 Flüssen.
+Insgesamt sind 198 Länder und Gebiete im Lernen und in den vier Länderquizmodi auswählbar. Das Flussquiz besitzt einen eigenen Pool mit 38 Flüssen, das Bergquiz einen mit 40 Gipfeln.
 Weitere Gebiete dienen als nicht gewerteter Kartenkontext.
 Die Kontinentzuordnung ist eine feste Lernzuordnung, beschrieben
 in [Daten und Quellen](ATTRIBUTION.md).
@@ -170,7 +184,7 @@ Bildaufrufe. Die gebaute Version ist als App installierbar und nach dem ersten v
 
 Ausgangsdaten stehen unter `assets/data/`. `scripts/generate-data.py` enthält
 deutsche Namens- und Hauptstadtanpassungen, Fakten und die Kartenprojektion.
-Nach Änderungen erzeugt `npm run data:generate` die Profile und das SVG einschließlich der Flussprofile und Flussläufe neu,
+Nach Änderungen erzeugt `npm run data:generate` die Profile und das SVG einschließlich der Flussprofile, Flussläufe und Bergmarkierungen neu,
 ohne Netzwerkzugriff oder zusätzliche Python-Pakete. Neue Flaggen können
 explizit mit `python3 scripts/download-flags.py` heruntergeladen werden;
 vorhandene Dateien werden übersprungen. Der normale Build lädt nichts herunter.
@@ -194,7 +208,7 @@ ab. Das WorldQuiz-Symbol öffnet die App in einem eigenen Fenster.
 Beim ersten Onlinebesuch lädt der Service Worker das gesamte veröffentlichte
 Paket herunter: Karte, alle Flaggen, Spieldateien, Quelldaten und Lizenznachweise
 (etwa 11 MB einschließlich App-Symbolen). Erst **Offline verfügbar** bestätigt den
-abgeschlossenen Download. Danach funktionieren alle acht Modi und auch bisher
+abgeschlossenen Download. Danach funktionieren alle neun Modi und auch bisher
 ungeöffnete Länderprofile ohne Verbindung. Externe Wikipedia- und Quellenlinks
 benötigen weiterhin Internet. **Offline noch nicht verfügbar** bedeutet, dass der
 Download noch läuft, fehlgeschlagen ist oder der Browser die Offlinefunktion
@@ -244,16 +258,17 @@ manuell über **Actions → Deploy to GitHub Pages → Run workflow** gestartet 
 ## Tests
 
 `npm test` prüft Ländervollständigkeit und lokale Flaggen, Kartenreferenzen,
-Marker und Antimeridian-Geometrie, Flussprofile und Quellzuordnung, reproduzierbare
+Marker und Antimeridian-Geometrie, Fluss- und Bergprofile und Quellzuordnung, reproduzierbare
 Datengenerierung, Fragenpools, Wertung, Fehlerübungen sowie
 Zoomgrenzen und Gestenerkennung. Die PWA-Tests prüfen Manifest, PNG-Abmessungen,
 vollständigen Offlinecache, Build-Versionen, Installationssteuerung, Statusanzeigen,
 fehlgeschlagene Downloads und die Cache-Isolation bei Root- und Unterverzeichnis-Hosting.
 Für einen Browser-Smoke-Test nach dem Build siehe `scripts/browser-smoke.mjs`.
+Der Browser-Smoke-Test prüft auch Bergfragen, Tastaturauswahl, Maus und Touch sowie gemischte Runden mit sechs Themen.
 Nur das Flussquiz prüfen: `node scripts/browser-smoke.mjs http://localhost:8000/ http://127.0.0.1:9223 --rivers-only`.
 Mit derselben dort beschriebenen Chromium-Instanz prüft
 `node scripts/browser-pwa-smoke.mjs` zusätzlich Manifest, Offline-Neustart,
-unbesuchte Flaggen, alle acht Modi und den Update-Lebenszyklus unter `/` und
+unbesuchte Flaggen, alle neun Modi und den Update-Lebenszyklus unter `/` und
 `/WorldQuiz/`. Der PWA-Test startet einen temporären lokalen HTTP-Server und
 benötigt keinen bereits laufenden App-Server; `dist/` bleibt unverändert.
 

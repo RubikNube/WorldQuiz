@@ -40,7 +40,8 @@ test("precache contains the entire bundle and changes only when its inputs chang
   for (const path of ["index.html", "world.svg", "game.js", "pwa.js", "app.js", "highscores.js", "mistakes.js", "map-zoom.js", "manifest.webmanifest", "LICENSE",
     "assets/flags/de.svg", "assets/data/countries.json", "assets/data/countries-source.json",
     "assets/data/world-source.geojson", "assets/data/ODbL.txt", "ATTRIBUTION.md", "rivers.js",
-    "assets/data/rivers.json", "assets/data/rivers-catalog.json", "assets/data/rivers-source.geojson"]) {
+    "assets/data/rivers.json", "assets/data/rivers-catalog.json", "assets/data/rivers-source.geojson",
+    "mountains.js", "assets/data/mountains.json", "assets/data/mountains-catalog.json"]) {
     assert.ok(first.paths.includes(path), path);
   }
   assert.ok(!first.paths.includes("sw.js"));

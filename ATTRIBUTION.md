@@ -93,6 +93,37 @@ Quellflussdefinitionen unterscheiden sich; Nil und Amazonas enthalten die
 Mississippi und Missouri sowie Murray und Darling mit ihren eigenen Längen
 angegeben, nicht mit der Gesamtlänge des jeweils längsten Flusssystems.
 
+## Berge
+
+40 einzeln zusammengestellte Gipfel in `assets/data/mountains-catalog.json`,
+Stand 19. November 2026. Koordinaten (Längengrad, Breitengrad) und ungefähre
+Höhen wurden mit den jeweils in `sourceUrls` verlinkten deutschsprachigen
+Wikipedia-Artikeln abgeglichen; für Toubkal und Mount Stanley wurden die
+englischsprachigen Artikel verwendet. Es wurden nur einzelne Zahlenangaben
+und Namen übernommen, keine Artikeltexte oder Bilder. Die Zusammenstellung
+steht wie der Anwendungscode unter GPL-3.0-or-later; Quellenangaben bleiben
+im ausgelieferten Katalog und in den generierten Profilen erhalten.
+
+Die Höhen sind auf ganze Meter gerundete Näherungswerte. Mount Everest nutzt
+8849 m (gerundet aus der gemeinsamen chinesisch-nepalesischen Messung von
+2020: 8848,86 m). Mont Blanc nutzt den im verlinkten Artikel angegebenen
+Snapshot von 4807,3 m, gerundet auf 4807 m; Schnee- und Eishöhen verändern
+sich. Für Ätna sind 3403 m hinterlegt; vulkanische Gipfelhöhen verändern sich
+ebenfalls. Kilimandscharo bezeichnet den höchsten Gipfel Kibo, Mount Kenya den
+Batian, Mount Stanley die Margherita-Spitze, Olymp den Mytikas und Huascarán
+den Südgipfel. Die Karte zeigt jeweils einen Gipfelpunkt, keinen Gebirgsumriss.
+
+Die feste Lernzuordnung lautet Afrika (6), Asien (8), Europa (8), Nordamerika
+(6), Südamerika (6), Ozeanien (6). Puncak Jaya auf Neuguinea gehört geografisch
+zu Ozeanien, obwohl Indonesien im Länderquiz Asien zugeordnet ist. Ararat
+gehört zu Asien. Grenzgipfel werden nur einmal geführt. Diese Auswahl ist
+keine Rangliste der höchsten Berge.
+
+`scripts/mountain_data.py` projiziert die Koordinaten mit derselben
+Equal-Earth-Projektion wie die Länderkarte und erzeugt `assets/data/mountains.json`
+sowie die Bergmarkierungen in `src/world.svg`. Der normale Build und die
+Datengenerierung benötigen keinen Netzwerkzugriff.
+
 ## Flaggen
 
 Lokale SVG-Dateien von [Flagpedia / Flagcdn](https://flagpedia.net/download),

@@ -955,3 +955,14 @@ input:focus-visible { outline:3px solid #ffcf66; outline-offset:3px; }
 .river-mode .country { pointer-events:none; cursor:default; }
 .river-mode .marker { display:none; }
 .riverInfo .countryHeader { grid-template-columns:minmax(0,1fr); padding-right:48px; }
+
+.mountain { outline:none; cursor:pointer; }
+.mountain-hit { fill:transparent; pointer-events:all; }
+.mountain-symbol { fill:#f1cb90; stroke:#443c32; stroke-width:1.5; vector-effect:non-scaling-stroke; pointer-events:none; }
+.mountain.outside .mountain-symbol { fill:#a9977b; }
+.mountain:hover .mountain-symbol,.mountain.selected .mountain-symbol { fill:#fff2d4; stroke:#fff; }
+.mountain:focus-visible .mountain-symbol { stroke:#ffcf66; stroke-width:3; }
+.mountain.correct .mountain-symbol { fill:var(--good); stroke:#d2ffea; stroke-width:2; }
+.mountain.wrong .mountain-symbol { fill:var(--bad); stroke:#fff; stroke-width:2; }
+.mountain-mode .country { pointer-events:none; cursor:default; }
+.mountain-mode .marker { display:none; }

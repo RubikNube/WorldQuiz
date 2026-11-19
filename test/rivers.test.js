@@ -136,7 +136,7 @@ test('Rhein includes Alpine headwaters, Lake Constance, the border course and Du
   assert.equal(path.split('M').filter(Boolean).length, lines.length, 'All sections render without bridging open-water gaps');
 });
 
-test('offline data generation reproduces committed country and river artifacts', async t => {
+test('offline data generation reproduces committed country, river and mountain artifacts', async t => {
   const directory = await mkdtemp(join(tmpdir(), 'worldquiz-rivers-'));
   t.after(() => rm(directory, { recursive: true, force: true }));
   await mkdir(join(directory, 'src'));
@@ -144,7 +144,7 @@ test('offline data generation reproduces committed country and river artifacts',
   await cp(new URL('../assets/data/', import.meta.url), join(directory, 'assets/data'), { recursive: true });
   execFileSync('python3', [join(directory, 'scripts/generate-data.py')]);
   execFileSync('python3', ['-c', 'import sys, xml.etree.ElementTree as ET; ET.parse(sys.argv[1])', join(directory, 'src/world.svg')]);
-  for (const file of ['assets/data/countries.json', 'assets/data/rivers.json', 'src/world.svg']) {
+  for (const file of ['assets/data/countries.json', 'assets/data/rivers.json', 'assets/data/mountains.json', 'src/world.svg']) {
     assert.equal(await readFile(join(directory, file), 'utf8'), await read(file), file);
   }
 });

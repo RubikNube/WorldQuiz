@@ -210,7 +210,8 @@
       "https://de.wikipedia.org/wiki/Donau"
     ],
     "sourceFeatureIds": [
-      389
+      389,
+      566
     ]
   },
   {
@@ -223,7 +224,13 @@
       "https://de.wikipedia.org/wiki/Rhein"
     ],
     "sourceFeatureIds": [
-      227
+      76,
+      77,
+      215,
+      216,
+      217,
+      227,
+      228
     ]
   },
   {

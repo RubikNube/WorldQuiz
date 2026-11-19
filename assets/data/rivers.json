@@ -365,17 +365,18 @@
       "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
     ],
     "sourceFeatureIds": [
-      389
+      389,
+      566
     ],
     "anchor": [
-      662.32,
-      108.01
+      651.82,
+      102.13
     ],
     "bounds": {
-      "x": 646.6,
-      "y": 96.23,
-      "width": 32.91999999999996,
-      "height": 15.700000000000003
+      "x": 622.14,
+      "y": 92.89,
+      "width": 57.379999999999995,
+      "height": 19.040000000000006
     }
   },
   {
@@ -389,17 +390,23 @@
       "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
     ],
     "sourceFeatureIds": [
-      227
+      76,
+      77,
+      215,
+      216,
+      217,
+      227,
+      228
     ],
     "anchor": [
-      619.14,
-      87.55
+      621.16,
+      94.16
     ],
     "bounds": {
-      "x": 613.09,
-      "y": 83.2,
-      "width": 9.68999999999994,
-      "height": 9.899999999999991
+      "x": 610.71,
+      "y": 82.86,
+      "width": 15.549999999999955,
+      "height": 18.409999999999997
     }
   },
   {

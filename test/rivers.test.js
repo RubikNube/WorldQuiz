@@ -79,6 +79,63 @@ test('Jangtsekiang connects the headwaters to the lower course through Chang Jia
   assert.ok(reached.has(east), 'Main course has no missing middle section');
 });
 
+test('Donau connects the German headwaters through Austria to the Black Sea', async () => {
+  const snapshot = JSON.parse(await read('assets/data/rivers-source.geojson'));
+  const river = rivers.find(r => r.code === 'river-donau');
+  const features = snapshot.features.filter(f => river.sourceFeatureIds.includes(f.id));
+  assert.deepEqual(features.map(f => f.properties.name).sort(), ['Danube', 'Donau']);
+  const lines = features.flatMap(f => f.geometry.type === 'MultiLineString'
+    ? f.geometry.coordinates : [f.geometry.coordinates]);
+  const west = lines.findIndex(line => line.some(([lon, lat]) => lon < 8.3 && lat > 47.9 && lat < 48.2));
+  const east = lines.findIndex(line => line.some(([lon, lat]) => lon > 28.7 && lat > 45 && lat < 45.5));
+  assert.ok(west >= 0, 'Upper course reaches the German headwaters');
+  assert.ok(east >= 0, 'Lower course reaches the Black Sea');
+  const reached = new Set([west]), pending = [west];
+  while (pending.length) {
+    const line = lines[pending.pop()];
+    for (let i = 0; i < lines.length; i++) {
+      if (reached.has(i)) continue;
+      const adjacent = [line[0], line.at(-1)].some(a => [lines[i][0], lines[i].at(-1)]
+        .some(b => Math.hypot(a[0] - b[0], a[1] - b[1]) < .02));
+      if (adjacent) { reached.add(i); pending.push(i); }
+    }
+  }
+  assert.ok(reached.has(east), 'Upper and lower courses connect without a missing section');
+  const path = svg.match(/data-river="river-donau"[^>]*><path class="river-line" d="([^"]+)"/)[1];
+  assert.equal(path.split('M').filter(Boolean).length, lines.length, 'Every source section is rendered');
+});
+
+test('Rhein includes Alpine headwaters, Lake Constance, the border course and Dutch delta', async () => {
+  const snapshot = JSON.parse(await read('assets/data/rivers-source.geojson'));
+  const river = rivers.find(r => r.code === 'river-rhein');
+  const features = snapshot.features.filter(f => river.sourceFeatureIds.includes(f.id));
+  assert.deepEqual(features.map(f => f.properties.name).sort(),
+    ['Lek', 'Nederrijn', 'Rhein', 'Rhein', 'Rhin', 'Rhine', 'Waal']);
+  assert.ok(features.some(f => f.properties.featurecla === 'Lake Centerline'), 'Lake Constance crossing is included');
+  const lines = features.flatMap(f => f.geometry.type === 'MultiLineString'
+    ? f.geometry.coordinates : [f.geometry.coordinates]);
+  const headwaters = lines.findIndex(line => line.some(([lon, lat]) => lon > 8.6 && lon < 8.8 && lat < 46.7));
+  const lower = lines.findIndex(line => [line[0], line.at(-1)]
+    .some(([lon, lat]) => lon > 4.9 && lon < 5 && lat > 51.8));
+  assert.ok(headwaters >= 0, 'Upper course reaches the Swiss Alps');
+  assert.ok(lower >= 0, 'Lower course reaches the Netherlands');
+  const reached = new Set([headwaters]), pending = [headwaters];
+  while (pending.length) {
+    const line = lines[pending.pop()];
+    for (let i = 0; i < lines.length; i++) {
+      if (reached.has(i)) continue;
+      // Allow only the tiny seams in the source, including the Alpine confluence.
+      const adjacent = [line[0], line.at(-1)].some(a => [lines[i][0], lines[i].at(-1)]
+        .some(b => Math.hypot(a[0] - b[0], a[1] - b[1]) < .02));
+      if (adjacent) { reached.add(i); pending.push(i); }
+    }
+  }
+  assert.ok(reached.has(lower), 'Alpine and lower courses connect through Lake Constance and the border course');
+  assert.ok(lines.some(line => line.some(([lon, lat]) => lon < 4.1 && lat > 51.8)), 'Delta reaches the coast');
+  const path = svg.match(/data-river="river-rhein"[^>]*><path class="river-line" d="([^"]+)"/)[1];
+  assert.equal(path.split('M').filter(Boolean).length, lines.length, 'All sections render without bridging open-water gaps');
+});
+
 test('offline data generation reproduces committed country and river artifacts', async t => {
   const directory = await mkdtemp(join(tmpdir(), 'worldquiz-rivers-'));
   t.after(() => rm(directory, { recursive: true, force: true }));

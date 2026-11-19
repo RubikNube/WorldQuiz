@@ -14,6 +14,25 @@ const countries = JSON.parse(await read('assets/data/countries.json'));
 const rivers = JSON.parse(await read('assets/data/rivers.json'));
 const svg = await read('src/world.svg');
 const allCodes = new Set([...countries, ...rivers, ...mountains].map(q => q.code));
+
+test('every mountain has a local JPEG photo with Commons source and license credits', async () => {
+  const metadata = JSON.parse(await read('assets/mountains/metadata.json'));
+  const credits = await read('assets/mountains/ATTRIBUTION.md');
+  assert.deepEqual(metadata.map(m => m.code).sort(), mountains.map(m => m.code).sort());
+  for (const mountain of mountains) {
+    const photo = metadata.find(p => p.code === mountain.code);
+    assert.equal(photo.name, mountain.name);
+    assert.equal(photo.path, `assets/mountains/${mountain.code}.jpg`);
+    const bytes = await readFile(new URL(`../${photo.path}`, import.meta.url));
+    assert.equal(bytes.readUInt16BE(0), 0xffd8);
+    assert.equal(bytes.readUInt16BE(bytes.length - 2), 0xffd9);
+    assert.ok(photo.artist && photo.license && photo.file);
+    assert.match(photo.page_url, /^https:\/\/commons\.wikimedia\.org\/wiki\/File:/);
+    assert.match(photo.image_url, /^https:\/\/(?:thumb|upload)\.wikimedia\.org\//);
+    if (photo.license !== 'Public domain') assert.match(photo.license_url, /^https?:\/\//);
+    for (const text of [mountain.name, photo.artist, photo.license, photo.page_url]) assert.ok(credits.includes(text), text);
+  }
+});
 function storage() {
   const values = new Map();
   return { getItem: k => values.get(k) ?? null, setItem: (k, v) => values.set(k, v), removeItem: k => values.delete(k) };

@@ -1,0 +1,44 @@
+# Bildnachweise: Berge
+
+Lokal gespeicherte Vorschaubilder aus Wikimedia Commons. Die Fotos wurden ausschließlich skaliert.
+
+- **Kilimandscharo** — Sergey Pesterev; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Kilimanjaro_from_Amboseli.jpg).
+- **Mount Kenya** — Don Elvis Muraya; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:MtKenya.jpg).
+- **Toubkal** — SimonKing74; [CC0](http://creativecommons.org/publicdomain/zero/1.0/deed.en); [Originaldatei](https://commons.wikimedia.org/wiki/File:My_Toubkal.jpg).
+- **Kamerunberg** — Yona Tientcheu; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Mount_Cameroon_view_from_Buea_(Soppo).jpg).
+- **Ras Daschän** — Florian Fell; [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Ras_Dejen_Summit.JPG).
+- **Mount Stanley** — El.Sarmiento; [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:MtStanley_2.JPG).
+- **Mount Everest** — Rdevany; [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Mt._Everest_from_Gokyo_Ri_November_5,_2012.jpg).
+- **K2** — Zacharie Grossen; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Chogori.jpg).
+- **Kangchendzönga** — Tomabarker; [CC BY 3.0](https://creativecommons.org/licenses/by/3.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Kangchenjunga_PangPema.JPG).
+- **Fuji** — Suicasmo; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:View_of_Mount_Fuji_from_%C5%8Cwakudani_20211202.jpg).
+- **Ararat** — Սէրուժ Ուրիշեան (Serouj Ourishian); [CC BY 4.0](https://creativecommons.org/licenses/by/4.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Mount_Ararat_and_the_Yerevan_skyline_in_spring_(50mm).jpg).
+- **Damavand** — Safa.daneshvar; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:981012-Damavand-South-IMG_9861-2.jpg).
+- **Kinabalu** — kallerna; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Kinabalu_Sabah_Borneo_Kampong_Kundasang_panorama_2.jpg).
+- **Semeru** — Pambudiyoga; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Mount_Semeru.jpg).
+- **Mont Blanc** — Hseugut; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Mont_Blanc_Aiguille.jpg).
+- **Matterhorn** — Photo: chil, on Camptocamp.org Derivative work: Zacharie Grossen; [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Matterhorn_from_Domh%C3%BCtte_-_2.jpg).
+- **Zugspitze** — Octagon; [CC BY 3.0](https://creativecommons.org/licenses/by/3.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Zugspitze_2.JPG).
+- **Großglockner** — Michieliosios; [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Gro%C3%9Fglockner_from_behind_the_glass_panorama_tower.JPG).
+- **Triglav** — Andrej Jakobčič; [CC BY-SA 3.0](http://creativecommons.org/licenses/by-sa/3.0/); [Originaldatei](https://commons.wikimedia.org/wiki/File:Triglav.jpg).
+- **Olymp** — kallerna; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Olympus_National_Park_30.jpg).
+- **Ätna** — BenAveling; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Mt_Etna_and_Catania1.jpg).
+- **Ben Nevis** — Thincat; Public domain; [Originaldatei](https://commons.wikimedia.org/wiki/File:BenNevis2005.jpg).
+- **Denali** — Denali National Park and Preserve; Public domain; [Originaldatei](https://commons.wikimedia.org/wiki/File:Wonder_Lake_and_Denali.jpg).
+- **Mount Logan** — Gerald Holdsworth; Public domain; [Originaldatei](https://commons.wikimedia.org/wiki/File:Mount_Logan.jpg).
+- **Mount Rainier** — Caleb Riston; [CC0](http://creativecommons.org/publicdomain/zero/1.0/deed.en); [Originaldatei](https://commons.wikimedia.org/wiki/File:Rainier20200906.jpg).
+- **Mount Whitney** — Geographer ( talk · contribs ); [CC BY 1.0](https://creativecommons.org/licenses/by/1.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Mount_Whitney_2003-03-25.jpg).
+- **Pico de Orizaba** — México en Fotos; [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Pico_de_Orizaba_desde_Hidalgo,_Puebla.jpg).
+- **Popocatépetl** — Jakub Hejtmánek; [CC BY-SA 3.0](http://creativecommons.org/licenses/by-sa/3.0/); [Originaldatei](https://commons.wikimedia.org/wiki/File:Mexico-Popocatepetl.jpg).
+- **Aconcagua** — Bjørn Christian Tørrissen; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Aconcagua2016.jpg).
+- **Ojos del Salado** — sergejf; [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Ojos_del_Salado_looming_big_on_the_horizon.jpg).
+- **Chimborazo** — Dick Culbert from Gibsons, B.C., Canada; [CC BY 2.0](https://creativecommons.org/licenses/by/2.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Chimborazo,_aspecto_norte,_Ecuador._(26354503702).jpg).
+- **Cotopaxi** — Gerard Prins; [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Cotopaxi_volcano_2008-06-27T1322.jpg).
+- **Huascarán** — MrBasically; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Nevado_Huascar%C3%A1n_(south_view).jpg).
+- **Fitz Roy** — Prissantenbär; Public domain; [Originaldatei](https://commons.wikimedia.org/wiki/File:Fitz_Roy_1.jpg).
+- **Aoraki / Mount Cook** — C.M. Lynch ( talk · contribs ); [CC BY-SA 3.0](http://creativecommons.org/licenses/by-sa/3.0/); [Originaldatei](https://commons.wikimedia.org/wiki/File:Aoraki_Mount_Cook.JPG).
+- **Mount Kosciuszko** — Thennicke; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Kosciuszko_main_range_from_Scammel_Spur_Lookout_(cropped).jpg).
+- **Mount Wilhelm** — Nomadtales ( talk · contribs ); [CC BY-SA 2.1 au](https://creativecommons.org/licenses/by-sa/2.1/au/deed.en); [Originaldatei](https://commons.wikimedia.org/wiki/File:Mount_Wilhelm.jpg).
+- **Puncak Jaya** — Enda Kaban; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Carstenzs_Piramida_Mountain.jpg).
+- **Ruapehu** — Geoff McKay; [CC BY 2.0](https://creativecommons.org/licenses/by/2.0); [Originaldatei](https://commons.wikimedia.org/wiki/File:Mount_Ruapehu_October_9,_2023_(cropped).jpg).
+- **Taranaki** — No machine-readable author provided. Ppe42~commonswiki assumed (based on copyright claims).; Public domain; [Originaldatei](https://commons.wikimedia.org/wiki/File:Mt_Taranaki.JPG).

@@ -955,6 +955,8 @@ input:focus-visible { outline:3px solid #ffcf66; outline-offset:3px; }
 .river-mode .country { pointer-events:none; cursor:default; }
 .river-mode .marker { display:none; }
 .riverInfo .countryHeader { grid-template-columns:minmax(0,1fr); padding-right:48px; }
+#mountainImage { display:block; width:100%; max-width:240px; height:140px; object-fit:contain; border-radius:6px; margin-top:12px; }
+#mountainImage[hidden] { display:none; }
 
 .mountain { outline:none; cursor:pointer; }
 .mountain-hit { fill:transparent; pointer-events:all; }

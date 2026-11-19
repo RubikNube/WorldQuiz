@@ -103,6 +103,7 @@ function sizeSidebar() {
 
 function closeInfo() {
   $('countryInfo').hidden = true;
+  showMountainPhoto();
   selectedCode = null;
   renderMap();
 }
@@ -284,6 +285,7 @@ function showCountry(code, reveal = false, { scrollToMap = false } = {}) {
   if (!c) return;
   if (riverCodes.has(code)) return showRiver(c, reveal, { scrollToMap });
   if (mountainCodes.has(code)) return showFeatureInfo(c, 'mountain', reveal, { scrollToMap });
+  showMountainPhoto();
   selectedCode = code;
   $('countryInfo').hidden = false;
   $('countryInfo').classList.remove('riverInfo');
@@ -315,10 +317,29 @@ function showRiver(river, reveal = false, { scrollToMap = false } = {}) {
   showFeatureInfo(river, 'river', reveal, { scrollToMap });
 }
 
+function showMountainPhoto(mountain, scrollToMap = false) {
+  // A fresh node isolates load/error events from any previously selected photo.
+  const image = $('mountainImage').cloneNode(false);
+  image.hidden = true;
+  image.removeAttribute('src');
+  image.alt = '';
+  $('mountainImage').replaceWith(image);
+  if (!mountain) return;
+  image.alt = `Foto: ${mountain.name}`;
+  image.addEventListener('load', () => {
+    if ($('mountainImage') !== image || selectedCode !== mountain.code || $('countryInfo').hidden) return;
+    image.hidden = false;
+    if (!scrollToMap) revealCountryInfo();
+  }, { once: true });
+  image.addEventListener('error', () => { image.hidden = true; }, { once: true });
+  image.src = `assets/mountains/${mountain.code}.jpg`;
+}
+
 function showFeatureInfo(feature, topic, reveal = false, { scrollToMap = false } = {}) {
   const mountain = topic === 'mountain';
   selectedCode = feature.code;
   $('countryInfo').hidden = false;
+  showMountainPhoto(mountain ? feature : null, scrollToMap);
   $('countryInfo').classList.add('riverInfo');
   $('countryDetails').hidden = true;
   $('riverDetails').hidden = mountain;

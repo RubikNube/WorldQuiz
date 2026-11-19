@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { checkMountainPhoto } from './browser-mountains.mjs';
 
 // Shared by online desktop/mobile and offline root/subdirectory smoke checks.
 export async function checkMixedRound({ evaluate, click }) {
@@ -36,6 +37,8 @@ export async function checkMixedRound({ evaluate, click }) {
         document.querySelector('[data-'+(q.topic==='mountain'?'mountain':q.topic==='river'?'river':'country')+'="'+code+'"]').dispatchEvent(new MouseEvent('click',{bubbles:true}));
       }
     })()`);
+    if (q.topic === 'mountain') await checkMountainPhoto(evaluate, q.code);
+    else assert.equal(await evaluate(`document.querySelector('#mountainImage').hidden && !document.querySelector('#mountainImage').hasAttribute('src')`), true);
   }
   for (let index = 0; index < 10; index++) {
     const q = await current();

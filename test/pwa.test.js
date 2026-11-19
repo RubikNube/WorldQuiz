@@ -45,6 +45,10 @@ test("precache contains the entire bundle and changes only when its inputs chang
     assert.ok(first.paths.includes(path), path);
   }
   assert.ok(!first.paths.includes("sw.js"));
+  const mountains = JSON.parse(await readFile(new URL('../assets/data/mountains.json', import.meta.url)));
+  for (const mountain of mountains) assert.ok(first.paths.includes(`assets/mountains/${mountain.code}.jpg`));
+  assert.ok(first.paths.includes('assets/mountains/metadata.json'));
+  assert.ok(first.paths.includes('assets/mountains/ATTRIBUTION.md'));
   await writeFile(join(directory, "world.svg"), "changed map");
   assert.notEqual((await buildOfflineWorker(directory)).version, first.version);
 });

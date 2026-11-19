@@ -1,5 +1,12 @@
 # WorldQuiz – Daten und Quellen
 
+## Bergfotos
+
+Die Berginformationen zeigen lokal gespeicherte Vorschaubilder aus Wikimedia Commons.
+Fotografen, Lizenzen und Originaldateien sind in den
+[Bildnachweisen für Berge](assets/mountains/ATTRIBUTION.md) aufgeführt.
+Die Bildlizenzen gelten unabhängig von der Lizenz des Anwendungscodes.
+
 ## Anwendung
 
 WorldQuiz steht unter GPL-3.0-or-later, siehe [LICENSE](LICENSE).

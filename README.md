@@ -179,7 +179,8 @@ Die Kontinentzuordnung ist eine feste Lernzuordnung, beschrieben
 in [Daten und Quellen](ATTRIBUTION.md).
 
 Die Karte verwendet Natural Earth 1:50m in Equal-Earth-Projektion. Flaggen und
-Länderdaten sind lokal gebündelt. Beim Spielen gibt es keine externen API- oder
+Länderdaten sowie kleine Fotos aller 40 Berge sind lokal gebündelt. Die Fotos erscheinen
+in den Berginformationen beim Erkunden und nach einer Quizantwort. Beim Spielen gibt es keine externen API- oder
 Bildaufrufe. Die gebaute Version ist als App installierbar und nach dem ersten vollständigen Download offline nutzbar.
 
 Ausgangsdaten stehen unter `assets/data/`. `scripts/generate-data.py` enthält
@@ -188,6 +189,9 @@ Nach Änderungen erzeugt `npm run data:generate` die Profile und das SVG einschl
 ohne Netzwerkzugriff oder zusätzliche Python-Pakete. Neue Flaggen können
 explizit mit `python3 scripts/download-flags.py` heruntergeladen werden;
 vorhandene Dateien werden übersprungen. Der normale Build lädt nichts herunter.
+Bergfotos und Bildnachweise werden mit `python3 scripts/fetch-mountain-images.py`
+heruntergeladen; `--refresh` erneuert vorhandene Dateien. Die zugehörigen Lizenzen
+stehen in [Bildnachweise: Berge](assets/mountains/ATTRIBUTION.md).
 
 Der Metadatensnapshot stammt aus mledoze/countries (ODbL), anstelle der im
 ursprünglichen Entwurf vorgesehenen Wikidata-Abfrage. Die abgeleitete Datenbank

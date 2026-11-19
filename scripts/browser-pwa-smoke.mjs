@@ -12,7 +12,7 @@ const directory = resolve('dist');
 const workerSource = await readFile(resolve(directory, 'sw.js'), 'utf8');
 const updatedWorkers = new Set();
 const mime = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css',
-  '.svg': 'image/svg+xml', '.json': 'application/json', '.webmanifest': 'application/manifest+json', '.png': 'image/png' };
+  '.svg': 'image/svg+xml', '.json': 'application/json', '.webmanifest': 'application/manifest+json', '.png': 'image/png', '.jpg': 'image/jpeg' };
 const server = createServer(async (request, response) => {
   try {
     let path = decodeURIComponent(new URL(request.url, 'http://localhost').pathname);

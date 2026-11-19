@@ -183,6 +183,16 @@ try {
     assert.equal(await evaluate(`!document.querySelector('#riverDetails').hidden && document.querySelector('#worldMap').classList.contains('river-mode')`), true);
     await checkMountainRound({ evaluate, click });
     await checkMixedRound({ evaluate, click });
+    await click('#openProgress');
+    const progressMetrics = await evaluate(`document.querySelector('#progressMetrics').textContent`);
+    const progressRounds = await evaluate(`document.querySelector('#progressRounds').textContent`);
+    assert.ok(await evaluate(`Number(document.querySelector('#progressMetrics dd').textContent)>0`));
+    await cdp('Page.reload');
+    await ready();
+    await click('#openProgress');
+    assert.equal(await evaluate(`document.querySelector('#progressMetrics').textContent`), progressMetrics, 'Progress survives offline reload');
+    assert.equal(await evaluate(`document.querySelector('#progressRounds').textContent`), progressRounds);
+    await click('#closeProgress');
     await cdp('Network.emulateNetworkConditions', { offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1 });
     const savedStorage = await evaluate(`JSON.stringify({...localStorage})`);
     await evaluate(`window.pwaUpdateMarker = 'round-still-open'`);
@@ -207,7 +217,7 @@ try {
     for (const name of before.cacheNames.filter(name => !name.startsWith(`worldquiz:${base}:`))) {
       assert.ok(await evaluate(`caches.has(${JSON.stringify(name)})`), 'Other scopes retain their caches');
     }
-    console.log(`PWA checks passed at ${scope}: manifest, full precache, offline launch, flags, all modes, layouts, waiting update and activation.`);
+    console.log(`PWA checks passed at ${scope}: manifest, full precache, offline launch, flags, all modes, layouts, offline progress, waiting update and activation.`);
   }
   assert.deepEqual(exceptions, []);
 } finally {

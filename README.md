@@ -135,6 +135,36 @@ Hinweis erscheint in den Einstellungen. Das Löschen der Browserdaten entfernt
 sie. Das Zurücksetzen von Rekorden hat keinen Einfluss auf gespeicherte Fehler.
 Fehler aus Sitzungen vor Einführung dieser Funktion können nicht übernommen werden.
 
+## Lernfortschritt
+
+**Lernfortschritt** öffnet eine Übersicht, ohne die aktuelle Runde zu verlassen.
+Thema und Region lassen sich unabhängig von den Quizeinstellungen filtern.
+Die Übersicht zeigt richtige Antworten insgesamt und in den letzten 100 Antworten,
+die Anzahl normaler und Übungsantworten sowie die Abdeckung nach Thema und Kontinent.
+Abdeckung zählt unterschiedliche ausprobierte Fragen, nicht beherrschte Inhalte:
+Land, Hauptstadt, Flagge und Einwohnerzahl desselben Landes zählen jeweils einzeln.
+Die Kontinentzuordnung folgt dem Ziel der Frage, auch in weltweiten und gemischten Runden.
+
+Jede erste gültige Antwort zählt sofort, einschließlich Fehlerübungen und später
+abgebrochener Runden. Weitere Kartenklicks zählen nicht. Ein Neustart erzeugt neue
+Versuche; bisherige Antworten bleiben erfasst. Die Rundenliste zeigt bis zu 20
+passende abgeschlossene Runden aus den letzten 100, mit Datum, Region und Ergebnis.
+Gemischte Runden und Korrekturübungen erscheinen unter ihren enthaltenen Themen,
+zeigen aber das gesamte Rundenergebnis. Der Regionsfilter bezieht sich bei Runden
+auf die gewählte Rundenregion. Eine Runde ist erst nach **Ergebnis ansehen** abgeschlossen.
+
+**Fragen zum Üben** zeigt die bestehenden gespeicherten Fehler samt Korrekturfortschritt.
+**Fehler korrigieren** wählt den weltweiten Korrekturmodus aus; die Übung wird dort
+gestartet. Während einer laufenden Runde ist dieser Wechsel deaktiviert.
+Das Öffnen des Dialogs stoppt automatisches Weitergehen; nach dem Schließen geht
+es mit **Weiter** manuell weiter. Für spätere Antworten bleibt die gewählte Automatik aktiv.
+
+Die Erfassung beginnt mit Einführung der Funktion; ältere Rekorde enthalten keine
+Antwortstatistik und werden nicht übernommen. Fortschritt bleibt ausschließlich in
+diesem Browser und funktioniert offline. Bei Speicherfehlern bleibt er für die Sitzung
+erhalten; der Dialog zeigt einen Hinweis. Das Löschen der Browserdaten entfernt ihn.
+Das Zurücksetzen von Rekorden und das Korrigieren von Fehlern löschen keine Lernstatistik.
+
 ## Persönliche Rekorde
 
 **Länder finden**, **Hauptstädte zuordnen**, **Flaggenquiz**, **Einwohnerzahl**, **Flüsse finden**, **Berge finden** und **Gemischtes Quiz** speichern persönliche Rekorde
@@ -264,15 +294,19 @@ manuell über **Actions → Deploy to GitHub Pages → Run workflow** gestartet 
 `npm test` prüft Ländervollständigkeit und lokale Flaggen, Kartenreferenzen,
 Marker und Antimeridian-Geometrie, Fluss- und Bergprofile und Quellzuordnung, reproduzierbare
 Datengenerierung, Fragenpools, Wertung, Fehlerübungen sowie
-Zoomgrenzen und Gestenerkennung. Die PWA-Tests prüfen Manifest, PNG-Abmessungen,
+Zoomgrenzen und Gestenerkennung. Lernfortschritt-Tests prüfen Antwortzählung,
+Themen- und Regionsfilter, Abdeckung, begrenzte Verlaufsspeicherung und Speicherfehler.
+Die PWA-Tests prüfen Manifest, PNG-Abmessungen,
 vollständigen Offlinecache, Build-Versionen, Installationssteuerung, Statusanzeigen,
 fehlgeschlagene Downloads und die Cache-Isolation bei Root- und Unterverzeichnis-Hosting.
 Für einen Browser-Smoke-Test nach dem Build siehe `scripts/browser-smoke.mjs`.
 Der Browser-Smoke-Test prüft auch Bergfragen, Tastaturauswahl, Maus und Touch sowie gemischte Runden mit sechs Themen.
+Für Lernfortschritt prüft er leere und gefüllte Ansichten, Filter, Rundenergebnisse,
+Übungsantworten, Neuladen, die mobile Darstellung sowie das Pausieren der Automatik.
 Nur das Flussquiz prüfen: `node scripts/browser-smoke.mjs http://localhost:8000/ http://127.0.0.1:9223 --rivers-only`.
 Mit derselben dort beschriebenen Chromium-Instanz prüft
 `node scripts/browser-pwa-smoke.mjs` zusätzlich Manifest, Offline-Neustart,
-unbesuchte Flaggen, alle neun Modi und den Update-Lebenszyklus unter `/` und
+unbesuchte Flaggen, alle neun Modi, Lernfortschritt nach Offline-Neuladen und den Update-Lebenszyklus unter `/` und
 `/WorldQuiz/`. Der PWA-Test startet einen temporären lokalen HTTP-Server und
 benötigt keinen bereits laufenden App-Server; `dist/` bleibt unverändert.
 

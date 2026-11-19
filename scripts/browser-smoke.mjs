@@ -3,6 +3,7 @@
 // Then: node scripts/browser-smoke.mjs [app-url] [debugger-url]
 import assert from 'node:assert/strict';
 import { checkMixedRound } from './browser-mixed.mjs';
+import { checkProgress } from './browser-progress.mjs';
 import { checkMountainRound } from './browser-mountains.mjs';
 import { writeFile } from 'node:fs/promises';
 
@@ -644,6 +645,7 @@ try {
   if (process.argv.includes('--rivers-only')) {
     await checkRivers();
   } else {
+  await checkProgress({ evaluate, click, cdp, wait });
   await checkFooterHelp();
   await evaluate(`(async()=>{window.testCountries=await (await fetch('assets/data/countries.json')).json()})()`);
   await checkRecords();
@@ -849,7 +851,7 @@ try {
     console.log('River browser checks passed: regional pools, exploration, scoring, records, retry, mixed corrections, keyboard, overlap, mouse, touch, drag, pinch, desktop/mobile, local requests.');
     console.log('Screenshots: /tmp/worldquiz-rivers-1440.png, /tmp/worldquiz-rivers-320.png, /tmp/worldquiz-rivers-390.png');
   } else {
-    console.log('Browser checks passed: profiles, flag fallback, country/capitals/flag/population/river/mountain/mixed quizzes, all 198 capital prompts, scoring, practice, saved corrections, records, reset dialogs, keyboard, drag, pinch, desktop/mobile, local requests.');
+    console.log('Browser checks passed: learning progress, profiles, flag fallback, country/capitals/flag/population/river/mountain/mixed quizzes, all 198 capital prompts, scoring, practice, saved corrections, records, reset dialogs, keyboard, drag, pinch, desktop/mobile, local requests.');
     console.log('Screenshots: /tmp/worldquiz-desktop.png, /tmp/worldquiz-mobile.png, /tmp/worldquiz-mobile-answer.png, /tmp/worldquiz-rivers-320.png');
   }
 } finally {

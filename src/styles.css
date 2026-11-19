@@ -1,4 +1,28 @@
 /* Visual language and layout adapted from BayernQuiz, GPL-3.0-or-later. */
+#learningProgressDialog{
+  width:min(850px, calc(100% - 24px));
+  max-width:calc(100vw - 24px);
+  max-height:calc(100dvh - 24px);
+  overflow:auto;
+  overflow-wrap:anywhere
+}
+.progressFilters,.progressMetrics{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));
+  gap:12px
+}
+.progressMetrics>div{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:12px
+}
+.progressMetrics dt{color:var(--muted)}
+.progressMetrics dd{margin:4px 0 0;font-weight:650}
+.progressTable{overflow-x:auto;margin-bottom:24px}
+.progressTable table{width:100%;border-collapse:collapse;font-size:.9rem}
+.progressTable th,.progressTable td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--border)}
+#progressRounds li,#progressErrors li{margin-bottom:8px}
 :root{
   color-scheme:dark;
   --bg:#0b1220;

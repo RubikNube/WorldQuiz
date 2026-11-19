@@ -1,4 +1,6 @@
 import { createMistakes } from './mistakes.js';
+import { createProgress } from './progress.js';
+import { setupProgressView } from './progress-view.js';
 import { createHighscores, highscoreMessage } from './highscores.js';
 import { eligibleCountries, allowedCounts, createGame, createMixedGame, createCorrectionGame, questionTopic, currentQuestion, answer, answerPopulation, roundedPopulation, nextQuestion, score, mistakes, retryGame } from './game.js';
 import { createMapZoom } from './map-zoom.js';
@@ -19,6 +21,7 @@ let countries, rivers, mountains, byCode, validCodes, riverCodes, mountainCodes,
 let mode = 'learn', game = null, selectedCode = null;
 let advanceTimer = null;
 let savedMistakes;
+let learningProgress;
 let highscores, roundRecord = null, resetTarget = null;
 const number = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2 });
 const populationLabel = value => `ca. ${number.format(value)}`;
@@ -554,6 +557,7 @@ function selectMountain(code) {
 }
 
 function handleAnswer() {
+  learningProgress.recordAnswer(game);
   const population = questionTopic(game) === 'population';
   const progress = savedMistakes.recordAnswer(game);
   game.correctionMessage = progress ? progress.cleared ? 'Fehler korrigiert!' : progress.streak ? '1 von 2 richtig' : '' : '';
@@ -577,7 +581,10 @@ function cancelAdvance() {
 function advanceQuestion() {
   cancelAdvance();
   if (!nextQuestion(game)) return;
-  if (game.finished) roundRecord = highscores.recordCompletedRound(game);
+  if (game.finished) {
+    roundRecord = highscores.recordCompletedRound(game);
+    learningProgress.recordCompletedRound(game);
+  }
   closeInfo();
   renderQuestion();
   renderMap();
@@ -603,6 +610,9 @@ async function initialize() {
   savedMistakes = createMistakes(countries, undefined, rivers, mountains);
   setupRecordReset();
   byCode = new Map([...countries, ...rivers, ...mountains].map(c => [c.code, c]));
+  learningProgress = createProgress(countries, undefined, rivers, mountains);
+  setupProgressView({ progress: learningProgress, savedMistakes, targets: byCode, names, cancelAdvance,
+    isActive: () => Boolean(game && !game.finished), chooseCorrection: () => chooseMode('correction') });
   validCodes = new Set(countries.map(c => c.code));
   const documentSvg = new DOMParser().parseFromString(await responses[1].text(), 'image/svg+xml');
   if (documentSvg.querySelector('parsererror')) throw new Error('Die Kartendatei ist ungültig.');

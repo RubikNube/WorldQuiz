@@ -19,6 +19,7 @@
     <span class="eyebrow">DEINE REISE UM DIE WELT</span>
   </header>
   <div class="pwaTools">
+    <button id="openProgress" class="secondary" type="button" aria-haspopup="dialog" aria-controls="learningProgressDialog" disabled>Lernfortschritt</button>
     <button id="installApp" class="secondary" type="button" hidden>App installieren</button>
     <span id="offlineStatus" role="status" aria-live="polite"></span>
   </div>
@@ -122,6 +123,31 @@
     <p id="resetRecordsError" class="bad" role="alert"></p>
     <div class="actions"><button id="cancelResetRecords" type="button" class="secondary">Abbrechen</button><button type="submit">Zurücksetzen</button></div>
   </form>
+</dialog>
+<dialog id="learningProgressDialog" aria-labelledby="learningProgressTitle">
+  <div class="dialogHeader"><h2 id="learningProgressTitle">Dein Lernfortschritt</h2><button id="closeProgress" class="secondary" type="button" aria-label="Lernfortschritt schließen" autofocus>×</button></div>
+  <p id="progressStorage" class="muted"></p>
+  <div class="progressFilters">
+    <label class="field" for="progressTopic">Thema<select id="progressTopic"><option value="">Alle Themen</option></select></label>
+    <label class="field" for="progressRegion">Region<select id="progressRegion"><option value="Welt">Welt</option></select></label>
+  </div>
+  <div id="progressOverview" aria-live="polite" aria-atomic="true">
+    <p id="progressEmpty" class="muted">Noch keine Antworten für diese Auswahl. Die Erfassung beginnt mit dieser Funktion; frühere Rekorde werden nicht übernommen.</p>
+    <dl id="progressMetrics" class="progressMetrics"></dl>
+  </div>
+  <p class="muted">Richtigkeit zählt alle ersten Antworten einschließlich Übungen und abgebrochener Runden. Abdeckung zählt jede ausprobierte Frage einmal; sie zeigt keine Beherrschung. Jedes Thema zu einem Land zählt einzeln.</p>
+  <h3>Nach Thema</h3>
+  <div class="progressTable"><table><thead><tr><th scope="col">Thema</th><th scope="col">Insgesamt richtig</th><th scope="col">Abdeckung</th></tr></thead><tbody id="progressTopics"></tbody></table></div>
+  <h3>Nach Kontinent</h3>
+  <div class="progressTable"><table><thead><tr><th scope="col">Kontinent</th><th scope="col">Insgesamt richtig</th><th scope="col">Abdeckung</th></tr></thead><tbody id="progressRegions"></tbody></table></div>
+  <h3>Letzte abgeschlossene Runden</h3>
+  <p class="muted">Bis zu 20 passende Runden aus den letzten 100. Die Region entspricht der Rundenauswahl; gemischte Runden und Korrekturübungen zeigen immer das gesamte Rundenergebnis.</p>
+  <p id="progressRoundsEmpty" class="muted">Noch keine abgeschlossenen Runden für diese Auswahl.</p><ol id="progressRounds"></ol>
+  <h3>Fragen zum Üben</h3>
+  <p id="progressErrorsEmpty" class="muted">Keine offenen Fehler für diese Auswahl.</p><ul id="progressErrors"></ul>
+  <button id="progressCorrect" type="button">Fehler korrigieren</button>
+  <p class="muted">Öffnet die weltweite Fehlerübung mit allen Themen. Die Runde startest du dort.</p>
+  <p id="progressCorrectHint" class="muted">Nach der laufenden Runde verfügbar.</p>
 </dialog>
 </body>
 </html>

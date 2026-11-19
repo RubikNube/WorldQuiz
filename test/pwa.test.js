@@ -41,7 +41,7 @@ test("precache contains the entire bundle and changes only when its inputs chang
     "assets/flags/de.svg", "assets/data/countries.json", "assets/data/countries-source.json",
     "assets/data/world-source.geojson", "assets/data/ODbL.txt", "ATTRIBUTION.md", "rivers.js",
     "assets/data/rivers.json", "assets/data/rivers-catalog.json", "assets/data/rivers-source.geojson",
-    "mountains.js", "assets/data/mountains.json", "assets/data/mountains-catalog.json"]) {
+    "mountains.js", "assets/data/mountains.json", "assets/data/mountains-catalog.json", "progress.js", "progress-view.js"]) {
     assert.ok(first.paths.includes(path), path);
   }
   assert.ok(!first.paths.includes("sw.js"));

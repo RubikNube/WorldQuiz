@@ -8,7 +8,7 @@ import { nearestRiver } from './rivers.js';
 import { nearestMountain } from './mountains.js';
 
 const $ = id => document.getElementById(id);
-const names = { learn: 'Lernen', quiz: 'Länder finden', capitals: 'Hauptstädte zuordnen', flags: 'Flaggenquiz', population: 'Einwohnerzahl', river: 'Flüsse finden', mountain: 'Berge finden', mixed: 'Gemischtes Quiz', correction: 'Fehler korrigieren' };
+const names = { learn: 'Lernen', quiz: 'Länder finden', capitals: 'Hauptstädte zuordnen', flags: 'Flaggenquiz', population: 'Einwohnerzahl', river: 'Flüsse finden', mountain: 'Berge finden', mixed: 'Gemischtes Quiz', correction: 'Fehler & Wiederholen' };
 const regionBounds = {
   Afrika: { x: 465, y: 155, width: 315, height: 310 },
   Asien: { x: 650, y: 25, width: 525, height: 355 },
@@ -24,6 +24,12 @@ let savedMistakes;
 let learningProgress;
 let highscores, roundRecord = null, resetTarget = null;
 const number = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2 });
+const reviewDate = new Intl.DateTimeFormat('de-DE', { dateStyle: 'short', timeStyle: 'short' });
+const practiceAvailable = () => savedMistakes.count + savedMistakes.dueCount > 0;
+const reviewCounts = () => `${savedMistakes.count} offene Fehler · ${savedMistakes.dueCount} Wiederholungen fällig`;
+const nextReview = () => savedMistakes.nextDueAt === null
+  ? 'Noch keine Wiederholungen geplant. Spiele ein Quiz, um schwierige Fragen zu sammeln.'
+  : `Nächste Wiederholung am ${reviewDate.format(savedMistakes.nextDueAt)}.`;
 const populationLabel = value => `ca. ${number.format(value)}`;
 const mobileLayout = matchMedia('(max-width: 1099px)');
 const compactLayout = matchMedia('(max-width: 600px)');
@@ -148,19 +154,19 @@ function renderRecords() {
 
 function renderMistakes() {
   const correction = mode === 'correction';
-  $('correctionCount').textContent = `${savedMistakes.count} offene Fragen`;
+  $('correctionCount').textContent = reviewCounts();
   $('mistakeHelp').hidden = !correction;
   $('mistakeStorage').textContent = savedMistakes.persistent
-    ? 'Fehler werden nur in diesem Browser gespeichert.'
-    : 'Fehler bleiben für diese Sitzung erhalten; dauerhaftes Speichern ist nicht verfügbar.';
-  $('start').disabled = correction && !savedMistakes.count;
-  $('newRound').disabled = correction && !savedMistakes.count;
-  $('restart').disabled = correction && !savedMistakes.count;
+    ? 'Fehler und Wiederholungen werden nur in diesem Browser gespeichert.'
+    : 'Fehler und Wiederholungen bleiben für diese Sitzung erhalten; dauerhaftes Speichern ist nicht verfügbar.';
+  $('start').disabled = correction && !practiceAvailable();
+  $('newRound').disabled = correction && !practiceAvailable();
+  $('restart').disabled = correction && !practiceAvailable();
   $('newRound').textContent = correction ? 'Neue Übungsrunde' : 'Neue Runde';
   $('restart').textContent = correction ? 'Übung neu starten' : 'Neu starten';
   $('correctionProgress').textContent = game && !game.finished && game.answers[game.index]
     ? game.correctionMessage ?? '' : '';
-  if (correction) $('poolSummary').textContent = `${savedMistakes.count} offene Fragen · Bis zu 10 Fragen pro Runde · Ohne Rekordwertung`;
+  if (correction) $('poolSummary').textContent = `${reviewCounts()} · Bis zu 10 Fragen pro Runde · Ohne Rekordwertung${practiceAvailable() ? '' : `. ${nextReview()}`}`;
 }
 
 function setupRecordReset() {
@@ -383,14 +389,14 @@ function renderQuestion() {
   if (!active) {
     $('questionTopic').textContent = mode === 'learn' ? 'DIE WELT ENTDECKEN' : names[mode].toLocaleUpperCase('de-DE');
     $('question').textContent = mode === 'learn' ? 'Welches Land interessiert dich?' : game?.finished ? 'Weiter auf Entdeckungsreise' : mode === 'mountain' ? 'Welche Berge kennst du?' : mode === 'river' ? 'Welche Flüsse kennst du?' : 'Bereit für eine Weltreise?';
-    if (mode === 'correction' && !game?.finished) $('question').textContent = savedMistakes.count ? 'Bereit, deine Fehler zu korrigieren?' : 'Keine offenen Fehler. Spiele ein Quiz, um schwierige Fragen hier zu sammeln.';
+    if (mode === 'correction' && !game?.finished) $('question').textContent = practiceAvailable() ? 'Bereit, Fehler zu korrigieren und Gelerntes zu wiederholen?' : `Für jetzt alles geschafft! ${nextReview()}`;
     $('instructions').textContent = mode === 'mountain' ? 'Klicke auf einen Berg, um seinen Namen und seine ungefähre Höhe zu erfahren. Vergrößere die Karte bei nahen Gipfeln.' : mode === 'river' ? 'Klicke auf einen Fluss, um seinen Namen und seine ungefähre Länge zu erfahren.' : 'Klicke auf ein Land oder einen kleinen Länderpunkt, um mehr zu erfahren.';
     return;
   }
   const c = currentQuestion(game);
   const topic = questionTopic(game);
   $('questionTopic').classList.toggle('practiceTopic', game.practice);
-  $('questionTopic').textContent = game.practice ? `${mode === 'correction' ? 'FEHLER KORRIGIEREN' : 'FEHLER ÜBEN'} · ${names[topic].toLocaleUpperCase('de-DE')} · OHNE WERTUNG` : mode === 'mixed' ? `GEMISCHTES QUIZ · ${names[topic].toLocaleUpperCase('de-DE')}` : names[mode].toLocaleUpperCase('de-DE');
+  $('questionTopic').textContent = game.practice ? `${mode === 'correction' ? 'FEHLER & WIEDERHOLEN' : 'FEHLER ÜBEN'} · ${names[topic].toLocaleUpperCase('de-DE')} · OHNE WERTUNG` : mode === 'mixed' ? `GEMISCHTES QUIZ · ${names[topic].toLocaleUpperCase('de-DE')}` : names[mode].toLocaleUpperCase('de-DE');
   const strong = document.createElement('strong');
   strong.textContent = topic === 'capitals' ? c.capitals.join(' · ') : c.name;
   const prefix = document.createElement('span');
@@ -449,9 +455,14 @@ function renderQuestion() {
   }
 }
 
+function renderCorrectionSummary() {
+  const correction = game.mode === 'correction';
+  $('correctionSummary').textContent = correction ? `${game.clearedCount} Fragen korrigiert. ${game.reviewedCount} erfolgreiche Wiederholungen, davon ${game.graduatedCount} abgeschlossen und aus der Liste entfernt. ${reviewCounts()}.${practiceAvailable() ? '' : ` ${nextReview()}`}` : '';
+}
+
 function renderResults() {
   const correction = game.mode === 'correction';
-  $('correctionSummary').textContent = correction ? `${game.clearedCount} Fragen korrigiert. ${savedMistakes.count ? `${savedMistakes.count} offene Fragen verbleiben.` : 'Alle gespeicherten Fehler korrigiert!'}` : '';
+  renderCorrectionSummary();
   $('highscoreResult').textContent = highscoreMessage(roundRecord);
   const wrong = mistakes(game);
   $('resultTitle').textContent = `${score(game)} von ${game.questions.length} richtig`;
@@ -494,10 +505,11 @@ function launch() {
 }
 
 function startRound(practiceGame = null) {
-  if (mode === 'correction' && !savedMistakes.count) return;
+  const references = mode === 'correction' ? savedMistakes.selectQuestions() : null;
+  if (references && !references.length) { refreshReviews(); return; }
   cancelAdvance();
   launch();
-  game = mode === 'correction' ? createCorrectionGame(countries, savedMistakes.selectQuestions(), Math.random, rivers, mountains)
+  game = mode === 'correction' ? createCorrectionGame(countries, references, Math.random, rivers, mountains)
     : practiceGame || (mode === 'mixed'
       ? createMixedGame(eligibleCountries(countries, $('continent').value), eligibleCountries(rivers, $('continent').value), Number($('count').value), Math.random, eligibleCountries(mountains, $('continent').value))
       : createGame(questionPool(mode, $('continent').value), Number($('count').value), Math.random, false, mode));
@@ -525,7 +537,7 @@ function chooseMode(nextMode) {
   $('countField').hidden = mode === 'learn' || mode === 'correction';
   $('regionField').hidden = mode === 'correction';
   $('autoLabel').hidden = mode === 'learn';
-  $('start').textContent = mode === 'learn' ? 'Karte erkunden' : mode === 'correction' ? 'Fehler korrigieren' : 'Quiz starten';
+  $('start').textContent = mode === 'learn' ? 'Karte erkunden' : mode === 'correction' ? 'Übung starten' : 'Quiz starten';
   closeInfo();
   updateCounts();
   focusRegion();
@@ -560,8 +572,18 @@ function handleAnswer() {
   learningProgress.recordAnswer(game);
   const population = questionTopic(game) === 'population';
   const progress = savedMistakes.recordAnswer(game);
-  game.correctionMessage = progress ? progress.cleared ? 'Fehler korrigiert!' : progress.streak ? '1 von 2 richtig' : '' : '';
-  if (progress?.cleared && game.mode === 'correction') game.clearedCount++;
+  game.correctionMessage = !progress ? '' : progress.transition === 'scheduled'
+    ? `Fehler korrigiert! Wiederholung am ${reviewDate.format(progress.dueAt)}.`
+    : progress.transition === 'reviewed'
+      ? `Wiederholung geschafft! Nächster Termin: ${reviewDate.format(progress.dueAt)}.`
+      : progress.transition === 'graduated' ? 'Geschafft! Aus der Wiederholungsliste entfernt.'
+        : progress.streak === 1 ? '1 von 2 richtig'
+          : progress.transition === 'reopened' ? 'Erneut üben: 0 von 2 richtig.' : '';
+  if (game.mode === 'correction') {
+    if (progress?.cleared) game.clearedCount++;
+    if (['reviewed', 'graduated'].includes(progress?.transition)) game.reviewedCount++;
+    if (progress?.transition === 'graduated') game.graduatedCount++;
+  }
   renderQuestion();
   if (population) {
     selectedCode = currentQuestion(game).code;
@@ -596,6 +618,14 @@ function advanceQuestion() {
     $('questionBar').focus({ preventScroll: true });
     revealMap({ forQuestion: true });
   }
+}
+
+function refreshReviews() {
+  if (document.hidden) return;
+  if (mode === 'correction' && (!game || game.finished)) {
+    renderQuestion();
+    if (game?.finished) renderCorrectionSummary();
+  } else renderMistakes();
 }
 
 async function initialize() {
@@ -699,6 +729,8 @@ async function initialize() {
   window.addEventListener('resize', sizeSidebar);
   window.addEventListener('scroll', sizeSidebar, { passive: true });
   $('mapHost').setAttribute('aria-busy', 'false');
+  document.addEventListener('visibilitychange', refreshReviews);
+  window.setInterval(refreshReviews, 60_000);
 }
 
 // Avoid an apparent working start button before local content is ready.

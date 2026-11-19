@@ -105,28 +105,48 @@ Runde. Ein Wechsel zu einem anderen Modus beendet sie ebenfalls. Das bloße
 behalten den Spielstand. Laufende Runden bleiben nur im Arbeitsspeicher; ein
 Neuladen beginnt von vorn. Gespeicherte Fehler bleiben erhalten.
 
-## Fehler korrigieren
+## Fehler & Wiederholen
 
-**Fehler korrigieren** speichert falsch beantwortete Fragen aus **Länder finden**,
+**Fehler & Wiederholen** speichert falsch beantwortete Fragen aus **Länder finden**,
 **Hauptstädte zuordnen**, **Flaggenquiz**, **Einwohnerzahl**, **Flüsse finden**, **Berge finden**, **Gemischtes Quiz** und ihren Fehlerübungen sofort in diesem Browser. Die
-Themenkarte zeigt die Anzahl offener Fragen. Länder-, Hauptstadt-, Flaggen- und Einwohnerfragen zum
+Themenkarte zeigt offene Fehler und fällige Wiederholungen getrennt. Länder-, Hauptstadt-, Flaggen- und Einwohnerfragen zum
 selben Land zählen getrennt. Fluss- und Bergfragen werden pro Fluss beziehungsweise Berg gespeichert. Der Modus wird über die Modusauswahl aktiviert;
 **Fehler wiederholen** übt weiterhin nur die Fehler der letzten Runde.
 
-Jede gespeicherte Frage muss in zwei aufeinanderfolgenden Runden richtig
-beantwortet werden. Auch normale Quizrunden und Fehlerübungen zählen. Eine
-falsche Antwort setzt den Fortschritt zurück. Nach einer richtigen Antwort
-erscheint **1 von 2 richtig**, nach der zweiten **Fehler korrigiert!**.
+Jede gespeicherte Frage muss zweimal hintereinander richtig beantwortet werden.
+Auch normale Quizrunden und Fehlerübungen zählen. Nach der ersten richtigen Antwort
+erscheint **1 von 2 richtig**. Nach der zweiten bleibt die Frage für zeitversetzte
+Wiederholungen gespeichert: nach **1, 3, 7, 14, 30, 30 und 30 Tagen**.
+Nach sieben erfolgreichen fälligen Wiederholungen, darunter drei nach jeweils
+30 Tagen, wird sie aus der Wiederholungsliste entfernt. Bei pünktlichem Üben sind
+das 115 Tage nach der Korrektur. Die Lernstatistik bleibt erhalten. Ein späterer
+Fehler nimmt die Frage erneut auf.
 
-Eine Korrekturrunde mischt weltweit bis zu zehn unterschiedliche gespeicherte
-Fragen aus allen sechs Quizthemen. Fragen ohne richtige Antwort haben bei der Auswahl
-Vorrang; innerhalb der Gruppen und im gewählten Fragensatz ist die Reihenfolge
+Eine falsche Antwort setzt jederzeit die Korrektur und die gesamte Terminfolge
+zurück. Eine richtige Antwort vor dem Termin zählt in der Lernstatistik, verschiebt
+aber keinen Termin. Auch fällige Antworten in normalen Quizrunden zählen als
+Wiederholung. Ein Tag entspricht 24 Stunden; der nächste Termin wird ab der
+tatsächlichen richtigen Antwort berechnet, auch bei verspäteten Wiederholungen.
+Die Geräteuhr bestimmt die Fälligkeit. Es gibt keine Benachrichtigungen.
+
+Eine Übungsrunde mischt weltweit bis zu zehn unterschiedliche Fragen aus allen
+sechs Quizthemen. Offene Fehler ohne richtige Antwort haben Vorrang, danach folgen
+Fehler mit einer richtigen Antwort und anschließend die ältesten fälligen
+Wiederholungen. Gleichstände und die Reihenfolge im ausgewählten Fragensatz sind
 zufällig. Region und Fragenanzahl sind in diesem Modus ausgeblendet.
-**Neue Übungsrunde** und **Übung neu starten** wählen aus den aktuell offenen
-Fragen neu aus. Ohne offene Fragen ist der Start deaktiviert. Diese Übungen
-erhalten keine Rekordwertung. Das Ergebnis zeigt die in der Runde korrigierten
-und die insgesamt noch offenen Fragen. Auch nach einer fehlerfreien Runde können
-noch Fragen offen sein.
+**Neue Übungsrunde** und **Übung neu starten** wählen aus den aktuell verfügbaren
+Fragen neu aus. Während einer Runde kommen keine neuen Fragen hinzu.
+
+Themenkarte und Einstellungen zeigen offene Fehler und fällige Wiederholungen
+getrennt. Ohne verfügbare Fragen ist der Start deaktiviert und der nächste Termin
+wird angezeigt. Die Verfügbarkeit wird beim Öffnen, bei Rückkehr zum Tab und jede
+Minute im sichtbaren Tab aktualisiert. Diese Übungen erhalten keine Rekordwertung.
+Das Ergebnis zeigt korrigierte Fragen, erfolgreiche Wiederholungen und davon
+abgeschlossene Fragen sowie verbleibende Fehler und fällige Wiederholungen.
+Auch nach einer fehlerfreien Runde können weitere Fragen oder Termine verbleiben.
+
+Bestehende gespeicherte Fehler werden mit ihrem Korrekturfortschritt übernommen.
+Früher bereits gelöschte Fehler lassen sich nicht nachträglich übernehmen.
 
 Antworten werden sofort gespeichert: Abbrechen, Moduswechsel und Neuladen
 behalten den Fortschritt. Die Speicherung benötigt weder Konto noch Server.
@@ -153,8 +173,10 @@ Gemischte Runden und Korrekturübungen erscheinen unter ihren enthaltenen Themen
 zeigen aber das gesamte Rundenergebnis. Der Regionsfilter bezieht sich bei Runden
 auf die gewählte Rundenregion. Eine Runde ist erst nach **Ergebnis ansehen** abgeschlossen.
 
-**Fragen zum Üben** zeigt die bestehenden gespeicherten Fehler samt Korrekturfortschritt.
-**Fehler korrigieren** wählt den weltweiten Korrekturmodus aus; die Übung wird dort
+**Offene Fehler** zeigt den Korrekturfortschritt; **Geplante Wiederholungen** zeigt
+Termine, Fälligkeit und die Anzahl bereits geschaffter Wiederholungen. Beide Listen
+folgen den Themen- und Regionsfiltern.
+**Fehler & Wiederholen** wählt unabhängig von diesen Filtern den weltweiten Übungsmodus aus; die Übung wird dort
 gestartet. Während einer laufenden Runde ist dieser Wechsel deaktiviert.
 Das Öffnen des Dialogs stoppt automatisches Weitergehen; nach dem Schließen geht
 es mit **Weiter** manuell weiter. Für spätere Antworten bleibt die gewählte Automatik aktiv.
@@ -305,6 +327,9 @@ vollständigen Offlinecache, Build-Versionen, Installationssteuerung, Statusanze
 fehlgeschlagene Downloads und die Cache-Isolation bei Root- und Unterverzeichnis-Hosting.
 Für einen Browser-Smoke-Test nach dem Build siehe `scripts/browser-smoke.mjs`.
 Der Browser-Smoke-Test prüft auch Bergfragen, Tastaturauswahl, Maus und Touch sowie gemischte Runden mit sechs Themen.
+Die Wiederholungstests prüfen Migration, Fälligkeit, sieben Intervalle, Abschluss und
+erneute Aufnahme nach Fehlern. Nur die Browser-Prüfungen für Wiederholungen starten:
+`node scripts/browser-smoke.mjs http://localhost:8000/ http://127.0.0.1:9223 --reviews-only`.
 Für Lernfortschritt prüft er leere und gefüllte Ansichten, Filter, Rundenergebnisse,
 Übungsantworten, Neuladen, die mobile Darstellung sowie das Pausieren der Automatik.
 Nur das Flussquiz prüfen: `node scripts/browser-smoke.mjs http://localhost:8000/ http://127.0.0.1:9223 --rivers-only`.

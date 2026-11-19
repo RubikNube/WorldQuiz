@@ -34,7 +34,7 @@
       <button class="modeCard" data-mode="river" aria-pressed="false"><span class="cardIcon" aria-hidden="true"><svg viewBox="0 0 64 64" width="54" height="54" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6c32 12-24 20 6 34s8 16 0 18M38 6c32 12-24 20 6 34s8 16 0 18"/></svg></span><span><strong>Flüsse finden</strong><span>Wo fließt er? Entdecke 38 Flüsse und zeige ihren Verlauf auf der Karte.</span><small data-mode-best="river">Dein Rekord: noch keiner · Welt · 10 Fragen</small></span></button>
       <button class="modeCard" data-mode="mountain" aria-pressed="false"><span class="cardIcon" aria-hidden="true">△</span><span><strong>Berge finden</strong><span>Wo liegt der Gipfel? Entdecke 40 Berge auf der Weltkarte.</span><small data-mode-best="mountain">Dein Rekord: noch keiner · Welt · 10 Fragen</small></span></button>
       <button class="modeCard" data-mode="mixed" aria-pressed="false"><span class="cardIcon" aria-hidden="true">↔</span><span><strong>Gemischtes Quiz</strong><span>Länder, Hauptstädte, Flaggen, Einwohnerzahlen, Flüsse und Berge in einer Runde.</span><small data-mode-best="mixed">Dein Rekord: noch keiner · Welt · 10 Fragen</small></span></button>
-      <button class="modeCard" data-mode="correction" aria-pressed="false"><span class="cardIcon bookIcon" aria-hidden="true"><svg viewBox="0 0 64 64" width="54" height="54" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M32 12C23 6 12 6 4 10v44c8-4 19-4 28 2 9-6 20-6 28-2V10c-8-4-19-4-28 2v44"/><path d="m11 20 13-2m-13 12 13-2m16-10 13 2m-13 8 13 2"/></svg></span><span><strong>Fehler korrigieren</strong><span>Übe gespeicherte Fehler aus allen Quizthemen.</span><small id="correctionCount">0 offene Fragen</small></span></button>
+      <button class="modeCard" data-mode="correction" aria-pressed="false"><span class="cardIcon bookIcon" aria-hidden="true"><svg viewBox="0 0 64 64" width="54" height="54" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M32 12C23 6 12 6 4 10v44c8-4 19-4 28 2 9-6 20-6 28-2V10c-8-4-19-4-28 2v44"/><path d="m11 20 13-2m-13 12 13-2m16-10 13 2m-13 8 13 2"/></svg></span><span><strong>Fehler &amp; Wiederholen</strong><span>Korrigiere Fehler und wiederhole Gelerntes in wachsenden Abständen.</span><small id="correctionCount">0 offene Fehler · 0 Wiederholungen fällig</small></span></button>
     </div>
   </section>
   <div class="workspace">
@@ -53,7 +53,7 @@
           <p id="resetRecordsHint" class="muted" hidden>Nach der Runde verfügbar.</p>
           <p id="resetRecordsStatus" class="muted" role="status"></p>
         </div>
-        <p id="mistakeHelp" class="muted" hidden>Beantworte jede Frage in zwei Runden hintereinander richtig, um sie abzuschließen. Pro Runde übst du bis zu zehn Fragen.</p>
+        <p id="mistakeHelp" class="muted" hidden>Korrigiere jeden Fehler mit zwei richtigen Antworten hintereinander. Danach wiederholst du nach 1, 3, 7, 14 und dreimal 30 Tagen. Nach sieben erfolgreichen Wiederholungen wird die Frage aus der Liste entfernt. Eine falsche Antwort startet die Korrektur neu. Pro Runde übst du bis zu zehn Fragen.</p>
         <p id="mistakeStorage" class="muted"></p>
         <button id="start" class="primary">Karte erkunden</button>
       </details>
@@ -110,7 +110,7 @@
     <span>WorldQuiz · Die Welt kennenlernen</span><a href="ATTRIBUTION.md">Daten &amp; Quellen</a><span>198 Länder und Gebiete: UN-Mitglieder sowie Vatikanstadt, Palästina, Kosovo, Taiwan und Westsahara. Grenzen nach Natural Earth; umstrittene Gebiete sind schematisch dargestellt.</span></footer>
   <noscript><p>Bitte aktiviere JavaScript, um die Karte und das Quiz zu verwenden.</p></noscript>
 </main>
-<dialog id="modeDialog" aria-labelledby="dialogTitle"><div class="dialogHeader"><h2 id="dialogTitle">Modus auswählen</h2><button id="closeDialog" class="secondary" aria-label="Modusauswahl schließen">×</button></div><p class="muted">Ein anderer Modus beendet die aktuelle Runde.</p><div class="dialogModes"><button data-mode="learn">Lernen</button><button data-mode="quiz">Länder finden</button><button data-mode="capitals">Hauptstädte zuordnen</button><button data-mode="flags">Flaggenquiz</button><button data-mode="population">Einwohnerzahl</button><button data-mode="river">Flüsse finden</button><button data-mode="mountain">Berge finden</button><button data-mode="mixed">Gemischtes Quiz</button><button data-mode="correction">Fehler korrigieren</button></div></dialog>
+<dialog id="modeDialog" aria-labelledby="dialogTitle"><div class="dialogHeader"><h2 id="dialogTitle">Modus auswählen</h2><button id="closeDialog" class="secondary" aria-label="Modusauswahl schließen">×</button></div><p class="muted">Ein anderer Modus beendet die aktuelle Runde.</p><div class="dialogModes"><button data-mode="learn">Lernen</button><button data-mode="quiz">Länder finden</button><button data-mode="capitals">Hauptstädte zuordnen</button><button data-mode="flags">Flaggenquiz</button><button data-mode="population">Einwohnerzahl</button><button data-mode="river">Flüsse finden</button><button data-mode="mountain">Berge finden</button><button data-mode="mixed">Gemischtes Quiz</button><button data-mode="correction">Fehler &amp; Wiederholen</button></div></dialog>
 <dialog id="resetRecordsDialog" aria-labelledby="resetRecordsTitle" aria-describedby="resetRecordsDescription">
   <form id="resetRecordsForm">
     <h2 id="resetRecordsTitle">Rekorde zurücksetzen?</h2>
@@ -143,10 +143,13 @@
   <h3>Letzte abgeschlossene Runden</h3>
   <p class="muted">Bis zu 20 passende Runden aus den letzten 100. Die Region entspricht der Rundenauswahl; gemischte Runden und Korrekturübungen zeigen immer das gesamte Rundenergebnis.</p>
   <p id="progressRoundsEmpty" class="muted">Noch keine abgeschlossenen Runden für diese Auswahl.</p><ol id="progressRounds"></ol>
-  <h3>Fragen zum Üben</h3>
+  <h3>Offene Fehler</h3>
   <p id="progressErrorsEmpty" class="muted">Keine offenen Fehler für diese Auswahl.</p><ul id="progressErrors"></ul>
-  <button id="progressCorrect" type="button">Fehler korrigieren</button>
-  <p class="muted">Öffnet die weltweite Fehlerübung mit allen Themen. Die Runde startest du dort.</p>
+  <h3>Geplante Wiederholungen</h3>
+  <p id="progressReviewsEmpty" class="muted">Keine geplanten Wiederholungen für diese Auswahl.</p><ul id="progressReviews"></ul>
+  <p id="progressReviewAvailability" class="muted"></p>
+  <button id="progressCorrect" type="button">Fehler &amp; Wiederholen</button>
+  <p class="muted">Öffnet die weltweite Übung mit offenen Fehlern und fälligen Wiederholungen aus allen Themen, unabhängig von diesen Filtern. Die Runde startest du dort.</p>
   <p id="progressCorrectHint" class="muted">Nach der laufenden Runde verfügbar.</p>
 </dialog>
 </body>

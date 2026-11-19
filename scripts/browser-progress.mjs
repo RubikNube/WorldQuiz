@@ -66,7 +66,7 @@ export async function checkProgress({ evaluate, click, cdp, wait }) {
     await writeFile('/tmp/worldquiz-progress-mobile.png', Buffer.from(result.data, 'base64'));
   });
   await click('#progressCorrect');
-  assert.equal(await evaluate(`document.querySelector('#modeName').textContent`), 'Fehler korrigieren');
+  assert.equal(await evaluate(`document.querySelector('#modeName').textContent`), 'Fehler & Wiederholen');
   assert.equal(await evaluate(`document.querySelector('#quizStats').hidden`), true, 'select correction without starting it');
   await click('#start');
   await respond(true);

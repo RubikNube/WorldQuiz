@@ -191,7 +191,8 @@ test('mixed corrections validate topic-specific targets and preserve river strea
     nextQuestion(correction);
   }
   mistakes = createMistakes(countries, () => store, rivers);
-  assert.deepEqual(mistakes.entries, [{ topic: 'river', code: 'river-rhein', streak: 1 }]);
+  assert.deepEqual(mistakes.entries.filter(e => e.status === 'correction'), [{ topic: 'river', code: 'river-rhein', status: 'correction', streak: 1 }]);
+  assert.equal(mistakes.reviewCount, 1);
   const second = createCorrectionGame(countries, mistakes.selectQuestions(), () => .5, rivers);
   answer(second, 'river-rhein', riverCodes);
   assert.equal(mistakes.recordAnswer(second).cleared, true);
@@ -203,7 +204,7 @@ test('mixed corrections validate topic-specific targets and preserve river strea
   const wrong = createGame([rivers[0]], 1, () => .5, false, 'river');
   answer(wrong, rivers[1].code, riverCodes);
   mistakes.recordAnswer(wrong);
-  assert.equal(createMistakes(countries, () => store, rivers).entries[0].streak, 0);
+  assert.equal(createMistakes(countries, () => store, rivers).entries.find(e => e.code === rivers[0].code).streak, 0);
 });
 
 test('river records use river pool sizes, coexist with country records, reset and exclude practice', () => {

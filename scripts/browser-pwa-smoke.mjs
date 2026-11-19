@@ -193,6 +193,26 @@ try {
     assert.equal(await evaluate(`document.querySelector('#progressMetrics').textContent`), progressMetrics, 'Progress survives offline reload');
     assert.equal(await evaluate(`document.querySelector('#progressRounds').textContent`), progressRounds);
     await click('#closeProgress');
+    // Scheduled reviews and graduation persist through offline reloads too.
+    await evaluate(`localStorage.setItem('worldQuizMistakes',JSON.stringify({version:2,entries:[
+      {topic:'quiz',code:'de',status:'review',stage:6,dueAt:Date.now()-1000},
+      {topic:'flags',code:'fr',status:'review',stage:0,dueAt:Date.now()+86400000}
+    ]}))`);
+    await cdp('Page.reload'); await ready();
+    await click('#openProgress');
+    assert.equal(await evaluate(`document.querySelectorAll('#progressReviews li').length`), 2);
+    await click('#progressCorrect');
+    await evaluate(`document.querySelector('#autoNext').checked=false`);
+    await click('#start');
+    await evaluate(`document.querySelector('[data-country="de"]').dispatchEvent(new MouseEvent('click',{bubbles:true}))`);
+    assert.match(await evaluate(`document.querySelector('#correctionProgress').textContent`), /Aus der Wiederholungsliste entfernt/);
+    await click('#next');
+    const reviewStorage = await evaluate(`localStorage.getItem('worldQuizMistakes')`);
+    await cdp('Page.reload'); await ready();
+    assert.equal(await evaluate(`localStorage.getItem('worldQuizMistakes')`), reviewStorage);
+    await click('[data-mode="correction"]');
+    assert.equal(await evaluate(`document.querySelector('#start').disabled`), true);
+    assert.match(await evaluate(`document.querySelector('#poolSummary').textContent`), /Nächste Wiederholung am/);
     await cdp('Network.emulateNetworkConditions', { offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1 });
     const savedStorage = await evaluate(`JSON.stringify({...localStorage})`);
     await evaluate(`window.pwaUpdateMarker = 'round-still-open'`);

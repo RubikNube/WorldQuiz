@@ -98,7 +98,7 @@ export function createCorrectionGame(countries, references, random = Math.random
       const country = { ...(q.topic === 'mountain' ? byMountain : q.topic === 'river' ? byRiver : byCode).get(q.code), topic: q.topic };
       return q.topic === 'population' ? populationQuestion(country, random) : country;
     }), random),
-    index: 0, answers: [], practice: true, finished: false, mode: 'correction', region: 'Welt', clearedCount: 0,
+    index: 0, answers: [], practice: true, finished: false, mode: 'correction', region: 'Welt', clearedCount: 0, reviewedCount: 0, graduatedCount: 0,
   };
 }
 

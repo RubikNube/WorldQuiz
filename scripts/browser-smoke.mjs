@@ -3,6 +3,7 @@
 // Then: node scripts/browser-smoke.mjs [app-url] [debugger-url]
 import assert from 'node:assert/strict';
 import { checkMixedRound } from './browser-mixed.mjs';
+import { checkReviews } from './browser-reviews.mjs';
 import { checkProgress } from './browser-progress.mjs';
 import { checkMountainRound } from './browser-mountains.mjs';
 import { writeFile } from 'node:fs/promises';
@@ -166,7 +167,7 @@ async function populationRound(width) {
     }
     if (!pass) await click('#newRound');
   }
-  assert.equal(await evaluate(`document.querySelector('#correctionCount').textContent`), '0 offene Fragen');
+  assert.equal(await evaluate(`document.querySelector('#correctionCount').textContent`), '0 offene Fehler · 0 Wiederholungen fällig');
   await click('[data-mode="population"]');
   await click('#start');
   await evaluate(`(async()=>{window.testCountries=await(await fetch('assets/data/countries.json')).json();document.querySelector('#autoNext').checked=true})()`);
@@ -363,7 +364,7 @@ async function checkRivers() {
       await click('#next');
     }
     assert.equal(topics.size, 2);
-    assert.match(await evaluate(`document.querySelector('#correctionSummary').textContent`), /1 Fragen korrigiert. 1 offene Fragen/);
+    assert.match(await evaluate(`document.querySelector('#correctionSummary').textContent`), /1 Fragen korrigiert\..*1 offene Fehler/);
     await click('#mistakeList button');
     assert.equal(await evaluate(`document.querySelector('#countryName').textContent`), 'Deutschland');
     assert.equal(await evaluate(`document.querySelector('#worldMap').classList.contains('river-mode')`), false);
@@ -396,7 +397,7 @@ async function checkCorrections() {
     await countryClick(wrong);
     assert.equal((await saved()).length, 1, 'mistake saves before completing round');
     await cdp('Page.reload'); await ready();
-    assert.equal(await evaluate(`document.querySelector('#correctionCount').textContent`), '1 offene Fragen');
+    assert.equal(await evaluate(`document.querySelector('#correctionCount').textContent`), '1 offene Fehler · 0 Wiederholungen fällig');
     // Seed both topics for the same country, with different progress.
     await evaluate(`localStorage.setItem('worldQuizMistakes',JSON.stringify({version:1,entries:[{topic:'quiz',code:'de',streak:0},{topic:'capitals',code:'de',streak:1}]}))`);
     await cdp('Page.reload'); await ready();
@@ -411,21 +412,22 @@ async function checkCorrections() {
       const capital = await evaluate(`!!document.querySelector('#question .fullCapitalPrompt')`);
       topics.add(capital ? 'capitals' : 'quiz');
       await correct();
-      assert.equal(await evaluate(`document.querySelector('#correctionProgress').textContent`), capital ? 'Fehler korrigiert!' : '1 von 2 richtig');
+      assert.match(await evaluate(`document.querySelector('#correctionProgress').textContent`), capital ? /^Fehler korrigiert! Wiederholung am / : /^1 von 2 richtig$/);
       if (i === 0) await screenshot(`/tmp/worldquiz-correction-answer-${width}.png`);
       await click('#next');
     }
     assert.equal(topics.size, 2);
-    assert.match(await evaluate(`document.querySelector('#correctionSummary').textContent`), /1 Fragen korrigiert. 1 offene Fragen/);
+    assert.match(await evaluate(`document.querySelector('#correctionSummary').textContent`), /1 Fragen korrigiert\..*1 offene Fehler/);
     assert.equal(await evaluate(`document.querySelector('#retry').hidden`), true);
     assert.equal(await evaluate(`document.querySelector('#highscoreResult').textContent`), '');
     await click('#newRound');
     assert.equal(await evaluate(`document.querySelector('#questionCount').textContent`), 'Frage 1/1');
     await correct();
-    assert.deepEqual(await saved(), []);
+    assert.ok((await saved()).every(e => e.status === 'review'));
+    assert.equal((await saved()).length, 2);
     assert.equal(await evaluate(`document.querySelector('#restart').disabled`), true);
     await click('#next');
-    assert.match(await evaluate(`document.querySelector('#correctionSummary').textContent`), /Alle gespeicherten Fehler korrigiert/);
+    assert.match(await evaluate(`document.querySelector('#correctionSummary').textContent`), /0 offene Fehler · 0 Wiederholungen fällig/);
     assert.equal(await evaluate(`document.querySelector('#newRound').disabled && document.querySelector('#start').disabled`), true);
     assert.equal(await evaluate(`document.documentElement.scrollWidth<=innerWidth`), true);
     await click('#changeMode'); await click('.dialogModes [data-mode="quiz"]');
@@ -439,17 +441,18 @@ async function checkCorrections() {
     await countryClick('de'); await click('#restart');
     assert.equal(await evaluate(`document.querySelector('#questionCount').textContent`), 'Frage 1/1');
     await countryClick('fr'); await click('#next');
-    assert.equal((await saved())[0].streak, 0);
+    assert.equal((await saved()).find(e => e.status === 'correction').streak, 0);
     assert.equal(await evaluate(`document.querySelector('#retry').hidden`), true);
     // Auto-advance commits and clears a single saved entry.
     await click('#newRound');
     await evaluate(`document.querySelector('#autoNext').checked=true`);
     await countryClick('de');
     await wait(`!document.querySelector('#results').hidden`);
-    assert.equal((await saved())[0].streak, 1);
+    assert.equal((await saved()).find(e => e.status === 'correction').streak, 1);
     await click('#newRound'); await countryClick('de');
     await wait(`!document.querySelector('#results').hidden`);
-    assert.deepEqual(await saved(), []);
+    assert.ok((await saved()).every(e => e.status === 'review'));
+    assert.equal((await saved()).length, 2);
   }
 }
 async function capitalsRound(all = false) {
@@ -642,9 +645,12 @@ try {
   await cdp('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1000, deviceScaleFactor: 1, mobile: false });
   await cdp('Page.navigate', { url: base });
   await wait(`document.querySelector('#worldMap') && document.querySelector('#mapHost').getAttribute('aria-busy')==='false'`);
-  if (process.argv.includes('--rivers-only')) {
+  if (process.argv.includes('--reviews-only')) {
+    await checkReviews({ evaluate, click, cdp, wait });
+  } else if (process.argv.includes('--rivers-only')) {
     await checkRivers();
   } else {
+  await checkReviews({ evaluate, click, cdp, wait });
   await checkProgress({ evaluate, click, cdp, wait });
   await checkFooterHelp();
   await evaluate(`(async()=>{window.testCountries=await (await fetch('assets/data/countries.json')).json()})()`);
@@ -847,7 +853,9 @@ try {
   assert.deepEqual(exceptions, []);
   assert.deepEqual(failures, []);
   assert.ok(requests.every(url => url.startsWith(new URL(base).origin) || url.startsWith('data:')), 'No external API or image requests');
-  if (process.argv.includes('--rivers-only')) {
+  if (process.argv.includes('--reviews-only')) {
+    console.log('Spaced review browser checks passed: desktop/mobile, due dates, corrections, graduation, filters, reload, and availability refresh.');
+  } else if (process.argv.includes('--rivers-only')) {
     console.log('River browser checks passed: regional pools, exploration, scoring, records, retry, mixed corrections, keyboard, overlap, mouse, touch, drag, pinch, desktop/mobile, local requests.');
     console.log('Screenshots: /tmp/worldquiz-rivers-1440.png, /tmp/worldquiz-rivers-320.png, /tmp/worldquiz-rivers-390.png');
   } else {

@@ -128,7 +128,9 @@ test('population mistakes persist alongside old topics and clear after two corre
         assert.equal(answerPopulation(mixed, 100), false);
         answer(mixed, target.code, codes);
       }
-      assert.deepEqual(saved.recordAnswer(mixed), { streak: pass + 1, cleared: pass === 1 });
+      const result = saved.recordAnswer(mixed);
+      assert.equal(result.transition, pass === 0 ? 'correcting' : 'scheduled');
+      assert.equal(result.cleared, pass === 1);
       assert.equal(saved.recordAnswer(mixed), null);
       nextQuestion(mixed);
     }

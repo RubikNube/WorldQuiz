@@ -48,13 +48,24 @@ export function setupProgressView({ progress, savedMistakes, targets, names, can
     $('progressRoundsEmpty').hidden = rounds.length > 0;
     $('progressRounds').replaceChildren(...rounds.map(round => element('li',
       `${date.format(round.at)} · ${names[round.mode]} · ${round.region} · ${round.correct}/${round.total} richtig${round.practice ? ' · Übung' : ''}`)));
-    const errors = savedMistakes.entries.filter(entry => (!selected.topic || entry.topic === selected.topic)
+    const entries = savedMistakes.entries.filter(entry => (!selected.topic || entry.topic === selected.topic)
       && (selected.region === 'Welt' || targets.get(entry.code).continent === selected.region))
       .sort((a, b) => names[a.topic].localeCompare(names[b.topic], 'de') || targets.get(a.code).name.localeCompare(targets.get(b.code).name, 'de'));
+    const errors = entries.filter(entry => entry.status === 'correction');
+    const reviews = entries.filter(entry => entry.status === 'review').sort((a, b) => a.dueAt - b.dueAt);
     $('progressErrorsEmpty').hidden = errors.length > 0;
     $('progressErrors').replaceChildren(...errors.map(entry => element('li',
       `${names[entry.topic]}: ${targets.get(entry.code).name} · ${entry.streak} von 2 richtig`)));
-    $('progressCorrect').disabled = isActive() || !savedMistakes.count;
+    const now = Date.now();
+    $('progressReviewsEmpty').hidden = reviews.length > 0;
+    $('progressReviews').replaceChildren(...reviews.map(entry => element('li',
+      `${names[entry.topic]}: ${targets.get(entry.code).name} · ${entry.stage} von 7 Wiederholungen geschafft · ${entry.dueAt <= now ? 'Fällig seit' : 'Geplant am'} ${date.format(entry.dueAt)}`)));
+    const available = savedMistakes.count + savedMistakes.dueCount > 0;
+    $('progressReviewAvailability').textContent = available
+      ? `Weltweit: ${savedMistakes.count} offene Fehler · ${savedMistakes.dueCount} Wiederholungen fällig`
+      : savedMistakes.nextDueAt === null ? 'Noch keine Wiederholungen geplant.'
+        : `Weltweit nächste Wiederholung am ${date.format(savedMistakes.nextDueAt)}.`;
+    $('progressCorrect').disabled = isActive() || !available;
     $('progressCorrectHint').hidden = !isActive();
   }
   $('progressTopic').append(...PROGRESS_TOPICS.map(topic => new Option(names[topic], topic)));
@@ -69,9 +80,12 @@ export function setupProgressView({ progress, savedMistakes, targets, names, can
   $('closeProgress').addEventListener('click', () => dialog.close());
   dialog.addEventListener('close', () => $('openProgress').focus({ preventScroll: true }));
   $('progressCorrect').addEventListener('click', () => {
-    if (isActive() || !savedMistakes.count) return;
+    if (isActive() || !(savedMistakes.count + savedMistakes.dueCount)) { render(); return; }
     dialog.close();
     chooseCorrection();
   });
+  const refresh = () => { if (!document.hidden && dialog.open) render(); };
+  document.addEventListener('visibilitychange', refresh);
+  window.setInterval(refresh, 60_000);
   $('openProgress').disabled = false;
 }

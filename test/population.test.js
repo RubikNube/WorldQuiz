@@ -27,20 +27,44 @@ test('population estimates round to two significant digits', () => {
   for (const value of [0, -1, NaN, Infinity]) assert.throws(() => roundedPopulation(value), RangeError);
 });
 
-test('all countries get four distinct positive choices with substantial gaps and shuffled positions', () => {
-  const positions = new Set();
+test('all countries get four distinct positive choices with substantial gaps at every correct rank', () => {
   for (const country of countries) {
-    for (const random of [() => 0, () => 0.5, () => 0.999]) {
-      const options = populationOptions(country.population, random);
+    for (const rank of [0, 1, 2, 3]) {
+      const options = populationOptions(country.population, () => (rank + 0.5) / 4);
       assert.equal(options.length, 4);
       assert.equal(new Set(options).size, 4);
       assert.ok(options.every(n => Number.isInteger(n) && n > 0));
       const sorted = [...options].sort((a, b) => a - b);
       assert.ok(sorted.slice(1).every((n, i) => n / sorted[i] >= 1.8));
-      positions.add(options.indexOf(roundedPopulation(country.population)));
+      assert.equal(sorted.indexOf(roundedPopulation(country.population)), rank, country.code);
+      assert.equal(options.filter(n => n === roundedPopulation(country.population)).length, 1);
     }
   }
-  assert.ok(positions.size > 1);
+});
+
+test('correct numerical ranks use equal random intervals including their boundaries', () => {
+  for (const [sample, rank] of [[0, 0], [0.25 - Number.EPSILON, 0], [0.25, 1],
+    [0.5 - Number.EPSILON, 1], [0.5, 2], [0.75 - Number.EPSILON, 2], [0.75, 3], [1 - Number.EPSILON, 3]]) {
+    const options = populationOptions(83132799, () => sample).sort((a, b) => a - b);
+    assert.equal(options.indexOf(83000000), rank);
+  }
+});
+
+test('button order is shuffled independently of the correct numerical rank', () => {
+  for (const rank of [0, 1, 2, 3]) {
+    const positions = new Set();
+    for (let first = 0; first < 4; first++) {
+      for (let second = 0; second < 3; second++) {
+        for (let third = 0; third < 2; third++) {
+          const samples = [(rank + 0.5) / 4, (first + 0.5) / 4, (second + 0.5) / 3, (third + 0.5) / 2];
+          const options = populationOptions(83132799, () => samples.shift());
+          positions.add(options.indexOf(83000000));
+          assert.equal([...options].sort((a, b) => a - b).indexOf(83000000), rank);
+        }
+      }
+    }
+    assert.equal(positions.size, 4);
+  }
 });
 
 test('population rounds accept only an offered numeric choice once and retain choices', () => {

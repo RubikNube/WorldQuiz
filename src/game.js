@@ -23,9 +23,10 @@ export function roundedPopulation(population) {
 }
 
 export function populationOptions(population, random = Math.random) {
-  const distractors = shuffle([0.25, 0.5, 2, 4], random).slice(0, 3)
-    .map(factor => roundedPopulation(population * factor));
-  return shuffle([roundedPopulation(population), ...distractors], random);
+  const rank = Math.floor(random() * 4);
+  const options = Array.from({ length: 4 }, (_, index) =>
+    roundedPopulation(population * 2 ** (index - rank)));
+  return shuffle(options, random);
 }
 
 function populationQuestion(country, random) {

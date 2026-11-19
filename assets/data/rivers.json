@@ -1,0 +1,949 @@
+[
+  {
+    "code": "river-nil",
+    "name": "Nil",
+    "continent": "Afrika",
+    "lengthKm": 6650,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Nil",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Nil",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      731,
+      732
+    ],
+    "lengthNote": "Mit Quellflüssen; die Karte zeigt den vereinfachten Namenslauf.",
+    "anchor": [
+      700.26,
+      194.34
+    ],
+    "bounds": {
+      "x": 693.65,
+      "y": 164.02,
+      "width": 13.740000000000009,
+      "height": 60.329999999999984
+    }
+  },
+  {
+    "code": "river-kongo",
+    "name": "Kongo",
+    "continent": "Afrika",
+    "lengthKm": 4374,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Kongo_%28Fluss%29",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Kongo_%28Fluss%29",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      549,
+      630,
+      663,
+      685
+    ],
+    "anchor": [
+      652.05,
+      307.43
+    ],
+    "bounds": {
+      "x": 642.52,
+      "y": 282.47,
+      "width": 44.710000000000036,
+      "height": 60.48999999999995
+    }
+  },
+  {
+    "code": "river-niger",
+    "name": "Niger",
+    "continent": "Afrika",
+    "lengthKm": 4184,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Niger_%28Fluss%29",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Niger_%28Fluss%29",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      842,
+      843
+    ],
+    "anchor": [
+      608.14,
+      237.76
+    ],
+    "bounds": {
+      "x": 565.26,
+      "y": 218.24,
+      "width": 56.620000000000005,
+      "height": 54.51999999999998
+    }
+  },
+  {
+    "code": "river-sambesi",
+    "name": "Sambesi",
+    "continent": "Afrika",
+    "lengthKm": 2574,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Sambesi",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Sambesi",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      1039,
+      1040
+    ],
+    "anchor": [
+      693.95,
+      359.74
+    ],
+    "bounds": {
+      "x": 672.0,
+      "y": 340.12,
+      "width": 42.960000000000036,
+      "height": 33.01999999999998
+    }
+  },
+  {
+    "code": "river-oranje",
+    "name": "Oranje",
+    "continent": "Afrika",
+    "lengthKm": 2160,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Oranje",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Oranje",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      325,
+      326,
+      1363
+    ],
+    "anchor": [
+      669.77,
+      417.13
+    ],
+    "bounds": {
+      "x": 650.17,
+      "y": 411.48,
+      "width": 38.06000000000006,
+      "height": 10.740000000000009
+    }
+  },
+  {
+    "code": "river-limpopo",
+    "name": "Limpopo",
+    "continent": "Afrika",
+    "lengthKm": 1750,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Limpopo",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Limpopo",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      496
+    ],
+    "anchor": [
+      694.53,
+      388.02
+    ],
+    "bounds": {
+      "x": 683.62,
+      "y": 387.11,
+      "width": 20.32000000000005,
+      "height": 12.740000000000009
+    }
+  },
+  {
+    "code": "river-jangtsekiang",
+    "name": "Jangtsekiang",
+    "continent": "Asien",
+    "lengthKm": 6380,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Jangtsekiang",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Jangtsekiang",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      214,
+      241,
+      289,
+      301
+    ],
+    "anchor": [
+      918.58,
+      169.26
+    ],
+    "bounds": {
+      "x": 875.63,
+      "y": 145.56,
+      "width": 82.32000000000005,
+      "height": 35.370000000000005
+    }
+  },
+  {
+    "code": "river-huang-he",
+    "name": "Huang He",
+    "continent": "Asien",
+    "lengthKm": 4845,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Gelber_Fluss",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Gelber_Fluss",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      953,
+      954,
+      1326
+    ],
+    "anchor": [
+      920.62,
+      133.22
+    ],
+    "bounds": {
+      "x": 883.48,
+      "y": 122.16,
+      "width": 62.16999999999996,
+      "height": 29.05000000000001
+    }
+  },
+  {
+    "code": "river-mekong",
+    "name": "Mekong",
+    "continent": "Asien",
+    "lengthKm": 4350,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Mekong",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Mekong",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      696
+    ],
+    "anchor": [
+      936.96,
+      229.08
+    ],
+    "bounds": {
+      "x": 920.79,
+      "y": 212.41,
+      "width": 19.670000000000073,
+      "height": 36.129999999999995
+    }
+  },
+  {
+    "code": "river-ganges",
+    "name": "Ganges",
+    "continent": "Asien",
+    "lengthKm": 2620,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Ganges",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Ganges",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      799
+    ],
+    "anchor": [
+      859.15,
+      181.86
+    ],
+    "bounds": {
+      "x": 836.3,
+      "y": 160.94,
+      "width": 44.99000000000001,
+      "height": 36.599999999999994
+    }
+  },
+  {
+    "code": "river-indus",
+    "name": "Indus",
+    "continent": "Asien",
+    "lengthKm": 3180,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Indus",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Indus",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      810,
+      811
+    ],
+    "anchor": [
+      814.33,
+      165.1
+    ],
+    "bounds": {
+      "x": 808.06,
+      "y": 141.37,
+      "width": 30.280000000000086,
+      "height": 48.09
+    }
+  },
+  {
+    "code": "river-jenissei",
+    "name": "Jenissei",
+    "continent": "Asien",
+    "lengthKm": 3487,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Jenissei",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Jenissei",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      174,
+      220,
+      221
+    ],
+    "anchor": [
+      816.86,
+      55.59
+    ],
+    "bounds": {
+      "x": 782.32,
+      "y": 32.21,
+      "width": 66.0,
+      "height": 52.10999999999999
+    }
+  },
+  {
+    "code": "river-ob",
+    "name": "Ob",
+    "continent": "Asien",
+    "lengthKm": 3650,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Ob",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Ob",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      183,
+      184,
+      369
+    ],
+    "anchor": [
+      787.17,
+      56.18
+    ],
+    "bounds": {
+      "x": 750.17,
+      "y": 39.75,
+      "width": 72.08000000000004,
+      "height": 42.06999999999999
+    }
+  },
+  {
+    "code": "river-lena",
+    "name": "Lena",
+    "continent": "Asien",
+    "lengthKm": 4294,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Lena_%28Arktischer_Ozean%29",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Lena_%28Arktischer_Ozean%29",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      203
+    ],
+    "anchor": [
+      890.19,
+      57.25
+    ],
+    "bounds": {
+      "x": 865.53,
+      "y": 27.58,
+      "width": 44.75,
+      "height": 49.290000000000006
+    }
+  },
+  {
+    "code": "river-donau",
+    "name": "Donau",
+    "continent": "Europa",
+    "lengthKm": 2857,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Donau",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Donau",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      389
+    ],
+    "anchor": [
+      662.32,
+      108.01
+    ],
+    "bounds": {
+      "x": 646.6,
+      "y": 96.23,
+      "width": 32.91999999999996,
+      "height": 15.700000000000003
+    }
+  },
+  {
+    "code": "river-rhein",
+    "name": "Rhein",
+    "continent": "Europa",
+    "lengthKm": 1233,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Rhein",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Rhein",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      227
+    ],
+    "anchor": [
+      619.14,
+      87.55
+    ],
+    "bounds": {
+      "x": 613.09,
+      "y": 83.2,
+      "width": 9.68999999999994,
+      "height": 9.899999999999991
+    }
+  },
+  {
+    "code": "river-wolga",
+    "name": "Wolga",
+    "continent": "Europa",
+    "lengthKm": 3530,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Wolga",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Wolga",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      997,
+      998
+    ],
+    "anchor": [
+      720.94,
+      85.21
+    ],
+    "bounds": {
+      "x": 681.55,
+      "y": 63.05,
+      "width": 52.120000000000005,
+      "height": 41.260000000000005
+    }
+  },
+  {
+    "code": "river-elbe",
+    "name": "Elbe",
+    "continent": "Europa",
+    "lengthKm": 1094,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Elbe",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Elbe",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      242
+    ],
+    "anchor": [
+      633.69,
+      83.75
+    ],
+    "bounds": {
+      "x": 625.41,
+      "y": 77.8,
+      "width": 16.960000000000036,
+      "height": 11.700000000000003
+    }
+  },
+  {
+    "code": "river-seine",
+    "name": "Seine",
+    "continent": "Europa",
+    "lengthKm": 777,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Seine",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Seine",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      202
+    ],
+    "anchor": [
+      607.05,
+      94.63
+    ],
+    "bounds": {
+      "x": 601.32,
+      "y": 91.18,
+      "width": 11.5,
+      "height": 6.959999999999994
+    }
+  },
+  {
+    "code": "river-themse",
+    "name": "Themse",
+    "continent": "Europa",
+    "lengthKm": 346,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Themse",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Themse",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      458
+    ],
+    "anchor": [
+      597.96,
+      84.34
+    ],
+    "bounds": {
+      "x": 594.61,
+      "y": 83.39,
+      "width": 6.399999999999977,
+      "height": 1.5
+    }
+  },
+  {
+    "code": "river-po",
+    "name": "Po",
+    "continent": "Europa",
+    "lengthKm": 652,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Po_%28Fluss%29",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Po_%28Fluss%29",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      1451
+    ],
+    "anchor": [
+      627.23,
+      106.81
+    ],
+    "bounds": {
+      "x": 619.73,
+      "y": 106.25,
+      "width": 15.009999999999991,
+      "height": 2.1200000000000045
+    }
+  },
+  {
+    "code": "river-dnepr",
+    "name": "Dnepr",
+    "continent": "Europa",
+    "lengthKm": 2201,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Dnepr",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Dnepr",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      187,
+      188,
+      194
+    ],
+    "anchor": [
+      683.84,
+      89.57
+    ],
+    "bounds": {
+      "x": 677.83,
+      "y": 70.42,
+      "width": 17.74000000000001,
+      "height": 30.75
+    }
+  },
+  {
+    "code": "river-mississippi",
+    "name": "Mississippi",
+    "continent": "Nordamerika",
+    "lengthKm": 3778,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Mississippi_River",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Mississippi_River",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      233,
+      234,
+      588
+    ],
+    "anchor": [
+      338.28,
+      132.26
+    ],
+    "bounds": {
+      "x": 324.02,
+      "y": 98.19,
+      "width": 21.310000000000002,
+      "height": 70.66
+    }
+  },
+  {
+    "code": "river-missouri",
+    "name": "Missouri",
+    "continent": "Nordamerika",
+    "lengthKm": 3767,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Missouri_River",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Missouri_River",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      1258,
+      1259
+    ],
+    "anchor": [
+      321.9,
+      112.58
+    ],
+    "bounds": {
+      "x": 294.02,
+      "y": 95.88,
+      "width": 45.83000000000004,
+      "height": 35.099999999999994
+    }
+  },
+  {
+    "code": "river-mackenzie",
+    "name": "Mackenzie",
+    "continent": "Nordamerika",
+    "lengthKm": 1738,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Mackenzie_River",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Mackenzie_River",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      512,
+      513
+    ],
+    "anchor": [
+      310.13,
+      45.09
+    ],
+    "bounds": {
+      "x": 298.23,
+      "y": 34.03,
+      "width": 28.279999999999973,
+      "height": 21.019999999999996
+    }
+  },
+  {
+    "code": "river-yukon",
+    "name": "Yukon",
+    "continent": "Nordamerika",
+    "lengthKm": 3185,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Yukon_River",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Yukon_River",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      777
+    ],
+    "anchor": [
+      240.89,
+      44.65
+    ],
+    "bounds": {
+      "x": 205.09,
+      "y": 40.28,
+      "width": 72.49999999999997,
+      "height": 13.280000000000001
+    }
+  },
+  {
+    "code": "river-sankt-lorenz",
+    "name": "Sankt-Lorenz-Strom",
+    "continent": "Nordamerika",
+    "lengthKm": 1197,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Sankt-Lorenz-Strom",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Sankt-Lorenz-Strom",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      353
+    ],
+    "anchor": [
+      391.24,
+      107.54
+    ],
+    "bounds": {
+      "x": 389.24,
+      "y": 107.01,
+      "width": 3.75,
+      "height": 1.8499999999999943
+    }
+  },
+  {
+    "code": "river-rio-grande",
+    "name": "Rio Grande",
+    "continent": "Nordamerika",
+    "lengthKm": 3034,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Rio_Grande",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Rio_Grande",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      136,
+      137
+    ],
+    "anchor": [
+      290.43,
+      164.95
+    ],
+    "bounds": {
+      "x": 279.85,
+      "y": 133.67,
+      "width": 21.359999999999957,
+      "height": 47.79000000000002
+    }
+  },
+  {
+    "code": "river-amazonas",
+    "name": "Amazonas",
+    "continent": "Südamerika",
+    "lengthKm": 6400,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Amazonas",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Amazonas",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      454,
+      455
+    ],
+    "lengthNote": "Mit Quellflüssen; die Karte zeigt den vereinfachten Namenslauf.",
+    "anchor": [
+      398.43,
+      308.09
+    ],
+    "bounds": {
+      "x": 362.76,
+      "y": 298.9,
+      "width": 66.86000000000001,
+      "height": 12.450000000000045
+    }
+  },
+  {
+    "code": "river-parana",
+    "name": "Paraná",
+    "continent": "Südamerika",
+    "lengthKm": 3998,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Paran%C3%A1",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Paran%C3%A1",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      534,
+      1382,
+      1383
+    ],
+    "anchor": [
+      431.54,
+      405.95
+    ],
+    "bounds": {
+      "x": 418.04,
+      "y": 374.04,
+      "width": 23.00999999999999,
+      "height": 61.579999999999984
+    }
+  },
+  {
+    "code": "river-orinoco",
+    "name": "Orinoco",
+    "continent": "Südamerika",
+    "lengthKm": 2140,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Orinoco",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Orinoco",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      1098
+    ],
+    "anchor": [
+      391.28,
+      258.69
+    ],
+    "bounds": {
+      "x": 380.89,
+      "y": 249.77,
+      "width": 22.710000000000036,
+      "height": 32.869999999999976
+    }
+  },
+  {
+    "code": "river-sao-francisco",
+    "name": "São Francisco",
+    "continent": "Südamerika",
+    "lengthKm": 2914,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Rio_S%C3%A3o_Francisco",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Rio_S%C3%A3o_Francisco",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      63,
+      64
+    ],
+    "anchor": [
+      461.39,
+      350.63
+    ],
+    "bounds": {
+      "x": 456.96,
+      "y": 329.07,
+      "width": 26.28000000000003,
+      "height": 45.10000000000002
+    }
+  },
+  {
+    "code": "river-uruguay",
+    "name": "Uruguay",
+    "continent": "Südamerika",
+    "lengthKm": 1816,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/R%C3%ADo_Uruguay",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/R%C3%ADo_Uruguay",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      445
+    ],
+    "anchor": [
+      430.39,
+      413.0
+    ],
+    "bounds": {
+      "x": 425.38,
+      "y": 407.58,
+      "width": 23.220000000000027,
+      "height": 21.689999999999998
+    }
+  },
+  {
+    "code": "river-magdalena",
+    "name": "Magdalena",
+    "continent": "Südamerika",
+    "lengthKm": 1612,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/R%C3%ADo_Magdalena",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/R%C3%ADo_Magdalena",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      199
+    ],
+    "anchor": [
+      359.61,
+      264.85
+    ],
+    "bounds": {
+      "x": 352.73,
+      "y": 243.67,
+      "width": 10.049999999999955,
+      "height": 40.140000000000015
+    }
+  },
+  {
+    "code": "river-murray",
+    "name": "Murray",
+    "continent": "Ozeanien",
+    "lengthKm": 2375,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Murray_River",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Murray_River",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      788,
+      1347,
+      1348
+    ],
+    "anchor": [
+      1022.77,
+      440.75
+    ],
+    "bounds": {
+      "x": 1010.27,
+      "y": 435.37,
+      "width": 23.779999999999973,
+      "height": 11.620000000000005
+    }
+  },
+  {
+    "code": "river-darling",
+    "name": "Darling",
+    "continent": "Ozeanien",
+    "lengthKm": 1472,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Darling_River",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Darling_River",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      1224
+    ],
+    "anchor": [
+      1032.36,
+      425.2
+    ],
+    "bounds": {
+      "x": 1020.64,
+      "y": 419.14,
+      "width": 24.889999999999986,
+      "height": 16.74000000000001
+    }
+  },
+  {
+    "code": "river-sepik",
+    "name": "Sepik",
+    "continent": "Ozeanien",
+    "lengthKm": 1126,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Sepik",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Sepik",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      847
+    ],
+    "anchor": [
+      1060.96,
+      310.55
+    ],
+    "bounds": {
+      "x": 1054.92,
+      "y": 308.56,
+      "width": 11.8599999999999,
+      "height": 6.149999999999977
+    }
+  },
+  {
+    "code": "river-waikato",
+    "name": "Waikato",
+    "continent": "Ozeanien",
+    "lengthKm": 425,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Waikato_River",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Waikato_River",
+      "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_rivers_lake_centerlines.geojson"
+    ],
+    "sourceFeatureIds": [
+      1443,
+      1444
+    ],
+    "anchor": [
+      1108.98,
+      451.53
+    ],
+    "bounds": {
+      "x": 1106.95,
+      "y": 448.15,
+      "width": 3.0,
+      "height": 6.4500000000000455
+    }
+  }
+]

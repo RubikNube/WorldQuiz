@@ -39,7 +39,8 @@ test("precache contains the entire bundle and changes only when its inputs chang
   assert.deepEqual(second, first);
   for (const path of ["index.html", "world.svg", "game.js", "pwa.js", "app.js", "highscores.js", "mistakes.js", "map-zoom.js", "manifest.webmanifest", "LICENSE",
     "assets/flags/de.svg", "assets/data/countries.json", "assets/data/countries-source.json",
-    "assets/data/world-source.geojson", "assets/data/ODbL.txt", "ATTRIBUTION.md"]) {
+    "assets/data/world-source.geojson", "assets/data/ODbL.txt", "ATTRIBUTION.md", "rivers.js",
+    "assets/data/rivers.json", "assets/data/rivers-catalog.json", "assets/data/rivers-source.geojson"]) {
     assert.ok(first.paths.includes(path), path);
   }
   assert.ok(!first.paths.includes("sw.js"));
@@ -106,7 +107,7 @@ for (const base of ["https://example.org/", "https://example.org/WorldQuiz/"]) {
     assert.equal(sw.claimed(), true);
     assert.deepEqual(sw.deleted, [`${sw.prefix}old`]);
     assert.ok(sw.stored.has("other-app"));
-    for (const path of ["./", "./?launch=home", "index.html?launch=home", "world.svg", "assets/flags/de.svg"]) {
+    for (const path of ["./", "./?launch=home", "index.html?launch=home", "world.svg", "assets/flags/de.svg", "assets/data/rivers.json", "rivers.js"]) {
       assert.match(await sw.fetchPath(path), /^cached:/);
     }
     assert.equal(await sw.fetchPath("https://de.wikipedia.org/wiki/Welt"), undefined);

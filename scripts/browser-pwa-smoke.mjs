@@ -168,6 +168,15 @@ try {
       document.querySelector('[data-country="'+code+'"]').dispatchEvent(new MouseEvent('click',{bubbles:true}));
     })()`);
     assert.equal(await evaluate(`document.querySelector('#progress').value`), 1);
+    await click('[data-mode="river"]');
+    await click('#start');
+    await evaluate(`(async()=>{
+      const rivers=await (await fetch('assets/data/rivers.json')).json();
+      const river=rivers.find(r=>r.name===document.querySelector('#question strong').textContent);
+      document.querySelector('[data-river="'+river.code+'"]').dispatchEvent(new MouseEvent('click',{bubbles:true}));
+    })()`);
+    assert.equal(await evaluate(`document.querySelector('#progress').value`), 1);
+    assert.equal(await evaluate(`!document.querySelector('#riverDetails').hidden && document.querySelector('#worldMap').classList.contains('river-mode')`), true);
     await cdp('Network.emulateNetworkConditions', { offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1 });
     const savedStorage = await evaluate(`JSON.stringify({...localStorage})`);
     await evaluate(`window.pwaUpdateMarker = 'round-still-open'`);

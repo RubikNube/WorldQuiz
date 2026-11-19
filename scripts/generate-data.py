@@ -9,6 +9,7 @@ import json
 import math
 from pathlib import Path
 from urllib.parse import quote
+from river_data import river_layer
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / 'assets/data'
@@ -170,7 +171,7 @@ def main():
         x, y = c['anchor']
         markers.append(f'<g class="country marker" data-country="{c["code"]}" role="button" tabindex="0" aria-label="{html.escape(c["name"], quote=True)}" transform="translate({x} {y})"><circle class="marker-hit" r="10"/><circle class="marker-dot" r="3.5"/></g>')
     svg = '<svg id="worldMap" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 590" role="group" aria-label="Interaktive Weltkarte">\n'
-    svg += '<g fill-rule="evenodd">' + '\n'.join(paths) + '</g>\n' + '\n'.join(markers) + '\n</svg>\n'
+    svg += '<g fill-rule="evenodd">' + '\n'.join(paths) + '</g>\n' + '\n'.join(markers) + '\n' + river_layer(DATA, project) + '\n</svg>\n'
     (ROOT / 'src/world.svg').write_text(svg)
     print(f'Generated {len(profiles)} profiles, {len(paths)} map features, {len(markers)} small-country markers.')
 

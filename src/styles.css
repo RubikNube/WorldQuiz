@@ -940,3 +940,18 @@ input:focus-visible { outline:3px solid #ffcf66; outline-offset:3px; }
     grid-row:auto
   }
 }
+
+/* River courses and their screen-sized touch targets follow BayernQuiz. */
+.river { outline:none; }
+.river-line,.river-hit { fill:none; stroke-linecap:round; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+.river-line { stroke:#62c9f7; stroke-width:3.5; pointer-events:none; }
+.river.outside .river-line { stroke:#4193bd; }
+.river-hit { stroke:transparent; stroke-width:20; pointer-events:stroke; cursor:pointer; }
+.river:hover .river-line,.river:focus-visible .river-line { stroke:#d1f2ff; stroke-width:5; }
+.river:focus-visible .river-line { stroke:#ffcf66; }
+.river.selected .river-line { stroke:#d1f2ff; stroke-width:6; }
+.river.correct .river-line { stroke:var(--good); stroke-width:6; filter:drop-shadow(0 0 2px #d2ffea); }
+.river.wrong .river-line { stroke:var(--bad); stroke-width:6; }
+.river-mode .country { pointer-events:none; cursor:default; }
+.river-mode .marker { display:none; }
+.riverInfo .countryHeader { grid-template-columns:minmax(0,1fr); padding-right:48px; }

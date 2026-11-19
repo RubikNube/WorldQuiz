@@ -2,12 +2,14 @@ import { currentQuestion, questionTopic, shuffle } from './game.js';
 
 const STORAGE_KEY = 'worldQuizMistakes';
 
-export function createMistakes(countries, storageProvider = () => globalThis.localStorage) {
+export function createMistakes(countries, storageProvider = () => globalThis.localStorage, rivers = []) {
   const codes = new Set(countries.map(c => c.code));
+  const riverCodes = new Set(rivers.map(r => r.code));
   const entries = new Map();
   const recorded = new WeakSet();
-  const valid = entry => entry && ['quiz', 'capitals', 'flags', 'population'].includes(entry.topic)
-    && codes.has(entry.code) && (entry.streak === 0 || entry.streak === 1);
+  const valid = entry => entry && (entry.topic === 'river' ? riverCodes.has(entry.code)
+    : ['quiz', 'capitals', 'flags', 'population'].includes(entry.topic) && codes.has(entry.code))
+    && (entry.streak === 0 || entry.streak === 1);
   let storage, persistent = true;
   try {
     storage = storageProvider();

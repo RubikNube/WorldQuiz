@@ -2,12 +2,15 @@ import { CONTINENTS, eligibleCountries, allowedCounts, score } from "./game.js";
 
 const STORAGE_KEY = "worldQuizHighscores";
 
-// Country data determines the valid round sizes for each region.
-export function createHighscores(countries, storageProvider = () => globalThis.localStorage) {
+// Each topic's data determines its valid round sizes for each region.
+export function createHighscores(countries, storageProvider = () => globalThis.localStorage, rivers = []) {
   const counts = new Map(['Welt', ...CONTINENTS].map(region =>
     [region, allowedCounts(eligibleCountries(countries, region).length)]));
+  const riverCounts = new Map(['Welt', ...CONTINENTS].map(region =>
+    [region, allowedCounts(eligibleCountries(rivers, region).length).filter(n => n > 0)]));
   function validRecord(mode, region, count, points) {
-    return ['quiz', 'capitals', 'flags', 'population'].includes(mode) && counts.get(region)?.includes(count)
+    return ['quiz', 'capitals', 'flags', 'population', 'river'].includes(mode)
+      && (mode === 'river' ? riverCounts : counts).get(region)?.includes(count)
       && Number.isInteger(points) && points >= 0 && points <= count;
   }
   const records = new Map();

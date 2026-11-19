@@ -56,6 +56,43 @@ Abhängige Gebiete und die Antarktis bleiben Kartenkontext. Kleine Staaten
 und Inselgruppen besitzen zusätzliche Auswahlpunkte. Kartenumrisse sind
 generalisiert und nicht zur Navigation geeignet.
 
+## Flüsse (Public Domain und Längenangaben)
+
+38 ausgewählte Flüsse aus [Natural Earth, Rivers + lake centerlines, 1:10m](https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-rivers-lake-centerlines/),
+abgerufen am 19. November 2026 aus
+[natural-earth-vector](https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_10m_rivers_lake_centerlines.geojson).
+Natural-Earth-Geometrien sind Public Domain. Der ausgewählte Ausgangssnapshot
+steht unverändert auf Feature-Ebene in `assets/data/rivers-source.geojson`;
+`id` ist der nullbasierte Feature-Index des Downloads. Download-URL, Datum und
+SHA-256 des vollständigen Downloads stehen im Snapshot. Die ursprünglichen
+`rivernum`- und `dissolve`-Kennungen bleiben erhalten.
+
+`assets/data/rivers-catalog.json` ordnet die Originalfeatures den Quizflüssen zu.
+Der gleichnamige australische Mackenzie ist ausgeschlossen. Beim Paraná wird
+der im Ausgangsdatensatz ebenfalls als Paraná bezeichnete Paraguay-Oberlauf
+(Feature mit `rivernum` 36) nördlich von 27,30° Süd abgeschnitten; der untere
+Paraná bleibt erhalten. Oberlaufnamen des Kongo (Lualaba), Jangtsekiang (Jinsha,
+Tongtian; der Mittellauf heißt im Datensatz Chang Jiang), Jenissei (Verkhniy Yenisey) und Dnepr (Dnepre) sind demselben Quizziel
+zugeordnet. Mississippi und Missouri sowie Murray und Darling bleiben getrennte
+Ziele; Nebenflüsse werden nicht zu gemeinsamen Antwortzielen verbunden.
+
+Die Datengenerierung projiziert die Verläufe in dieselbe Equal-Earth-Projektion
+wie die Länderkarte und ergänzt einen Anker direkt auf dem jeweiligen Verlauf.
+Die Karte ist generalisiert; Seen, Deltas und Oberläufe können unvollständig sein.
+Flüsse über Ländergrenzen hinweg bleiben ein Ziel. Die Lernzuordnung lautet:
+Afrika (6), Asien (8, einschließlich der sibirischen Flüsse), Europa (8),
+Nordamerika (6), Südamerika (6), Ozeanien (4, einschließlich Sepik).
+
+Die ungefähren Längen sind einzeln zusammengestellte Zahlenangaben aus den
+jeweils in `sourceUrls` verlinkten deutschsprachigen Wikipedia-Artikeln,
+Stand 19. November 2026. Es wurden keine Artikeltexte übernommen. Die Werte
+stehen im Katalog und werden unverändert in `assets/data/rivers.json` ausgegeben.
+Sie sind keine Messung der Kartenlinien und keine Rangliste. Messwege und
+Quellflussdefinitionen unterscheiden sich; Nil und Amazonas enthalten die
+üblichen Quellflussstrecken, worauf ihre Profile hinweisen. Insbesondere werden
+Mississippi und Missouri sowie Murray und Darling mit ihren eigenen Längen
+angegeben, nicht mit der Gesamtlänge des jeweils längsten Flusssystems.
+
 ## Flaggen
 
 Lokale SVG-Dateien von [Flagpedia / Flagcdn](https://flagpedia.net/download),

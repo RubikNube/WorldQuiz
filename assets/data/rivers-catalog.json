@@ -1,0 +1,531 @@
+[
+  {
+    "code": "river-nil",
+    "name": "Nil",
+    "continent": "Afrika",
+    "lengthKm": 6650,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Nil",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Nil"
+    ],
+    "sourceFeatureIds": [
+      731,
+      732
+    ],
+    "lengthNote": "Mit Quellflüssen; die Karte zeigt den vereinfachten Namenslauf."
+  },
+  {
+    "code": "river-kongo",
+    "name": "Kongo",
+    "continent": "Afrika",
+    "lengthKm": 4374,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Kongo_%28Fluss%29",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Kongo_%28Fluss%29"
+    ],
+    "sourceFeatureIds": [
+      549,
+      630,
+      663,
+      685
+    ]
+  },
+  {
+    "code": "river-niger",
+    "name": "Niger",
+    "continent": "Afrika",
+    "lengthKm": 4184,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Niger_%28Fluss%29",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Niger_%28Fluss%29"
+    ],
+    "sourceFeatureIds": [
+      842,
+      843
+    ]
+  },
+  {
+    "code": "river-sambesi",
+    "name": "Sambesi",
+    "continent": "Afrika",
+    "lengthKm": 2574,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Sambesi",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Sambesi"
+    ],
+    "sourceFeatureIds": [
+      1039,
+      1040
+    ]
+  },
+  {
+    "code": "river-oranje",
+    "name": "Oranje",
+    "continent": "Afrika",
+    "lengthKm": 2160,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Oranje",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Oranje"
+    ],
+    "sourceFeatureIds": [
+      325,
+      326,
+      1363
+    ]
+  },
+  {
+    "code": "river-limpopo",
+    "name": "Limpopo",
+    "continent": "Afrika",
+    "lengthKm": 1750,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Limpopo",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Limpopo"
+    ],
+    "sourceFeatureIds": [
+      496
+    ]
+  },
+  {
+    "code": "river-jangtsekiang",
+    "name": "Jangtsekiang",
+    "continent": "Asien",
+    "lengthKm": 6380,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Jangtsekiang",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Jangtsekiang"
+    ],
+    "sourceFeatureIds": [
+      214,
+      241,
+      289,
+      301
+    ]
+  },
+  {
+    "code": "river-huang-he",
+    "name": "Huang He",
+    "continent": "Asien",
+    "lengthKm": 4845,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Gelber_Fluss",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Gelber_Fluss"
+    ],
+    "sourceFeatureIds": [
+      953,
+      954,
+      1326
+    ]
+  },
+  {
+    "code": "river-mekong",
+    "name": "Mekong",
+    "continent": "Asien",
+    "lengthKm": 4350,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Mekong",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Mekong"
+    ],
+    "sourceFeatureIds": [
+      696
+    ]
+  },
+  {
+    "code": "river-ganges",
+    "name": "Ganges",
+    "continent": "Asien",
+    "lengthKm": 2620,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Ganges",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Ganges"
+    ],
+    "sourceFeatureIds": [
+      799
+    ]
+  },
+  {
+    "code": "river-indus",
+    "name": "Indus",
+    "continent": "Asien",
+    "lengthKm": 3180,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Indus",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Indus"
+    ],
+    "sourceFeatureIds": [
+      810,
+      811
+    ]
+  },
+  {
+    "code": "river-jenissei",
+    "name": "Jenissei",
+    "continent": "Asien",
+    "lengthKm": 3487,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Jenissei",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Jenissei"
+    ],
+    "sourceFeatureIds": [
+      174,
+      220,
+      221
+    ]
+  },
+  {
+    "code": "river-ob",
+    "name": "Ob",
+    "continent": "Asien",
+    "lengthKm": 3650,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Ob",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Ob"
+    ],
+    "sourceFeatureIds": [
+      183,
+      184,
+      369
+    ]
+  },
+  {
+    "code": "river-lena",
+    "name": "Lena",
+    "continent": "Asien",
+    "lengthKm": 4294,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Lena_%28Arktischer_Ozean%29",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Lena_%28Arktischer_Ozean%29"
+    ],
+    "sourceFeatureIds": [
+      203
+    ]
+  },
+  {
+    "code": "river-donau",
+    "name": "Donau",
+    "continent": "Europa",
+    "lengthKm": 2857,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Donau",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Donau"
+    ],
+    "sourceFeatureIds": [
+      389
+    ]
+  },
+  {
+    "code": "river-rhein",
+    "name": "Rhein",
+    "continent": "Europa",
+    "lengthKm": 1233,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Rhein",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Rhein"
+    ],
+    "sourceFeatureIds": [
+      227
+    ]
+  },
+  {
+    "code": "river-wolga",
+    "name": "Wolga",
+    "continent": "Europa",
+    "lengthKm": 3530,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Wolga",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Wolga"
+    ],
+    "sourceFeatureIds": [
+      997,
+      998
+    ]
+  },
+  {
+    "code": "river-elbe",
+    "name": "Elbe",
+    "continent": "Europa",
+    "lengthKm": 1094,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Elbe",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Elbe"
+    ],
+    "sourceFeatureIds": [
+      242
+    ]
+  },
+  {
+    "code": "river-seine",
+    "name": "Seine",
+    "continent": "Europa",
+    "lengthKm": 777,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Seine",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Seine"
+    ],
+    "sourceFeatureIds": [
+      202
+    ]
+  },
+  {
+    "code": "river-themse",
+    "name": "Themse",
+    "continent": "Europa",
+    "lengthKm": 346,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Themse",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Themse"
+    ],
+    "sourceFeatureIds": [
+      458
+    ]
+  },
+  {
+    "code": "river-po",
+    "name": "Po",
+    "continent": "Europa",
+    "lengthKm": 652,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Po_%28Fluss%29",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Po_%28Fluss%29"
+    ],
+    "sourceFeatureIds": [
+      1451
+    ]
+  },
+  {
+    "code": "river-dnepr",
+    "name": "Dnepr",
+    "continent": "Europa",
+    "lengthKm": 2201,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Dnepr",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Dnepr"
+    ],
+    "sourceFeatureIds": [
+      187,
+      188,
+      194
+    ]
+  },
+  {
+    "code": "river-mississippi",
+    "name": "Mississippi",
+    "continent": "Nordamerika",
+    "lengthKm": 3778,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Mississippi_River",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Mississippi_River"
+    ],
+    "sourceFeatureIds": [
+      233,
+      234,
+      588
+    ]
+  },
+  {
+    "code": "river-missouri",
+    "name": "Missouri",
+    "continent": "Nordamerika",
+    "lengthKm": 3767,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Missouri_River",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Missouri_River"
+    ],
+    "sourceFeatureIds": [
+      1258,
+      1259
+    ]
+  },
+  {
+    "code": "river-mackenzie",
+    "name": "Mackenzie",
+    "continent": "Nordamerika",
+    "lengthKm": 1738,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Mackenzie_River",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Mackenzie_River"
+    ],
+    "sourceFeatureIds": [
+      512,
+      513
+    ]
+  },
+  {
+    "code": "river-yukon",
+    "name": "Yukon",
+    "continent": "Nordamerika",
+    "lengthKm": 3185,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Yukon_River",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Yukon_River"
+    ],
+    "sourceFeatureIds": [
+      777
+    ]
+  },
+  {
+    "code": "river-sankt-lorenz",
+    "name": "Sankt-Lorenz-Strom",
+    "continent": "Nordamerika",
+    "lengthKm": 1197,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Sankt-Lorenz-Strom",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Sankt-Lorenz-Strom"
+    ],
+    "sourceFeatureIds": [
+      353
+    ]
+  },
+  {
+    "code": "river-rio-grande",
+    "name": "Rio Grande",
+    "continent": "Nordamerika",
+    "lengthKm": 3034,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Rio_Grande",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Rio_Grande"
+    ],
+    "sourceFeatureIds": [
+      136,
+      137
+    ]
+  },
+  {
+    "code": "river-amazonas",
+    "name": "Amazonas",
+    "continent": "Südamerika",
+    "lengthKm": 6400,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Amazonas",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Amazonas"
+    ],
+    "sourceFeatureIds": [
+      454,
+      455
+    ],
+    "lengthNote": "Mit Quellflüssen; die Karte zeigt den vereinfachten Namenslauf."
+  },
+  {
+    "code": "river-parana",
+    "name": "Paraná",
+    "continent": "Südamerika",
+    "lengthKm": 3998,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Paran%C3%A1",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Paran%C3%A1"
+    ],
+    "sourceFeatureIds": [
+      534,
+      1382,
+      1383
+    ]
+  },
+  {
+    "code": "river-orinoco",
+    "name": "Orinoco",
+    "continent": "Südamerika",
+    "lengthKm": 2140,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Orinoco",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Orinoco"
+    ],
+    "sourceFeatureIds": [
+      1098
+    ]
+  },
+  {
+    "code": "river-sao-francisco",
+    "name": "São Francisco",
+    "continent": "Südamerika",
+    "lengthKm": 2914,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Rio_S%C3%A3o_Francisco",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Rio_S%C3%A3o_Francisco"
+    ],
+    "sourceFeatureIds": [
+      63,
+      64
+    ]
+  },
+  {
+    "code": "river-uruguay",
+    "name": "Uruguay",
+    "continent": "Südamerika",
+    "lengthKm": 1816,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/R%C3%ADo_Uruguay",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/R%C3%ADo_Uruguay"
+    ],
+    "sourceFeatureIds": [
+      445
+    ]
+  },
+  {
+    "code": "river-magdalena",
+    "name": "Magdalena",
+    "continent": "Südamerika",
+    "lengthKm": 1612,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/R%C3%ADo_Magdalena",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/R%C3%ADo_Magdalena"
+    ],
+    "sourceFeatureIds": [
+      199
+    ]
+  },
+  {
+    "code": "river-murray",
+    "name": "Murray",
+    "continent": "Ozeanien",
+    "lengthKm": 2375,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Murray_River",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Murray_River"
+    ],
+    "sourceFeatureIds": [
+      788,
+      1347,
+      1348
+    ]
+  },
+  {
+    "code": "river-darling",
+    "name": "Darling",
+    "continent": "Ozeanien",
+    "lengthKm": 1472,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Darling_River",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Darling_River"
+    ],
+    "sourceFeatureIds": [
+      1224
+    ]
+  },
+  {
+    "code": "river-sepik",
+    "name": "Sepik",
+    "continent": "Ozeanien",
+    "lengthKm": 1126,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Sepik",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Sepik"
+    ],
+    "sourceFeatureIds": [
+      847
+    ]
+  },
+  {
+    "code": "river-waikato",
+    "name": "Waikato",
+    "continent": "Ozeanien",
+    "lengthKm": 425,
+    "wikipediaUrl": "https://de.wikipedia.org/wiki/Waikato_River",
+    "sourceUrls": [
+      "https://de.wikipedia.org/wiki/Waikato_River"
+    ],
+    "sourceFeatureIds": [
+      1443,
+      1444
+    ]
+  }
+]

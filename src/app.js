@@ -2,9 +2,10 @@ import { createMistakes } from './mistakes.js';
 import { createHighscores, highscoreMessage } from './highscores.js';
 import { eligibleCountries, allowedCounts, createGame, createCorrectionGame, questionTopic, currentQuestion, answer, answerPopulation, roundedPopulation, nextQuestion, score, mistakes, retryGame } from './game.js';
 import { createMapZoom } from './map-zoom.js';
+import { nearestRiver } from './rivers.js';
 
 const $ = id => document.getElementById(id);
-const names = { learn: 'Lernen', quiz: 'Länder finden', capitals: 'Hauptstädte zuordnen', flags: 'Flaggenquiz', population: 'Einwohnerzahl', correction: 'Fehler korrigieren' };
+const names = { learn: 'Lernen', quiz: 'Länder finden', capitals: 'Hauptstädte zuordnen', flags: 'Flaggenquiz', population: 'Einwohnerzahl', river: 'Flüsse finden', correction: 'Fehler korrigieren' };
 const regionBounds = {
   Afrika: { x: 465, y: 155, width: 315, height: 310 },
   Asien: { x: 650, y: 25, width: 525, height: 355 },
@@ -13,7 +14,7 @@ const regionBounds = {
   Südamerika: { x: 260, y: 275, width: 265, height: 275 },
   Ozeanien: { x: 860, y: 285, width: 325, height: 220 },
 };
-let countries, byCode, validCodes, zoom, svg;
+let countries, rivers, byCode, validCodes, riverCodes, zoom, svg;
 let mode = 'learn', game = null, selectedCode = null;
 let advanceTimer = null;
 let savedMistakes;
@@ -106,22 +107,26 @@ function closeInfo() {
 }
 
 function updateCounts() {
-  const pool = eligibleCountries(countries, $('continent').value);
+  const pool = eligibleCountries(mode === 'river' ? rivers : countries, $('continent').value);
+  const noun = mode === 'river' ? 'Flüsse' : 'Länder';
   const previous = Number($('count').value) || 10;
   const options = allowedCounts(pool.length);
-  $('count').replaceChildren(...options.map(n => new Option(n === pool.length ? `Alle ${n} Länder` : `${n} Fragen`, n)));
+  $('count').replaceChildren(...options.map(n => new Option(n === pool.length ? `Alle ${n} ${noun}` : `${n} Fragen`, n)));
   $('count').value = String(options.includes(previous) ? previous : options.includes(10) ? 10 : options[0]);
-  $('poolSummary').textContent = `${pool.length} Länder ${mode === 'learn' ? 'zum Entdecken' : 'im Fragenpool'}`;
+  $('poolSummary').textContent = `${pool.length} ${noun} ${mode === 'learn' ? 'zum Entdecken' : 'im Fragenpool'}`;
 }
 
 function renderRecords() {
   const region = $('continent').value;
   const count = Number($('count').value);
   for (const label of document.querySelectorAll('[data-mode-best]')) {
-    const best = highscores.getBest(label.dataset.modeBest, region, count);
-    label.textContent = `${best === null ? 'Dein Rekord: noch keiner' : `Dein Rekord: ${best}/${count}`} · ${region} · ${count} Fragen`;
+    const topic = label.dataset.modeBest;
+    const options = allowedCounts(eligibleCountries(topic === 'river' ? rivers : countries, region).length);
+    const topicCount = options.includes(count) ? count : options.includes(10) ? 10 : options[0];
+    const best = highscores.getBest(topic, region, topicCount);
+    label.textContent = `${best === null ? 'Dein Rekord: noch keiner' : `Dein Rekord: ${best}/${topicCount}`} · ${region} · ${topicCount} Fragen`;
   }
-  $('highscores').hidden = !['quiz', 'capitals', 'flags', 'population'].includes(mode);
+  $('highscores').hidden = !['quiz', 'capitals', 'flags', 'population', 'river'].includes(mode);
   const best = highscores.getBest(mode, region, count);
   $('personalBest').textContent = `${best === null ? 'Dein Rekord: noch keiner' : `Dein Rekord: ${best}/${count}`} · ${region} · ${count} Fragen`;
   $('highscoreStorage').textContent = highscores.persistent
@@ -203,7 +208,9 @@ function focusRegion() {
   else {
     const region = $('continent').value;
     const base = regionBounds[region];
-    const anchors = eligibleCountries(countries, region).map(c => c.anchor);
+    const anchors = mode === 'river'
+      ? eligibleCountries(rivers, region).flatMap(r => [[r.bounds.x, r.bounds.y], [r.bounds.x + r.bounds.width, r.bounds.y + r.bounds.height]])
+      : eligibleCountries(countries, region).map(c => c.anchor);
     const left = Math.min(base.x, ...anchors.map(p => p[0]));
     const top = Math.min(base.y, ...anchors.map(p => p[1]));
     const right = Math.max(base.x + base.width, ...anchors.map(p => p[0]));
@@ -217,23 +224,56 @@ function focusRegion() {
 function renderMap() {
   if (!svg) return;
   const response = game && !game.finished ? game.answers[game.index] : null;
+  const riverView = isRiverView();
+  svg.classList.toggle('river-mode', riverView);
+  svg.querySelector('#riversLayer').toggleAttribute('hidden', !riverView);
+  document.querySelector('.mapLegend').hidden = riverView;
+  document.querySelector('.mapBadge').textContent = riverView ? `${rivers.length} Flüsse` : '198 Länder';
+  svg.setAttribute('aria-label', riverView ? 'Interaktive Weltkarte mit Flüssen' : 'Interaktive Weltkarte mit Ländern');
+  const highlightedCode = !response && questionTopic(game) === 'population'
+    ? currentQuestion(game)?.code : selectedCode;
   svg.querySelectorAll('[data-country]').forEach(el => {
     const code = el.dataset.country;
     const correct = response?.target === code;
     const wrong = response && !response.correct && response.selected === code;
     el.classList.toggle('outside', mode !== 'correction' && $('continent').value !== 'Welt' && byCode.get(code).continent !== $('continent').value);
+    el.classList.toggle('selected', highlightedCode === code && !correct && !wrong);
+    el.classList.toggle('correct', Boolean(correct));
+    el.classList.toggle('wrong', Boolean(wrong));
+    el.setAttribute('aria-pressed', String(highlightedCode === code));
+    el.setAttribute('tabindex', riverView ? '-1' : '0');
+    if (riverView) el.setAttribute('aria-disabled', 'true');
+    else el.removeAttribute('aria-disabled');
+  });
+  svg.querySelectorAll('[data-river]').forEach(el => {
+    const code = el.dataset.river;
+    const correct = response?.target === code;
+    const wrong = response && !response.correct && response.selected === code;
     el.classList.toggle('selected', selectedCode === code && !correct && !wrong);
     el.classList.toggle('correct', Boolean(correct));
     el.classList.toggle('wrong', Boolean(wrong));
+    el.classList.toggle('outside', mode !== 'correction' && $('continent').value !== 'Welt' && byCode.get(code).continent !== $('continent').value);
+    el.setAttribute('tabindex', riverView ? '0' : '-1');
     el.setAttribute('aria-pressed', String(selectedCode === code));
   });
+}
+
+function isRiverView() {
+  return (game && !game.finished ? questionTopic(game) : mode) === 'river'
+    || (mode === 'correction' && (!game || game.finished) && selectedCode?.startsWith('river-'));
 }
 
 function showCountry(code, reveal = false, { scrollToMap = false } = {}) {
   const c = byCode.get(code);
   if (!c) return;
+  if (riverCodes.has(code)) return showRiver(c, reveal, { scrollToMap });
   selectedCode = code;
   $('countryInfo').hidden = false;
+  $('countryInfo').classList.remove('riverInfo');
+  $('countryDetails').hidden = false;
+  $('riverDetails').hidden = true;
+  $('flag').parentElement.hidden = false;
+  $('closeInfo').setAttribute('aria-label', 'Länderinformationen schließen');
   $('countryName').textContent = c.name;
   $('countryContinent').textContent = c.continent;
   $('capital').textContent = c.capitals.join(' · ');
@@ -246,6 +286,27 @@ function showCountry(code, reveal = false, { scrollToMap = false } = {}) {
   $('flag').alt = `Flagge von ${c.name}`;
   $('flag').src = c.flag;
   if (reveal) zoom.revealPoint(c.anchor);
+  renderMap();
+  if (scrollToMap) {
+    $('mapHost').focus({ preventScroll: true });
+    revealMap();
+  } else revealCountryInfo();
+}
+
+function showRiver(river, reveal = false, { scrollToMap = false } = {}) {
+  selectedCode = river.code;
+  $('countryInfo').hidden = false;
+  $('countryInfo').classList.add('riverInfo');
+  $('countryDetails').hidden = true;
+  $('riverDetails').hidden = false;
+  $('flag').parentElement.hidden = true;
+  $('closeInfo').setAttribute('aria-label', 'Flussinformationen schließen');
+  $('countryName').textContent = river.name;
+  $('countryContinent').textContent = river.continent;
+  $('riverLength').textContent = `ca. ${number.format(river.lengthKm)} km`;
+  $('fact').textContent = `${river.lengthNote ? `${river.lengthNote} ` : ''}Längenangaben sind Näherungswerte. Die Karte zeigt einen vereinfachten Verlauf.`;
+  $('wikipedia').href = river.wikipediaUrl;
+  if (reveal) zoom.revealPoint(river.anchor);
   renderMap();
   if (scrollToMap) {
     $('mapHost').focus({ preventScroll: true });
@@ -270,9 +331,9 @@ function renderQuestion() {
   document.body.classList.toggle('populationQuestion', Boolean(active && questionTopic(game) === 'population'));
   if (!active) {
     $('questionTopic').textContent = mode === 'learn' ? 'DIE WELT ENTDECKEN' : names[mode].toLocaleUpperCase('de-DE');
-    $('question').textContent = mode === 'learn' ? 'Welches Land interessiert dich?' : game?.finished ? 'Weiter auf Entdeckungsreise' : 'Bereit für eine Weltreise?';
+    $('question').textContent = mode === 'learn' ? 'Welches Land interessiert dich?' : game?.finished ? 'Weiter auf Entdeckungsreise' : mode === 'river' ? 'Welche Flüsse kennst du?' : 'Bereit für eine Weltreise?';
     if (mode === 'correction' && !game?.finished) $('question').textContent = savedMistakes.count ? 'Bereit, deine Fehler zu korrigieren?' : 'Keine offenen Fehler. Spiele ein Quiz, um schwierige Fragen hier zu sammeln.';
-    $('instructions').textContent = 'Klicke auf ein Land oder einen kleinen Länderpunkt, um mehr zu erfahren.';
+    $('instructions').textContent = mode === 'river' ? 'Klicke auf einen Fluss, um seinen Namen und seine ungefähre Länge zu erfahren.' : 'Klicke auf ein Land oder einen kleinen Länderpunkt, um mehr zu erfahren.';
     return;
   }
   const c = currentQuestion(game);
@@ -282,7 +343,7 @@ function renderQuestion() {
   const strong = document.createElement('strong');
   strong.textContent = topic === 'capitals' ? c.capitals.join(' · ') : c.name;
   const prefix = document.createElement('span');
-  prefix.textContent = topic === 'capitals' ? 'Zu welchem Land gehört: ' : 'Wo liegt ';
+  prefix.textContent = topic === 'capitals' ? 'Zu welchem Land gehört: ' : topic === 'river' ? 'Wo fließt ' : 'Wo liegt ';
   if (topic === 'population') {
     $('question').replaceChildren('Wie viele Einwohner hat ', strong, ` ungefähr (${c.populationYear})?`);
     $('populationChoices').hidden = false;
@@ -318,7 +379,7 @@ function renderQuestion() {
   } else $('question').replaceChildren(prefix, strong, '?');
   $('instructions').textContent = topic === 'population'
     ? 'Wähle die ungefähre Einwohnerzahl. Die Schätzung bezieht sich auf das angegebene Jahr.'
-    : 'Wähle das gesuchte Land auf der Karte.';
+    : topic === 'river' ? 'Wähle den gesuchten Fluss auf der Karte.' : 'Wähle das gesuchte Land auf der Karte.';
   $('questionCount').textContent = `Frage ${game.index + 1}/${game.questions.length}`;
   $('points').textContent = `${score(game)} Punkte`;
   $('progress').max = game.questions.length;
@@ -385,8 +446,8 @@ function startRound(practiceGame = null) {
   if (mode === 'correction' && !savedMistakes.count) return;
   cancelAdvance();
   launch();
-  game = mode === 'correction' ? createCorrectionGame(countries, savedMistakes.selectQuestions())
-    : practiceGame || createGame(eligibleCountries(countries, $('continent').value), Number($('count').value), Math.random, false, mode);
+  game = mode === 'correction' ? createCorrectionGame(countries, savedMistakes.selectQuestions(), Math.random, rivers)
+    : practiceGame || createGame(eligibleCountries(mode === 'river' ? rivers : countries, $('continent').value), Number($('count').value), Math.random, false, mode);
   game.mode = mode;
   game.region = mode === 'correction' ? 'Welt' : $('continent').value;
   roundRecord = null;
@@ -420,6 +481,7 @@ function chooseMode(nextMode) {
 }
 
 function selectCountry(code) {
+  if (isRiverView()) return;
   if (questionTopic(game) === 'population') {
     if (game.answers[game.index]) showCountry(code);
     return;
@@ -427,6 +489,12 @@ function selectCountry(code) {
   const submitted = answer(game, code, validCodes);
   if (submitted) handleAnswer();
   else showCountry(code);
+}
+
+function selectRiver(code) {
+  if (!isRiverView() || !riverCodes.has(code)) return;
+  if (answer(game, code, riverCodes)) handleAnswer();
+  else showRiver(byCode.get(code));
 }
 
 function handleAnswer() {
@@ -468,14 +536,16 @@ function advanceQuestion() {
 }
 
 async function initialize() {
-  const responses = await Promise.all([fetch('assets/data/countries.json'), fetch('world.svg')]);
+  const responses = await Promise.all([fetch('assets/data/countries.json'), fetch('world.svg'), fetch('assets/data/rivers.json')]);
   if (responses.some(r => !r.ok)) throw new Error('Lokale Kartendaten konnten nicht geladen werden.');
   countries = await responses[0].json();
-  highscores = createHighscores(countries);
-  savedMistakes = createMistakes(countries);
+  rivers = await responses[2].json();
+  riverCodes = new Set(rivers.map(r => r.code));
+  highscores = createHighscores(countries, undefined, rivers);
+  savedMistakes = createMistakes(countries, undefined, rivers);
   setupRecordReset();
-  byCode = new Map(countries.map(c => [c.code, c]));
-  validCodes = new Set(byCode.keys());
+  byCode = new Map([...countries, ...rivers].map(c => [c.code, c]));
+  validCodes = new Set(countries.map(c => c.code));
   const documentSvg = new DOMParser().parseFromString(await responses[1].text(), 'image/svg+xml');
   if (documentSvg.querySelector('parsererror')) throw new Error('Die Kartendatei ist ungültig.');
   svg = document.importNode(documentSvg.documentElement, true);
@@ -494,11 +564,16 @@ async function initialize() {
   });
   zoom = createMapZoom({ svg, host: $('mapHost'), zoomIn: $('zoomIn'), zoomOut: $('zoomOut'), resetButton: $('resetMap'), percentage: $('zoomPercentage') });
   $('mapHost').addEventListener('click', event => {
+    const river = event.target.closest('[data-river]');
+    if (river) {
+      if (isRiverView()) selectRiver(event.detail ? nearestRiver(svg, event.clientX, event.clientY, river).dataset.river : river.dataset.river);
+      return;
+    }
     const feature = event.target.closest('[data-country]');
     if (feature) selectCountry(feature.dataset.country);
   });
   $('mapHost').addEventListener('keydown', event => {
-    const feature = event.target.closest('[data-country]');
+    const feature = event.target.closest('[data-country], [data-river]');
     if (feature && (event.key === 'Enter' || event.key === ' ')) {
       event.preventDefault();
       feature.dispatchEvent(new MouseEvent('click', { bubbles: true }));

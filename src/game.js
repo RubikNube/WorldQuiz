@@ -49,16 +49,18 @@ export function questionTopic(game, question = currentQuestion(game)) {
   return game?.mode === 'correction' ? question?.topic : game?.mode;
 }
 
-export function createCorrectionGame(countries, references, random = Math.random) {
+export function createCorrectionGame(countries, references, random = Math.random, rivers = []) {
   const byCode = new Map(countries.map(c => [c.code, c]));
+  const byRiver = new Map(rivers.map(r => [r.code, r]));
   if (!references.length || references.length > 10
     || new Set(references.map(q => `${q.topic}:${q.code}`)).size !== references.length
-    || references.some(q => !['quiz', 'capitals', 'flags', 'population'].includes(q.topic) || !byCode.has(q.code))) {
+    || references.some(q => q.topic === 'river' ? !byRiver.has(q.code)
+      : !['quiz', 'capitals', 'flags', 'population'].includes(q.topic) || !byCode.has(q.code))) {
     throw new RangeError('Ungültige Fehlerauswahl');
   }
   return {
     questions: shuffle(references.map(q => {
-      const country = { ...byCode.get(q.code), topic: q.topic };
+      const country = { ...(q.topic === 'river' ? byRiver : byCode).get(q.code), topic: q.topic };
       return q.topic === 'population' ? populationQuestion(country, random) : country;
     }), random),
     index: 0, answers: [], practice: true, finished: false, mode: 'correction', region: 'Welt', clearedCount: 0,
@@ -69,6 +71,8 @@ export function answer(game, code, validCodes) {
   if (!game || game.finished || questionTopic(game) === 'population'
     || game.answers.length > game.index || !validCodes.has(code)) return false;
   const target = currentQuestion(game);
+  // A valid code from the other map layer must never submit an answer.
+  if (code.startsWith('river-') !== (questionTopic(game) === 'river')) return false;
   game.answers.push({ target: target.code, selected: code, correct: code === target.code,
     ...(game.mode === 'correction' ? { topic: target.topic } : {}) });
   return true;

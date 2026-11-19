@@ -79,6 +79,18 @@ async function correct() {
   await countryClick(code);
   if (await evaluate(`matchMedia('(max-width:1099px)').matches`)) await waitForInfo();
 }
+async function checkPopulationHighlight() {
+  assert.equal(await evaluate(`(()=>{
+    const target=window.testCountries.find(c=>c.name===document.querySelector('#question strong').textContent);
+    const elements=[...document.querySelectorAll('#worldMap [data-country]')];
+    return target && elements.some(el=>el.dataset.country===target.code)
+      && elements.every(el=>el.classList.contains('selected')===(el.dataset.country===target.code)
+        && el.getAttribute('aria-pressed')===String(el.dataset.country===target.code)
+        && !el.classList.contains('correct') && !el.classList.contains('wrong'));
+  })()`), true, 'Only the population question country and its markers are highlighted before answering');
+  assert.equal(await evaluate(`document.querySelector('#countryInfo').hidden`), true);
+}
+
 async function populationRound(width) {
   await cdp('Emulation.setDeviceMetricsOverride', { width, height: 844, deviceScaleFactor: 1, mobile: width < 600 });
   await cdp('Page.reload');
@@ -88,7 +100,9 @@ async function populationRound(width) {
   await choose('continent', 'Europa'); await choose('count', '5');
   await click('#start');
   await wait(`document.querySelectorAll('#populationChoices button').length===4`);
+  await checkPopulationHighlight();
   await countryClick('de');
+  await checkPopulationHighlight();
   assert.equal(await evaluate(`document.querySelector('#countryInfo').hidden && document.querySelector('#progress').value===0`), true);
   assert.equal(await evaluate(`document.querySelector('#question').textContent.includes('ungefähr (')`), true);
   await evaluate(`document.querySelector('#populationChoices button').focus()`);
@@ -96,12 +110,18 @@ async function populationRound(width) {
   await cdp('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13 });
   assert.equal(await evaluate(`document.querySelector('#progress').value`), 1);
   assert.equal(await evaluate(`document.querySelectorAll('#populationChoices button:disabled').length`), 4);
+  assert.equal(await evaluate(`(()=>{
+    const code=window.testCountries.find(c=>c.name===document.querySelector('#question strong').textContent).code;
+    return [...document.querySelectorAll('#worldMap [data-country]')].every(el=>
+      el.classList.contains('correct')===(el.dataset.country===code) && !el.classList.contains('selected'));
+  })()`), true, 'Answered population country retains the green highlight');
   const correctPopulation = `Number(window.testCountries.find(c=>c.name===document.querySelector('#question strong').textContent).population.toPrecision(2))`;
   await countryClick('de');
   assert.equal(await evaluate(`document.querySelector('#countryInfo').hidden`), false);
   await click('#next');
   assert.equal(await evaluate(`document.querySelector('#countryInfo').hidden`), true);
   for (let i = 1; i < 5; i++) {
+    await checkPopulationHighlight();
     await evaluate(`(()=>{const right=${correctPopulation};[...document.querySelectorAll('#populationChoices button')].find(b=>Number(b.dataset.population)${i === 1 ? '!==' : '==='}right).click()})()`);
     await click('#next');
   }
@@ -110,6 +130,7 @@ async function populationRound(width) {
   assert.ok(await evaluate(`document.querySelector('#mistakeList').textContent.includes('Einwohner (')`));
   await click('#retry');
   while (!await evaluate(`document.querySelector('#results').hidden===false`)) {
+    await checkPopulationHighlight();
     await evaluate(`(()=>{const right=${correctPopulation};[...document.querySelectorAll('#populationChoices button')].find(b=>Number(b.dataset.population)===right).click()})()`);
     await click('#next');
   }
@@ -118,6 +139,7 @@ async function populationRound(width) {
   await click('#newRound');
   await click('#restart');
   assert.equal(await evaluate(`document.querySelector('#progress').value`), 0);
+  await checkPopulationHighlight();
   await wait(`(()=>{const r=document.querySelector('#populationChoices').getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight})()`);
   assert.equal(await evaluate(`document.documentElement.scrollWidth<=innerWidth`), true);
   assert.equal(await evaluate(`Array.from(document.querySelectorAll('#populationChoices button')).every(b=>b.getBoundingClientRect().height>=44)`), true);
@@ -126,13 +148,17 @@ async function populationRound(width) {
   await evaluate(`localStorage.setItem('worldQuizMistakes',JSON.stringify({version:1,entries:[{topic:'population',code:'de',streak:0},{topic:'flags',code:'de',streak:0}]}))`);
   await cdp('Page.reload');
   await wait(`document.querySelector('#mapHost').getAttribute('aria-busy')==='false'`);
-  await evaluate(`document.querySelector('#autoNext').checked=false`);
+  await evaluate(`(async()=>{window.testCountries=await(await fetch('assets/data/countries.json')).json();document.querySelector('#autoNext').checked=false})()`);
   await click('[data-mode="correction"]'); await click('#start');
   for (let pass = 0; pass < 2; pass++) {
     for (let question = 0; question < 2; question++) {
       if (await evaluate(`!document.querySelector('#populationChoices').hidden`)) {
+        await checkPopulationHighlight();
         await evaluate(`(async()=>{const countries=await(await fetch('assets/data/countries.json')).json();const right=Number(countries.find(c=>c.code==='de').population.toPrecision(2));[...document.querySelectorAll('#populationChoices button')].find(b=>Number(b.dataset.population)===right).click()})()`);
-      } else await countryClick('de');
+      } else {
+        assert.equal(await evaluate(`document.querySelectorAll('#worldMap .selected,#worldMap .correct,#worldMap .wrong').length`), 0, 'Flag questions do not reveal their country');
+        await countryClick('de');
+      }
       await click('#next');
     }
     if (!pass) await click('#newRound');
@@ -144,6 +170,7 @@ async function populationRound(width) {
   await evaluate(`(()=>{const right=${correctPopulation};[...document.querySelectorAll('#populationChoices button')].find(b=>Number(b.dataset.population)===right).click()})()`);
   await wait(`document.querySelector('#questionCount').textContent==='Frage 2/10'`);
   assert.equal(await evaluate(`document.querySelectorAll('#populationChoices button:not(:disabled)').length`), 4);
+  await checkPopulationHighlight();
 }
 
 async function flagsRound(width) {
@@ -211,6 +238,141 @@ async function flagsRound(width) {
   await click('#changeMode'); await click('.dialogModes [data-mode="quiz"]');
   assert.equal(await evaluate(`document.querySelector('#questionFlagFrame').hidden`), true);
 }
+async function checkRivers() {
+  const ready = () => wait(`document.querySelector('#worldMap') && document.querySelector('#mapHost').getAttribute('aria-busy')==='false'`);
+  const riverClick = code => evaluate(`document.querySelector('[data-river="${code}"]').dispatchEvent(new MouseEvent('click',{bubbles:true}))`);
+  const target = () => evaluate(`window.testRivers.find(r=>r.name===document.querySelector('#question strong').textContent)`);
+  for (const width of [1440, 320, 390]) {
+    await cdp('Emulation.setTouchEmulationEnabled', { enabled: false });
+    await cdp('Emulation.setDeviceMetricsOverride', { width, height: width === 1440 ? 1000 : 844, deviceScaleFactor: 1, mobile: width < 600 });
+    await cdp('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
+    await evaluate(`localStorage.removeItem('worldQuizMistakes');localStorage.removeItem('worldQuizHighscores')`);
+    await cdp('Page.reload'); await ready();
+    await evaluate(`(async()=>{window.testRivers=await (await fetch('assets/data/rivers.json')).json();document.querySelector('#autoNext').checked=false})()`);
+    await click('[data-mode="river"]');
+    await choose('continent', 'Ozeanien');
+    assert.equal(await evaluate(`document.querySelector('#count').value`), '4');
+    assert.equal(await evaluate(`document.querySelector('#count option').textContent`), 'Alle 4 Flüsse');
+    assert.match(await evaluate(`document.querySelector('[data-mode-best="quiz"]').textContent`), /10 Fragen/);
+    await choose('continent', 'Europa'); await choose('count', '5');
+    assert.equal(await evaluate(`document.querySelectorAll('[data-country][tabindex="0"]').length`), 0);
+    assert.equal(await evaluate(`document.querySelectorAll('[data-river][tabindex="0"]').length`), 38);
+    await countryClick('de');
+    assert.equal(await evaluate(`document.querySelector('#countryInfo').hidden`), true);
+    // Keyboard selection preserves native topic behavior and shows river details.
+    await evaluate(`(()=>{const node=document.querySelector('[data-river="river-rhein"]');node.focus();node.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true}))})()`);
+    assert.equal(await evaluate(`document.querySelector('#countryName').textContent`), 'Rhein');
+    assert.equal(await evaluate(`document.querySelector('#countryDetails').hidden && !document.querySelector('#riverDetails').hidden && document.querySelector('#flag').parentElement.hidden`), true);
+    await click('#closeInfo');
+    // Clicking a point on the Rhine resolves to it even if another hit stroke receives the event.
+    await evaluate(`(()=>{
+      const svg=document.querySelector('#worldMap'),r=window.testRivers.find(r=>r.code==='river-rhein');
+      const p=new DOMPoint(...r.anchor).matrixTransform(svg.getScreenCTM());
+      document.querySelector('[data-river="river-seine"] .river-hit').dispatchEvent(new MouseEvent('click',{bubbles:true,detail:1,clientX:p.x,clientY:p.y}));
+    })()`);
+    assert.equal(await evaluate(`document.querySelector('#countryName').textContent`), 'Rhein');
+    await click('#start');
+    if (width < 600) await waitForQuestionMap();
+    assert.equal(await evaluate(`document.querySelector('#countryInfo').hidden`), true);
+    // Pinch/drag gestures must never submit a river answer.
+    await click('#zoomIn');
+    await evaluate(`document.querySelector('#mapHost').scrollIntoView({block:'center'})`);
+    const position = await evaluate(`(()=>{const r=document.querySelector('#worldMap').getBoundingClientRect();return {x:r.x+r.width/2,y:Math.max(r.y+50,130)}})()`);
+    if (width < 600) {
+      await cdp('Emulation.setTouchEmulationEnabled', { enabled: true });
+      const beforePinch = await evaluate(`document.querySelector('#worldMap').getAttribute('viewBox')`);
+      await cdp('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: position.x-20, y: position.y, id: 0 }, { x: position.x+20, y: position.y, id: 1 }] });
+      await cdp('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: position.x-55, y: position.y, id: 0 }, { x: position.x+55, y: position.y, id: 1 }] });
+      await cdp('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+      assert.equal(await evaluate(`document.querySelector('#progress').value`), 0);
+      assert.notEqual(await evaluate(`document.querySelector('#worldMap').getAttribute('viewBox')`), beforePinch);
+      await cdp('Emulation.setTouchEmulationEnabled', { enabled: false });
+      await new Promise(resolve => setTimeout(resolve, 400));
+    }
+    const beforeDrag = await evaluate(`document.querySelector('#worldMap').getAttribute('viewBox')`);
+    await cdp('Input.dispatchMouseEvent', { type: 'mousePressed', x: position.x, y: position.y, button: 'left', clickCount: 1 });
+    await cdp('Input.dispatchMouseEvent', { type: 'mouseMoved', x: position.x + 45, y: position.y + 25, button: 'left', buttons: 1 });
+    await cdp('Input.dispatchMouseEvent', { type: 'mouseReleased', x: position.x + 45, y: position.y + 25, button: 'left', clickCount: 1 });
+    assert.equal(await evaluate(`document.querySelector('#progress').value`), 0);
+    assert.notEqual(await evaluate(`document.querySelector('#worldMap').getAttribute('viewBox')`), beforeDrag);
+    await new Promise(resolve => setTimeout(resolve, 400));
+    await click('#restart');
+    const missed = await target();
+    let wrong = await evaluate(`window.testRivers.find(r=>r.name!==document.querySelector('#question strong').textContent)`);
+    await riverClick(wrong.code);
+    if (width < 600) await waitForInfo();
+    assert.equal(await evaluate(`document.querySelector('[data-river="${missed.code}"]').classList.contains('correct')`), true);
+    assert.equal(await evaluate(`document.querySelector('[data-river="${wrong.code}"]').classList.contains('wrong')`), true);
+    assert.match(await evaluate(`document.querySelector('#feedback').textContent`), new RegExp(missed.name));
+    assert.match(await evaluate(`document.querySelector('#feedback').textContent`), new RegExp(wrong.name));
+    await riverClick('river-waikato');
+    assert.equal(await evaluate(`document.querySelector('#progress').value`), 1);
+    assert.equal(await evaluate(`document.querySelector('[data-river="${wrong.code}"]').classList.contains('wrong')`), true);
+    assert.equal(await evaluate(`document.querySelector('#points').textContent`), '0 Punkte');
+    await click('#next');
+    for (let i = 1; i < 5; i++) {
+      await riverClick((await target()).code);
+      if (width < 600) await waitForInfo();
+      if (i === 1) await screenshot(`/tmp/worldquiz-rivers-${width}.png`);
+      await click('#next');
+    }
+    assert.equal(await evaluate(`document.querySelector('#resultTitle').textContent`), '4 von 5 richtig');
+    assert.equal(await evaluate(`JSON.parse(localStorage.getItem('worldQuizHighscores')).records['river:Europa:5']`), 4);
+    assert.equal(await evaluate(`document.documentElement.scrollWidth<=innerWidth`), true);
+    await click('#mistakeList button');
+    assert.equal(await evaluate(`document.querySelector('#countryName').textContent`), missed.name);
+    assert.equal(await evaluate(`document.querySelector('#worldMap').classList.contains('river-mode')`), true);
+    await click('#retry');
+    assert.equal((await target()).code, missed.code);
+    await riverClick(missed.code); await click('#next');
+    assert.equal(await evaluate(`document.querySelector('#highscoreResult').textContent`), '');
+    assert.equal(await evaluate(`JSON.parse(localStorage.getItem('worldQuizMistakes')).entries.find(e=>e.code==='${missed.code}').streak`), 1);
+    // Real pointer/touch selection of an actual course at its revealed anchor.
+    await click('#newRound');
+    if (width < 600) await waitForQuestionMap();
+    else await settleLayout();
+    const tapTarget = await target();
+    await evaluate(`document.querySelector('[data-river="${tapTarget.code}"]').focus();document.querySelector('#mapHost').scrollIntoView({block:'center'})`);
+    await settleLayout();
+    const tap = await evaluate(`(()=>{const r=window.testRivers.find(r=>r.code==='${tapTarget.code}');const p=new DOMPoint(...r.anchor).matrixTransform(document.querySelector('#worldMap').getScreenCTM());return {x:p.x,y:p.y}})()`);
+    if (width < 600) {
+      await cdp('Emulation.setTouchEmulationEnabled', { enabled: true });
+      await cdp('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ ...tap, id: 0 }] });
+      await cdp('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    } else {
+      await cdp('Input.dispatchMouseEvent', { type: 'mousePressed', ...tap, button: 'left', clickCount: 1 });
+      await cdp('Input.dispatchMouseEvent', { type: 'mouseReleased', ...tap, button: 'left', clickCount: 1 });
+    }
+    await wait(`document.querySelector('#progress').value===1`);
+    assert.equal(await evaluate(`document.querySelector('#points').textContent`), '1 Punkte');
+    await cdp('Emulation.setTouchEmulationEnabled', { enabled: false });
+    // Mixed saved errors change the active layer, preserve country settings, and support result links.
+    await evaluate(`localStorage.setItem('worldQuizMistakes',JSON.stringify({version:1,entries:[{topic:'river',code:'river-rhein',streak:1},{topic:'quiz',code:'de',streak:0}]}))`);
+    await cdp('Page.reload'); await ready();
+    await evaluate(`document.querySelector('#autoNext').checked=false`);
+    await click('[data-mode="correction"]'); await click('#start');
+    const topics = new Set();
+    for (let i = 0; i < 2; i++) {
+      const river = await evaluate(`document.querySelector('#worldMap').classList.contains('river-mode')`);
+      topics.add(river ? 'river' : 'quiz');
+      if (river) await riverClick('river-rhein');
+      else await countryClick('fr');
+      await click('#next');
+    }
+    assert.equal(topics.size, 2);
+    assert.match(await evaluate(`document.querySelector('#correctionSummary').textContent`), /1 Fragen korrigiert. 1 offene Fragen/);
+    await click('#mistakeList button');
+    assert.equal(await evaluate(`document.querySelector('#countryName').textContent`), 'Deutschland');
+    assert.equal(await evaluate(`document.querySelector('#worldMap').classList.contains('river-mode')`), false);
+    assert.equal(await evaluate(`document.querySelector('#riverDetails').hidden && !document.querySelector('#countryDetails').hidden`), true);
+    await click('#changeMode'); await click('.dialogModes [data-mode="learn"]');
+    assert.equal(await evaluate(`document.querySelector('#riversLayer').hasAttribute('hidden')`), true);
+    assert.equal(await evaluate(`document.querySelectorAll('[data-country][tabindex="0"]').length>198`), true);
+    assert.equal(await evaluate(`document.querySelectorAll('[data-river][tabindex="0"]').length`), 0);
+  }
+  await cdp('Emulation.setEmulatedMedia', { features: [] });
+}
+
 async function checkCorrections() {
   const ready = () => wait(`document.querySelector('#worldMap') && document.querySelector('#mapHost').getAttribute('aria-busy')==='false'`);
   const saved = () => evaluate(`JSON.parse(localStorage.getItem('worldQuizMistakes'))?.entries ?? []`);
@@ -477,6 +639,9 @@ try {
   await cdp('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1000, deviceScaleFactor: 1, mobile: false });
   await cdp('Page.navigate', { url: base });
   await wait(`document.querySelector('#worldMap') && document.querySelector('#mapHost').getAttribute('aria-busy')==='false'`);
+  if (process.argv.includes('--rivers-only')) {
+    await checkRivers();
+  } else {
   await checkFooterHelp();
   await evaluate(`(async()=>{window.testCountries=await (await fetch('assets/data/countries.json')).json()})()`);
   await checkRecords();
@@ -668,11 +833,18 @@ try {
   await flagsRound(320);
   await populationRound(1440);
   await populationRound(320);
+  await checkRivers();
+  }
   assert.deepEqual(exceptions, []);
   assert.deepEqual(failures, []);
   assert.ok(requests.every(url => url.startsWith(new URL(base).origin) || url.startsWith('data:')), 'No external API or image requests');
-  console.log('Browser checks passed: profiles, flag fallback, country/capitals/flag/population quizzes, all 198 capital prompts, scoring, practice, saved corrections, records, reset dialogs, keyboard, drag, pinch, desktop/mobile, local requests.');
-  console.log('Screenshots: /tmp/worldquiz-desktop.png, /tmp/worldquiz-mobile.png, /tmp/worldquiz-mobile-answer.png');
+  if (process.argv.includes('--rivers-only')) {
+    console.log('River browser checks passed: regional pools, exploration, scoring, records, retry, mixed corrections, keyboard, overlap, mouse, touch, drag, pinch, desktop/mobile, local requests.');
+    console.log('Screenshots: /tmp/worldquiz-rivers-1440.png, /tmp/worldquiz-rivers-320.png, /tmp/worldquiz-rivers-390.png');
+  } else {
+    console.log('Browser checks passed: profiles, flag fallback, country/capitals/flag/population/river quizzes, all 198 capital prompts, scoring, practice, saved corrections, records, reset dialogs, keyboard, drag, pinch, desktop/mobile, local requests.');
+    console.log('Screenshots: /tmp/worldquiz-desktop.png, /tmp/worldquiz-mobile.png, /tmp/worldquiz-mobile-answer.png, /tmp/worldquiz-rivers-320.png');
+  }
 } finally {
   ws.close();
 }

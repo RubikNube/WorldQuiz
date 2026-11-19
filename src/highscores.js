@@ -8,9 +8,11 @@ export function createHighscores(countries, storageProvider = () => globalThis.l
     [region, allowedCounts(eligibleCountries(countries, region).length)]));
   const riverCounts = new Map(['Welt', ...CONTINENTS].map(region =>
     [region, allowedCounts(eligibleCountries(rivers, region).length).filter(n => n > 0)]));
+  const mixedCounts = new Map(['Welt', ...CONTINENTS].map(region =>
+    [region, allowedCounts(eligibleCountries(countries, region).length + eligibleCountries(rivers, region).length).filter(n => n > 0)]));
   function validRecord(mode, region, count, points) {
-    return ['quiz', 'capitals', 'flags', 'population', 'river'].includes(mode)
-      && (mode === 'river' ? riverCounts : counts).get(region)?.includes(count)
+    return ['quiz', 'capitals', 'flags', 'population', 'river', 'mixed'].includes(mode)
+      && (mode === 'mixed' ? mixedCounts : mode === 'river' ? riverCounts : counts).get(region)?.includes(count)
       && Number.isInteger(points) && points >= 0 && points <= count;
   }
   const records = new Map();

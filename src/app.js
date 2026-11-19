@@ -1,11 +1,11 @@
 import { createMistakes } from './mistakes.js';
 import { createHighscores, highscoreMessage } from './highscores.js';
-import { eligibleCountries, allowedCounts, createGame, createCorrectionGame, questionTopic, currentQuestion, answer, answerPopulation, roundedPopulation, nextQuestion, score, mistakes, retryGame } from './game.js';
+import { eligibleCountries, allowedCounts, createGame, createMixedGame, createCorrectionGame, questionTopic, currentQuestion, answer, answerPopulation, roundedPopulation, nextQuestion, score, mistakes, retryGame } from './game.js';
 import { createMapZoom } from './map-zoom.js';
 import { nearestRiver } from './rivers.js';
 
 const $ = id => document.getElementById(id);
-const names = { learn: 'Lernen', quiz: 'Länder finden', capitals: 'Hauptstädte zuordnen', flags: 'Flaggenquiz', population: 'Einwohnerzahl', river: 'Flüsse finden', correction: 'Fehler korrigieren' };
+const names = { learn: 'Lernen', quiz: 'Länder finden', capitals: 'Hauptstädte zuordnen', flags: 'Flaggenquiz', population: 'Einwohnerzahl', river: 'Flüsse finden', mixed: 'Gemischtes Quiz', correction: 'Fehler korrigieren' };
 const regionBounds = {
   Afrika: { x: 465, y: 155, width: 315, height: 310 },
   Asien: { x: 650, y: 25, width: 525, height: 355 },
@@ -106,9 +106,13 @@ function closeInfo() {
   renderMap();
 }
 
+function questionPool(topic, region) {
+  return eligibleCountries(topic === 'mixed' ? [...countries, ...rivers] : topic === 'river' ? rivers : countries, region);
+}
+
 function updateCounts() {
-  const pool = eligibleCountries(mode === 'river' ? rivers : countries, $('continent').value);
-  const noun = mode === 'river' ? 'Flüsse' : 'Länder';
+  const pool = questionPool(mode, $('continent').value);
+  const noun = mode === 'mixed' ? 'Ziele' : mode === 'river' ? 'Flüsse' : 'Länder';
   const previous = Number($('count').value) || 10;
   const options = allowedCounts(pool.length);
   $('count').replaceChildren(...options.map(n => new Option(n === pool.length ? `Alle ${n} ${noun}` : `${n} Fragen`, n)));
@@ -121,12 +125,12 @@ function renderRecords() {
   const count = Number($('count').value);
   for (const label of document.querySelectorAll('[data-mode-best]')) {
     const topic = label.dataset.modeBest;
-    const options = allowedCounts(eligibleCountries(topic === 'river' ? rivers : countries, region).length);
+    const options = allowedCounts(questionPool(topic, region).length);
     const topicCount = options.includes(count) ? count : options.includes(10) ? 10 : options[0];
     const best = highscores.getBest(topic, region, topicCount);
     label.textContent = `${best === null ? 'Dein Rekord: noch keiner' : `Dein Rekord: ${best}/${topicCount}`} · ${region} · ${topicCount} Fragen`;
   }
-  $('highscores').hidden = !['quiz', 'capitals', 'flags', 'population', 'river'].includes(mode);
+  $('highscores').hidden = !['quiz', 'capitals', 'flags', 'population', 'river', 'mixed'].includes(mode);
   const best = highscores.getBest(mode, region, count);
   $('personalBest').textContent = `${best === null ? 'Dein Rekord: noch keiner' : `Dein Rekord: ${best}/${count}`} · ${region} · ${count} Fragen`;
   $('highscoreStorage').textContent = highscores.persistent
@@ -208,9 +212,9 @@ function focusRegion() {
   else {
     const region = $('continent').value;
     const base = regionBounds[region];
-    const anchors = mode === 'river'
-      ? eligibleCountries(rivers, region).flatMap(r => [[r.bounds.x, r.bounds.y], [r.bounds.x + r.bounds.width, r.bounds.y + r.bounds.height]])
-      : eligibleCountries(countries, region).map(c => c.anchor);
+    const anchors = questionPool(mode, region).flatMap(target => target.bounds
+      ? [[target.bounds.x, target.bounds.y], [target.bounds.x + target.bounds.width, target.bounds.y + target.bounds.height]]
+      : [target.anchor]);
     const left = Math.min(base.x, ...anchors.map(p => p[0]));
     const top = Math.min(base.y, ...anchors.map(p => p[1]));
     const right = Math.max(base.x + base.width, ...anchors.map(p => p[0]));
@@ -260,7 +264,7 @@ function renderMap() {
 
 function isRiverView() {
   return (game && !game.finished ? questionTopic(game) : mode) === 'river'
-    || (mode === 'correction' && (!game || game.finished) && selectedCode?.startsWith('river-'));
+    || (['correction', 'mixed'].includes(mode) && (!game || game.finished) && selectedCode?.startsWith('river-'));
 }
 
 function showCountry(code, reveal = false, { scrollToMap = false } = {}) {
@@ -339,7 +343,7 @@ function renderQuestion() {
   const c = currentQuestion(game);
   const topic = questionTopic(game);
   $('questionTopic').classList.toggle('practiceTopic', game.practice);
-  $('questionTopic').textContent = game.practice ? `${mode === 'correction' ? 'FEHLER KORRIGIEREN' : 'FEHLER ÜBEN'} · ${names[topic].toLocaleUpperCase('de-DE')} · OHNE WERTUNG` : names[mode].toLocaleUpperCase('de-DE');
+  $('questionTopic').textContent = game.practice ? `${mode === 'correction' ? 'FEHLER KORRIGIEREN' : 'FEHLER ÜBEN'} · ${names[topic].toLocaleUpperCase('de-DE')} · OHNE WERTUNG` : mode === 'mixed' ? `GEMISCHTES QUIZ · ${names[topic].toLocaleUpperCase('de-DE')}` : names[mode].toLocaleUpperCase('de-DE');
   const strong = document.createElement('strong');
   strong.textContent = topic === 'capitals' ? c.capitals.join(' · ') : c.name;
   const prefix = document.createElement('span');
@@ -447,7 +451,9 @@ function startRound(practiceGame = null) {
   cancelAdvance();
   launch();
   game = mode === 'correction' ? createCorrectionGame(countries, savedMistakes.selectQuestions(), Math.random, rivers)
-    : practiceGame || createGame(eligibleCountries(mode === 'river' ? rivers : countries, $('continent').value), Number($('count').value), Math.random, false, mode);
+    : practiceGame || (mode === 'mixed'
+      ? createMixedGame(eligibleCountries(countries, $('continent').value), eligibleCountries(rivers, $('continent').value), Number($('count').value))
+      : createGame(questionPool(mode, $('continent').value), Number($('count').value), Math.random, false, mode));
   game.mode = mode;
   game.region = mode === 'correction' ? 'Welt' : $('continent').value;
   roundRecord = null;

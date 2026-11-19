@@ -2,6 +2,7 @@
 // chromium --headless --remote-debugging-port=9223 --user-data-dir=/tmp/worldquiz-browser about:blank
 // Then: node scripts/browser-smoke.mjs [app-url] [debugger-url]
 import assert from 'node:assert/strict';
+import { checkMixedRound } from './browser-mixed.mjs';
 import { writeFile } from 'node:fs/promises';
 
 const base = process.argv[2] || 'http://localhost:8000/';
@@ -834,6 +835,10 @@ try {
   await populationRound(1440);
   await populationRound(320);
   await checkRivers();
+  for (const width of [1440, 320]) {
+    await cdp('Emulation.setDeviceMetricsOverride', { width, height: 844, deviceScaleFactor: 1, mobile: width < 600 });
+    await checkMixedRound({ evaluate, click });
+  }
   }
   assert.deepEqual(exceptions, []);
   assert.deepEqual(failures, []);
@@ -842,7 +847,7 @@ try {
     console.log('River browser checks passed: regional pools, exploration, scoring, records, retry, mixed corrections, keyboard, overlap, mouse, touch, drag, pinch, desktop/mobile, local requests.');
     console.log('Screenshots: /tmp/worldquiz-rivers-1440.png, /tmp/worldquiz-rivers-320.png, /tmp/worldquiz-rivers-390.png');
   } else {
-    console.log('Browser checks passed: profiles, flag fallback, country/capitals/flag/population/river quizzes, all 198 capital prompts, scoring, practice, saved corrections, records, reset dialogs, keyboard, drag, pinch, desktop/mobile, local requests.');
+    console.log('Browser checks passed: profiles, flag fallback, country/capitals/flag/population/river/mixed quizzes, all 198 capital prompts, scoring, practice, saved corrections, records, reset dialogs, keyboard, drag, pinch, desktop/mobile, local requests.');
     console.log('Screenshots: /tmp/worldquiz-desktop.png, /tmp/worldquiz-mobile.png, /tmp/worldquiz-mobile-answer.png, /tmp/worldquiz-rivers-320.png');
   }
 } finally {

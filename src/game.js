@@ -37,8 +37,37 @@ export function createGame(countries, count, random = Math.random, practice = fa
   if (!Number.isInteger(count) || count < 1 || count > countries.length) throw new RangeError('Ungültige Fragenanzahl');
   if (new Set(countries.map(c => c.code)).size !== countries.length) throw new Error('Doppelte Länder');
   const questions = shuffle(countries, random).slice(0, count)
-    .map(c => mode === 'population' ? populationQuestion(c, random) : c);
+    .map(c => mode === 'population' || (mode === 'mixed' && c.topic === 'population') ? populationQuestion(c, random) : c);
   return { questions, index: 0, answers: [], practice, finished: false, ...(mode ? { mode } : {}) };
+}
+
+export function createMixedGame(countries, rivers, count, random = Math.random) {
+  if (!Number.isInteger(count) || count < 1 || count > countries.length + rivers.length) {
+    throw new RangeError('Ungültige Fragenanzahl');
+  }
+  if (new Set([...countries, ...rivers].map(q => q.code)).size !== countries.length + rivers.length) {
+    throw new Error('Doppelte Ziele');
+  }
+  const topics = ['quiz', 'capitals', 'flags', 'population', 'river'];
+  const quotas = Object.fromEntries(topics.map(topic => [topic, 0]));
+  let countryCount = 0;
+  // Country topics share one pool: allocating a slot consumes a distinct country.
+  // Shuffled passes balance topics and randomize any remainder.
+  for (let remaining = count; remaining > 0;) {
+    for (const topic of shuffle(topics, random)) {
+      if (!remaining) break;
+      if (topic === 'river' ? quotas.river >= rivers.length : countryCount >= countries.length) continue;
+      quotas[topic]++;
+      if (topic !== 'river') countryCount++;
+      remaining--;
+    }
+  }
+  const available = shuffle(countries, random);
+  let index = 0;
+  const questions = topics.filter(topic => topic !== 'river').flatMap(topic =>
+    Array.from({ length: quotas[topic] }, () => ({ ...available[index++], topic })));
+  questions.push(...shuffle(rivers, random).slice(0, quotas.river).map(river => ({ ...river, topic: 'river' })));
+  return createGame(questions, count, random, false, 'mixed');
 }
 
 export function currentQuestion(game) {
@@ -46,7 +75,7 @@ export function currentQuestion(game) {
 }
 
 export function questionTopic(game, question = currentQuestion(game)) {
-  return game?.mode === 'correction' ? question?.topic : game?.mode;
+  return ['correction', 'mixed'].includes(game?.mode) ? question?.topic : game?.mode;
 }
 
 export function createCorrectionGame(countries, references, random = Math.random, rivers = []) {
@@ -74,7 +103,7 @@ export function answer(game, code, validCodes) {
   // A valid code from the other map layer must never submit an answer.
   if (code.startsWith('river-') !== (questionTopic(game) === 'river')) return false;
   game.answers.push({ target: target.code, selected: code, correct: code === target.code,
-    ...(game.mode === 'correction' ? { topic: target.topic } : {}) });
+    ...(['correction', 'mixed'].includes(game.mode) ? { topic: target.topic } : {}) });
   return true;
 }
 
@@ -85,7 +114,7 @@ export function answerPopulation(game, selectedPopulation) {
   if (!target.populationOptions.includes(selectedPopulation)) return false;
   game.answers.push({ target: target.code, selectedPopulation,
     correct: selectedPopulation === roundedPopulation(target.population),
-    ...(game.mode === 'correction' ? { topic: target.topic } : {}) });
+    ...(['correction', 'mixed'].includes(game.mode) ? { topic: target.topic } : {}) });
   return true;
 }
 

@@ -2,6 +2,7 @@
 // Usage: node scripts/browser-pwa-smoke.mjs [debugger-url]
 // Serves dist on a temporary localhost port; never changes the published bundle.
 import assert from 'node:assert/strict';
+import { checkMixedRound } from './browser-mixed.mjs';
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { resolve, extname } from 'node:path';
@@ -90,7 +91,9 @@ try {
     }))()`);
     assert.ok(before.entries > 200, 'Complete bundle is cached');
     assert.equal(before.script, `${base}sw.js`);
-    await evaluate(`localStorage.setItem('pwa-test-preserve', 'saved')`);
+    // Scopes share localStorage on this origin. Start with an empty mistake pool
+    // so the correction check below targets the capital missed in this pass.
+    await evaluate(`localStorage.removeItem('worldQuizMistakes');localStorage.setItem('pwa-test-preserve', 'saved')`);
     await cdp('Network.emulateNetworkConditions', { offline: true, latency: 0, downloadThroughput: 0, uploadThroughput: 0 });
     await cdp('Page.navigate', { url: `${base}?offline-test=1` });
     await ready();
@@ -177,6 +180,7 @@ try {
     })()`);
     assert.equal(await evaluate(`document.querySelector('#progress').value`), 1);
     assert.equal(await evaluate(`!document.querySelector('#riverDetails').hidden && document.querySelector('#worldMap').classList.contains('river-mode')`), true);
+    await checkMixedRound({ evaluate, click });
     await cdp('Network.emulateNetworkConditions', { offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1 });
     const savedStorage = await evaluate(`JSON.stringify({...localStorage})`);
     await evaluate(`window.pwaUpdateMarker = 'round-still-open'`);

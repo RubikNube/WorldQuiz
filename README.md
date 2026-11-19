@@ -68,6 +68,16 @@ mit allen vier gespielt. Benannte Nebenflüsse wie Missouri und Darling sind
 eigene Ziele. Die Karte zeigt vereinfachte Verläufe; die Längen stammen aus den
 verlinkten Quellen und wurden nicht aus der Karte berechnet.
 
+**Gemischtes Quiz** kombiniert Länder, Hauptstädte, Flaggen, Einwohnerzahlen und
+Flüsse. Die Themen werden möglichst gleichmäßig verteilt: Zehn Fragen enthalten
+normalerweise zwei Fragen pro Thema. Jedes Land kommt pro Runde nur einmal vor,
+auch über verschiedene Themen hinweg; jeder Fluss ebenfalls. Bei kleinen Pools
+werden fehlende Plätze auf die übrigen Themen verteilt. **Alle** umfasst jedes
+Land und jeden Fluss der gewählten Region einmal. Region, Fragenanzahl,
+automatische Fortsetzung und persönliche Rekorde funktionieren wie gewohnt.
+Fehler werden unter dem jeweiligen Thema gespeichert; **Fehler wiederholen**
+behält Thema und Ziel der verfehlten Fragen bei und erhält keine Rekordwertung.
+
 **Weiter** zeigt die nächste Frage. Nach der letzten Antwort beendet
 **Ergebnis ansehen** die Runde. Das Ergebnis enthält die Fehlerübersicht;
 **Fehler wiederholen** übt nur diese Ziele, auch wenn nur ein Fehler vorliegt.
@@ -84,7 +94,7 @@ Neuladen beginnt von vorn. Gespeicherte Fehler bleiben erhalten.
 ## Fehler korrigieren
 
 **Fehler korrigieren** speichert falsch beantwortete Fragen aus **Länder finden**,
-**Hauptstädte zuordnen**, **Flaggenquiz**, **Einwohnerzahl**, **Flüsse finden** und ihren Fehlerübungen sofort in diesem Browser. Die
+**Hauptstädte zuordnen**, **Flaggenquiz**, **Einwohnerzahl**, **Flüsse finden**, **Gemischtes Quiz** und ihren Fehlerübungen sofort in diesem Browser. Die
 Themenkarte zeigt die Anzahl offener Fragen. Länder-, Hauptstadt-, Flaggen- und Einwohnerfragen zum
 selben Land zählen getrennt. Flussfragen werden pro Fluss gespeichert. Der Modus wird über die Modusauswahl aktiviert;
 **Fehler wiederholen** übt weiterhin nur die Fehler der letzten Runde.
@@ -113,7 +123,7 @@ Fehler aus Sitzungen vor Einführung dieser Funktion können nicht übernommen w
 
 ## Persönliche Rekorde
 
-**Länder finden**, **Hauptstädte zuordnen**, **Flaggenquiz**, **Einwohnerzahl** und **Flüsse finden** speichern persönliche Rekorde
+**Länder finden**, **Hauptstädte zuordnen**, **Flaggenquiz**, **Einwohnerzahl**, **Flüsse finden** und **Gemischtes Quiz** speichern persönliche Rekorde
 getrennt nach Modus, Region und Fragenanzahl. Die Themenkarten und Einstellungen
 zeigen **Dein Rekord** für die aktuelle Auswahl. Das Ergebnis meldet einen ersten,
 verbesserten oder eingestellten Rekord. Nur richtige Antworten zählen; es gibt
@@ -184,7 +194,7 @@ ab. Das WorldQuiz-Symbol öffnet die App in einem eigenen Fenster.
 Beim ersten Onlinebesuch lädt der Service Worker das gesamte veröffentlichte
 Paket herunter: Karte, alle Flaggen, Spieldateien, Quelldaten und Lizenznachweise
 (etwa 11 MB einschließlich App-Symbolen). Erst **Offline verfügbar** bestätigt den
-abgeschlossenen Download. Danach funktionieren alle sieben Modi und auch bisher
+abgeschlossenen Download. Danach funktionieren alle acht Modi und auch bisher
 ungeöffnete Länderprofile ohne Verbindung. Externe Wikipedia- und Quellenlinks
 benötigen weiterhin Internet. **Offline noch nicht verfügbar** bedeutet, dass der
 Download noch läuft, fehlgeschlagen ist oder der Browser die Offlinefunktion
@@ -243,7 +253,7 @@ Für einen Browser-Smoke-Test nach dem Build siehe `scripts/browser-smoke.mjs`.
 Nur das Flussquiz prüfen: `node scripts/browser-smoke.mjs http://localhost:8000/ http://127.0.0.1:9223 --rivers-only`.
 Mit derselben dort beschriebenen Chromium-Instanz prüft
 `node scripts/browser-pwa-smoke.mjs` zusätzlich Manifest, Offline-Neustart,
-unbesuchte Flaggen, alle sieben Modi und den Update-Lebenszyklus unter `/` und
+unbesuchte Flaggen, alle acht Modi und den Update-Lebenszyklus unter `/` und
 `/WorldQuiz/`. Der PWA-Test startet einen temporären lokalen HTTP-Server und
 benötigt keinen bereits laufenden App-Server; `dist/` bleibt unverändert.
 

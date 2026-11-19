@@ -288,6 +288,10 @@ Für GitHub Pages unter **Settings → Pages → Source** die Option
 **GitHub Actions** auswählen. Der Workflow `.github/workflows/pages.yml`
 baut und veröffentlicht die App bei jedem Push auf `main`. Er kann auch
 manuell über **Actions → Deploy to GitHub Pages → Run workflow** gestartet werden.
+Build und Upload laufen in einem eigenen Job vor der Veröffentlichung. Bei einem
+vorübergehenden Deploymentfehler kann nur der fehlgeschlagene Deploymentjob erneut
+gestartet werden; er verwendet den ursprünglichen Artefaktnamen. Ist das Artefakt
+bereits abgelaufen, einen neuen Workflow über **Run workflow** starten.
 
 ## Tests
 
